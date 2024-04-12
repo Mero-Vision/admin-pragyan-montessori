@@ -7,12 +7,12 @@
     <title>Holy Field English School - Login</title>
 
     <link rel="shortcut icon" href="assets/img/favicon.png">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/feather.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/flags.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/admin/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/feather.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/flags.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="{{url('assets/admin/img/login.png')}}" alt="Logo">
+                        <img class="img-fluid" src="{{url('assets/img/login.png')}}" alt="Logo">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">
@@ -73,13 +73,13 @@
     </div>
 
 
-    <script src="{{ url('assets/admin/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url('assets/js/jquery-3.7.1.min.js') }}"></script>
 
-    <script src="{{ url('assets/admin/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="{{ url('assets/admin/js/feather.min.js') }}"></script>
+    <script src="{{ url('assets/js/feather.min.js') }}"></script>
 
-    <script src="{{ url('assets/admin/js/script.js') }}"></script>
+    <script src="{{ url('assets/js/script.js') }}"></script>
 
 
 </body>
