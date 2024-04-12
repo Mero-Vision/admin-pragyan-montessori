@@ -2,10 +2,10 @@
 
     <div class="header-left">
         <a href="https://merovision.com/" target="_blank" class="logo text-center">
-            <img src="{{ url('assets/admin/img/company_logo.png') }}" alt="Logo">
+            <img src="{{ url('assets/img/company_logo.png') }}" alt="Logo">
         </a>
         <a href="https://merovision.com/" target="_blank" class="logo logo-small">
-            <img src="{{ url('assets/admin/img/company_logo2.png') }}" alt="Logo" width="30" height="30">
+            <img src="{{ url('assets/img/company_logo2.png') }}" alt="Logo" width="30" height="30">
         </a>
     </div>
 
