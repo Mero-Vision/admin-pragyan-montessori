@@ -4,7 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Holy Field English School - Login</title>
+    <title>Pragyan Montessori System Login</title>
+    <meta name="author" content="Hancie Phago">
+    <link rel="icon" href="{{ url('assets/img/logo.ico') }}" type="image/x-icon">
+    <x-meta title="Pragyani Montessori & Childcare Center - Login"
+        description="Discover a nurturing learning environment for your child at Pragyani 
+            Montessori & Childcare Center, conveniently located on Pragati Sangam Marg in New Naikap,
+             Chandragiri 14, Kathmandu. "
+        image="{{ url('assets/img/logo.jpg') }}" />
 
     <link rel="shortcut icon" href="assets/img/favicon.png">
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
@@ -22,33 +29,33 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="{{url('assets/img/login.png')}}" alt="Logo">
+                        <img class="img-fluid" src="{{ url('assets/img/login.png') }}" alt="Logo">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">
-                            <h1>Holy Field School</h1>
+                            <h1>Pragyan Montessori</h1>
                             <h2 class="mt-3">Sign in</h2>
 
-                            <form action="{{url('login')}}" method="POST">
+                            <form action="{{ url('login') }}" method="POST">
                                 @csrf
                                 <div class="form-group mb-0">
                                     <label>Email <span class="login-danger">*</span></label>
                                     <input class="form-control" type="text" name="email">
                                     <span class="profile-views"><i class="fas fa-user-circle"></i></span>
-                                   
+
                                 </div>
-                                 @error('email')
-                                        <p class="text-danger">{{$message}}</p>
-                                    @enderror
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                                 <div class="form-group mt-4 mb-0">
                                     <label>Password <span class="login-danger">*</span></label>
                                     <input class="form-control pass-input" type="text" name="password">
                                     <span class="profile-views feather-eye toggle-password"></span>
-                                    
+
                                 </div>
-                                 @error('password')
-                                        <p class="text-danger">{{$message}}</p>
-                                    @enderror
+                                @error('password')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                                 <div class="forgotpass mt-2">
                                     <div class="remember-me">
                                         <label class="custom_check mr-2 mb-0 d-inline-flex remember-me"> Remember me
@@ -63,7 +70,7 @@
                                 </div>
                             </form>
 
-                            
+
 
                         </div>
                     </div>
