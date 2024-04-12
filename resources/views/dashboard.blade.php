@@ -41,7 +41,7 @@
                                         <h3>50055</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/admin/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                         <h3>50055</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/admin/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                         <h3>50055</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/admin/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                         <h3>50055</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/admin/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>

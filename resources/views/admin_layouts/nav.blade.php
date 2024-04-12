@@ -57,7 +57,7 @@
 
         <li class="nav-item zoom-screen me-2">
             <a href="#" class="nav-link header-nav-list win-maximize">
-                <img src="{{ url('assets/admin/img/header-icon-04.svg') }}" alt>
+                <img src="{{ url('assets/img/header-icon-04.svg') }}" alt>
             </a>
         </li>
 

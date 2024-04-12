@@ -1,12 +1,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Holyfield English School</title>
-
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url('assets/img/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('assets/img/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/img/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ url('assets/school/img/site.webmanifest') }}">
+    <title>Pragyan Montessori System</title>
+   <link rel="icon" href="{{ url('assets/img/logo.ico') }}" type="image/x-icon">
+    <x-meta title="Pragyani Montessori & Childcare Center - Login"
+        description="Discover a nurturing learning environment for your child at Pragyani 
+            Montessori & Childcare Center, conveniently located on Pragati Sangam Marg in New Naikap,
+             Chandragiri 14, Kathmandu. "
+        image="{{ url('assets/img/logo.jpg') }}" />
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/feather.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/flags.css') }}">
