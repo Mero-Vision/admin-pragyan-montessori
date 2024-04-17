@@ -16,7 +16,7 @@
                     <ul>
                         {{-- <li><a href="{{url('admin/cms/blogs/active-blogs')}}" class="{{ request()->is('admin/cms/blogs/active-blogs') ? 'active' : '' }}">@lang('translation.blogs')</a></li>
                         <li><a href="{{url('admin/cms/events')}}" class="{{ request()->is('admin/cms/events') ? 'active' : '' }}">@lang('translation.events')</a></li> --}}
-                        <li><a href="{{url('admin/cms/gallery')}}" class="{{ request()->is('admin/cms/gallery') ? 'active' : '' }}">Admission Inquiry</a></li>
+                        <li><a href="{{url('admin/cms/admission-inquiry')}}" class="{{ request()->is('admin/cms/admission-inquiry') ? 'active' : '' }}">Admission Inquiry</a></li>
                         <li><a href="{{url('admin/cms/contact-us')}}" class="{{ request()->is('admin/cms/contact-us') ? 'active' : '' }}">Contact Us</a></li>
                         
                     </ul>

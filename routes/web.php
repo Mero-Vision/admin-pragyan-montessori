@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmissionInquiryController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -24,3 +25,5 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('admin/dashboard',[DashboardController::class,'index']);
 
 Route::get('admin/cms/contact-us',[ContactUsController::class,'index']);
+Route::get('admin/cms/admission-inquiry', [AdmissionInquiryController::class, 'index']);
+Route::get('admin/cms/admission-inquiry/data', [AdmissionInquiryController::class, 'admissionInquiryData']);
