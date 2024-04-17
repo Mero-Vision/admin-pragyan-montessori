@@ -47,7 +47,7 @@
                                     </tr>
                                 @empty
                                     <td colspan="6">
-                                        <img src="{{ url('assets/school/img/Empty-rafiki.png') }}"
+                                        <img src="{{ url('assets/img/Empty-rafiki.png') }}"
                                             class="img-fluid mx-auto d-block" alt="Empty Data" style="max-width: 40%" />
                                     </td>
                                 @endforelse
