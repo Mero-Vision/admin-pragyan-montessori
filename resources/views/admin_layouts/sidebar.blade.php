@@ -14,10 +14,10 @@
                     <a href="#"><i class="fas fa-book"></i> <span> @lang('translation.cms')</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{url('admin/cms/blogs/active-blogs')}}" class="{{ request()->is('admin/cms/blogs/active-blogs') ? 'active' : '' }}">@lang('translation.blogs')</a></li>
-                        <li><a href="{{url('admin/cms/events')}}" class="{{ request()->is('admin/cms/events') ? 'active' : '' }}">@lang('translation.events')</a></li>
-                        <li><a href="{{url('admin/cms/gallery')}}" class="{{ request()->is('admin/cms/gallery') ? 'active' : '' }}">@lang('translation.gallery')</a></li>
-                        <li><a href="{{url('admin/cms/contact-us')}}" class="{{ request()->is('admin/cms/contact-us') ? 'active' : '' }}">@lang('translation.contact_us')</a></li>
+                        {{-- <li><a href="{{url('admin/cms/blogs/active-blogs')}}" class="{{ request()->is('admin/cms/blogs/active-blogs') ? 'active' : '' }}">@lang('translation.blogs')</a></li>
+                        <li><a href="{{url('admin/cms/events')}}" class="{{ request()->is('admin/cms/events') ? 'active' : '' }}">@lang('translation.events')</a></li> --}}
+                        <li><a href="{{url('admin/cms/gallery')}}" class="{{ request()->is('admin/cms/gallery') ? 'active' : '' }}">Admission Inquiry</a></li>
+                        <li><a href="{{url('admin/cms/contact-us')}}" class="{{ request()->is('admin/cms/contact-us') ? 'active' : '' }}">Contact Us</a></li>
                         
                     </ul>
                 </li>

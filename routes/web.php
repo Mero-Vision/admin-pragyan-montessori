@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Models\ContactUs;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +22,5 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 
 Route::get('admin/dashboard',[DashboardController::class,'index']);
+
+Route::get('admin/cms/contact-us',[ContactUsController::class,'index']);
