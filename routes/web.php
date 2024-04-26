@@ -5,6 +5,9 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SiteSettingController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Models\ContactUs;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +40,15 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('cms/announcements/data', [AnnouncementController::class, 'announcementData']);
     Route::get('cms/announcements/create', [AnnouncementController::class, 'create']);
     Route::post('cms/announcements/create', [AnnouncementController::class, 'store']);
+
+    Route::get('teachers', [TeacherController::class, 'index']);
+    Route::get('teachers/add', [TeacherController::class, 'create']);
+    Route::post('teachers/add', [TeacherController::class, 'store']);
+    Route::get('teachers/data', [TeacherController::class, 'teacherData']);
+
+    Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
+    Route::get('settings/localization-settings', [AdminSettingController::class, 'localizationSettingIndex']);
+    Route::get('settings/social-links-settings', [AdminSettingController::class, 'socialLinksIndex']);
+
+    Route::post('settings/site-settings', [SiteSettingController::class, 'store']);
 });

@@ -35,8 +35,8 @@
                     <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> @lang('translation.teacher')</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{url('admin/teachers/view')}}" class="{{ request()->is('admin/teachers/view') ? 'active' : '' }}">@lang('translation.teacher_list')</a></li>
-                        <li><a href="{{url('admin/teachers/add')}}" class="{{ request()->is('admin/teachers/add') ? 'active' : '' }}">@lang('translation.add_teacher')</a></li>
+                        <li><a href="{{url('admin/teachers')}}" class="{{ request()->is('admin/teachers') ? 'active' : '' }}">Teacher List</a></li>
+                        <li><a href="{{url('admin/teachers/add')}}" class="{{ request()->is('admin/teachers/add') ? 'active' : '' }}">Add Teacher</a></li>
                         
                     </ul>
                 </li> 
@@ -117,7 +117,7 @@
                 </li> --}}
                 
                 <li class="{{ request()->is('admin/settings*') ? 'active' : '' }}">
-                    <a href="{{url('admin/settings/general-settings')}}"><i class="fas fa-cog"></i> <span>@lang('translation.setting')</span></a>
+                    <a href="{{url('admin/settings/general-settings')}}"><i class="fas fa-cog"></i> <span>Settings</span></a>
                 </li> 
                 
                 
