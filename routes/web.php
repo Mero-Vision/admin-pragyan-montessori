@@ -28,7 +28,7 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 
 Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
-
+    Route::get('logout', [LoginController::class, 'logout']);
 
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('profile', [UserController::class, 'profile']);
@@ -47,8 +47,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('teachers/data', [TeacherController::class, 'teacherData']);
 
     Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
-    Route::get('settings/localization-settings', [AdminSettingController::class, 'localizationSettingIndex']);
-    Route::get('settings/social-links-settings', [AdminSettingController::class, 'socialLinksIndex']);
+    Route::get('settings/social-links-settings', [SettingController::class, 'social_link_setting']);
 
     Route::post('settings/site-settings', [SiteSettingController::class, 'store']);
 });
