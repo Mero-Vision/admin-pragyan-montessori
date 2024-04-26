@@ -83,7 +83,7 @@
                         <p class="text-muted mb-0">@lang('translation.administrator')</p>
                     </div>
                 </div>
-                <a class="dropdown-item" href="{{ url('admin/profile') }}">@lang('translation.my_profile')</a>
+                <a class="dropdown-item" href="{{ url('admin/profile') }}">Profile</a>
                 <a class="dropdown-item" href="{{ url('admin/logout') }}">@lang('translation.logout')</a>
             </div>
         </li>

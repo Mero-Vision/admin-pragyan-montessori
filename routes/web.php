@@ -5,6 +5,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use App\Models\ContactUs;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
 
     Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('profile', [UserController::class, 'profile']);
 
     Route::get('cms/contact-us', [ContactUsController::class, 'index']);
     Route::get('cms/admission-inquiry', [AdmissionInquiryController::class, 'index']);
