@@ -90,36 +90,26 @@
         <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scrollableModalTitle">Create New Class</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <div class="modal-body">
                         <div class="text-center mt-2 mb-4">
                             <div class="auth-logo">
                                 <a href="index.html" class="logo logo-dark">
                                     <span class="logo-lg">
-                                        <img src="{{url('assets/img/logo.png')}}" alt height="82">
+                                        <img src="{{ url('assets/img/logo.png') }}" alt height="82">
                                     </span>
                                 </a>
                             </div>
                         </div>
                         <div class="bg-primary p-4 rounded">
-                        <form action="#" class="px-3">
-                            <div class="mb-3">
-                                <label for="emailaddress1" class="form-label text-light">Class Name</label>
-                                <input class="form-control" type="text" id="emailaddress1" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password1" class="form-label text-light">Select Class Teacher</label>
-                                <select class="form-control select2" name="gender" style="height: 38px;">
-                                    @foreach ($teachers as $teacher)
-                                        <option>{{ $teacher->teacher_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
-                            <div class="mb-2 text-center">
-                                <button class="btn btn-danger" type="submit">Save</button>
-                            </div>
-                        </form>
-                    </div>
+                            @livewire('create-school-class')
+
+
+                        </div>
 
                     </div>
                 </div>
@@ -195,7 +185,7 @@
 
                     ],
                     order: [
-                        [1, 'desc']
+                        [0, 'desc']
                     ],
                     "dom": 'Bfrtip',
                     "buttons": [{
