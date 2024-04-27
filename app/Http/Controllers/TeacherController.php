@@ -25,8 +25,8 @@ class TeacherController extends Controller
     public function show($id)
     {
 
-        $teacher = Teacher::with('media')->find($id);
-        return view('admin.teachers.view_teacher_details', compact('teacher', 'lang'));
+        $teacher = Teacher::find($id);
+        return view('teacher.view_teacher', compact('teacher'));
     }
 
     public function create(){

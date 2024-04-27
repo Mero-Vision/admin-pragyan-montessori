@@ -42,6 +42,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('cms/announcements/create', [AnnouncementController::class, 'store']);
 
     Route::get('teachers', [TeacherController::class, 'index']);
+    Route::get('teachers/view/{id}', [TeacherController::class, 'show']);
     Route::get('teachers/add', [TeacherController::class, 'create']);
     Route::post('teachers/add', [TeacherController::class, 'store']);
     Route::get('teachers/data', [TeacherController::class, 'teacherData']);
