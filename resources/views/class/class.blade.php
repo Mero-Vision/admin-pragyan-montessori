@@ -175,10 +175,9 @@
                             render: function(data, type, row) {
                                 return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
                                     row.id +
-                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
+                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editStudentClass(' +
                                     row.id +
-                                    ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewTeacher(' +
-                                    row.id + ')">View</button>';
+                                    ')">Edit</button>';
                             }
                         }
 
@@ -252,34 +251,52 @@
 
                 window.location.href = url;
             }
+
+            function editStudentClass(id) {
+                $.get('/admin/school-classes/data/' + id, function(data) {
+                    $('#editModal').modal('show');
+                    console.log(data.id);
+                    $("#class_name").val(data.class_name);
+                    $("#name").val(data.Name);
+                    $("#mobile").val(data.Mobile); // Corrected ID here
+                    $("#address").val(data.Address);
+                });
+            }
         </script>
 
 
+        <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scrollableModalTitle">Edit Class</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center mt-2 mb-4">
+                            <div class="auth-logo">
+                                <a href="index.html" class="logo logo-dark">
+                                    <span class="logo-lg">
+                                        <img src="{{ url('assets/img/logo.png') }}" alt height="82">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bg-primary p-4 rounded">
 
-        {{-- <style>
-            .select2-container--default .select2-selection--single {
-                height: 40px;
-                line-height: 38px;
-            }
+                            @livewire('edit-school-class')
 
-            .select2-container--default .select2-selection--single .select2-selection__rendered {
-                padding-right: 28px;
-            }
 
-            .select2-container--default .select2-selection--single .select2-selection__arrow {
-                height: 38px;
-            }
+                        </div>
 
-            .select2-container--default .select2-selection--single .select2-selection__rendered {
-                line-height: 40px;
-            }
-        </style> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        {{-- <script>
-            $(document).ready(function() {
-                $('.select2').select2();
-            });
-        </script> --}}
+
+
+
 
 
         @include('admin_layouts.footer2')

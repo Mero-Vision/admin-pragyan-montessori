@@ -49,6 +49,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('teachers/data', [TeacherController::class, 'teacherData']);
 
     Route::get('school-classes', [ClassController::class, 'index']);
+    Route::get('school-classes/data/{id}', [ClassController::class, 'getClassData']);
     Route::get('school-classes/data', [ClassController::class, 'classData']);
     Route::get('school-classes/add', [ClassController::class, 'create']);
 

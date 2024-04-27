@@ -23,4 +23,11 @@ class ClassController extends Controller
         $teachers = Teacher::latest()->get();
         return view('class.add_class',compact('teachers'));
     }
+
+    public function getClassData($id)
+    {
+        $class = SchoolClass::find($id);
+
+        return response()->json($class);
+    }
 }
