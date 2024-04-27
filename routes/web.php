@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdmissionInquiryController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -47,8 +48,11 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('teachers/add', [TeacherController::class, 'store']);
     Route::get('teachers/data', [TeacherController::class, 'teacherData']);
 
+    Route::get('school-classes', [ClassController::class, 'index']);
+    Route::get('school-classes/data', [ClassController::class, 'classData']);
+    Route::get('school-classes/add', [ClassController::class, 'create']);
+
     Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
     Route::get('settings/social-links-settings', [SettingController::class, 'social_link_setting']);
-
     Route::post('settings/site-settings', [SiteSettingController::class, 'store']);
 });

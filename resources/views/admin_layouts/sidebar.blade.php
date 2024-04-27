@@ -40,15 +40,14 @@
                         
                     </ul>
                 </li> 
-                {{-- <li class="submenu">
-                    <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
+               <li class="submenu  {{ request()->is('admin/school-classes*') ? 'active' : '' }}">
+                    <a href="#"><i class="fas fa-building"></i> <span> Classes</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="departments.html">Department List</a></li>
-                        <li><a href="add-department.html">Department Add</a></li>
-                        <li><a href="edit-department.html">Department Edit</a></li>
+                        <li><a href="{{url('admin/school-classes')}}" class="{{ request()->is('admin/school-classes') ? 'active' : '' }}">Class List</a></li>
                     </ul>
                 </li>
+                 {{-- 
                 <li class="submenu">
                     <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
                             class="menu-arrow"></span></a>
