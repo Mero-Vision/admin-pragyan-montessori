@@ -1,5 +1,6 @@
 <div>
     <form wire:submit.prevent="save" class="px-3">
+        <input class="form-control" type="text" wire:model.live="class_id" id="class_id">
         <div class="mb-3">
             <label for="emailaddress1" class="form-label text-light">Class Name</label>
             <input class="form-control" type="text" wire:model.live="class_name" id="class_name">

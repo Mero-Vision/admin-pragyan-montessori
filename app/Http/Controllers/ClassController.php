@@ -30,4 +30,16 @@ class ClassController extends Controller
 
         return response()->json($class);
     }
+
+    public function destroy($id)
+    {
+        $class = SchoolClass::find($id);
+
+        if ($class) {
+            $class->delete();
+            return response()->json(['status' => 'success', 'message' => 'Employee deleted successfully.']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Employee Not Found!']);
+        }
+    }
 }

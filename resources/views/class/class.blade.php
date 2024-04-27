@@ -173,11 +173,9 @@
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
+                                return '<button class="btn btn-danger btn-sm" onclick="deleteData(' +
                                     row.id +
-                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editStudentClass(' +
-                                    row.id +
-                                    ')">Edit</button>';
+                                    ')">Delete</button>';
                             }
                         }
 
@@ -211,7 +209,7 @@
                 });
             });
 
-            function deleteEvent(id) {
+            function deleteData(id) {
 
                 $('#confirmationModal').modal('show');
 
@@ -222,7 +220,7 @@
 
 
                     $.ajax({
-                        url: '/admin/cms/events/delete/' + id,
+                        url: '/admin/school-classes/delete/' + id,
                         type: 'GET',
                         data: {
                             _method: 'DELETE'
@@ -257,7 +255,7 @@
                     $('#editModal').modal('show');
                     console.log(data.id);
                     $("#class_name").val(data.class_name);
-                    $("#name").val(data.Name);
+                    $("#class_id").val(data.id);
                     $("#mobile").val(data.Mobile); // Corrected ID here
                     $("#address").val(data.Address);
                 });
