@@ -12,6 +12,8 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
+
+
 <body>
 
     <div class="main-wrapper">
@@ -129,7 +131,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this event?
+                        Are you sure you want to delete this class?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -165,7 +167,7 @@
 
                         },
                         {
-                            data: "class_teacher_id",
+                            data: "teacher_name",
 
                         },
 
@@ -227,7 +229,8 @@
                         },
                         success: function(response) {
                             if (response.status === 'success') {
-
+                                location.reload();
+                                 window.location.href = window.location.href;
                                 $('#table_data').DataTable().ajax.reload();
                             } else {
 

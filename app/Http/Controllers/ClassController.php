@@ -14,7 +14,12 @@ class ClassController extends Controller
     }
 
     public function classData(){
-        $classes=SchoolClass::latest()->get();
+        $classes=SchoolClass::join('teachers', 'teachers.id','=', 'school_classes.class_teacher_id')
+        ->select('school_classes.id',
+            'school_classes.class_name',
+            'school_classes.class_code',
+            'teachers.teacher_name'
+        )->get();
 
         return response()->json(['data'=>$classes]);
     }
@@ -37,7 +42,9 @@ class ClassController extends Controller
 
         if ($class) {
             $class->delete();
+           
             return response()->json(['status' => 'success', 'message' => 'Employee deleted successfully.']);
+          
         } else {
             return response()->json(['status' => 'error', 'message' => 'Employee Not Found!']);
         }
