@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteSettingController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Models\ContactUs;
@@ -53,6 +54,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('school-classes/data', [ClassController::class, 'classData']);
     Route::get('school-classes/add', [ClassController::class, 'create']);
     Route::get('school-classes/delete/{id}', [ClassController::class, 'destroy']);
+
+
+    Route::get('students', [StudentController::class, 'index']);
 
     Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
     Route::get('settings/social-links-settings', [SettingController::class, 'social_link_setting']);

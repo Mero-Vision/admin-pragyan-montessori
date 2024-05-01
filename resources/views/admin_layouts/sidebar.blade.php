@@ -21,18 +21,18 @@
                     </ul>
                 </li>
                 
-                {{-- <li class="submenu">
+                <li class="submenu {{ request()->is('admin/students*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-graduation-cap"></i> <span> Students</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="">Student List</a></li>
-                        <li><a href="">Student View</a></li>
+                        <li><a href="{{url('admin/students')}}" class="{{ request()->is('admin/students') ? 'active' : '' }}">Student List</a></li>
+                        {{-- <li><a href="">Student View</a></li>
                         <li><a href="">Student Add</a></li>
-                        <li><a href="">Student Edit</a></li>
+                        <li><a href="">Student Edit</a></li> --}}
                     </ul>
-                </li> --}}
+                </li>
               <li class="submenu {{ request()->is('admin/teachers*') ? 'active' : '' }}">
-                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> @lang('translation.teacher')</span> <span
+                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{url('admin/teachers')}}" class="{{ request()->is('admin/teachers') ? 'active' : '' }}">Teacher List</a></li>
