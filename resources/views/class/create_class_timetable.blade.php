@@ -43,7 +43,7 @@
                     <div class="col-lg-3 col-md-6">
 
                         <div class="search-student-btn">
-                            <a href="{{ url('admin/teachers/add') }}" class="btn btn-primary">View Class Time</a>
+                            <a href="{{ url('admin/school-classes/class-time') }}" class="btn btn-primary">View Class Time</a>
                         </div>
 
                     </div>

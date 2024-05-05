@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdmissionInquiryController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ClassTimeController;
 use App\Http\Controllers\ClassTimeTableController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
@@ -58,7 +59,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('school-classes/add', [ClassController::class, 'create']);
     Route::get('school-classes/delete/{id}', [ClassController::class, 'destroy']);
     Route::get('school-classes/students/{class_id}', [ClassController::class, 'getClassStudentData']);
-    Route::get('school-classes/class-time/create', [ClassTimeTableController::class, 'index']);
+    Route::get('school-classes/class-time', [ClassTimeController::class, 'index']);
+    Route::get('school-classes/class-time/data', [ClassTimeController::class, 'classTimeData']);
+    Route::get('school-classes/class-time/create', [ClassTimeController::class, 'create']);
+    Route::get('school-classes/class-time-table/create', [ClassTimeTableController::class, 'index']);
 
 
     Route::get('students', [StudentController::class, 'index']);
