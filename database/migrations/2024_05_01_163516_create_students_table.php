@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('roll_number')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile_no')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

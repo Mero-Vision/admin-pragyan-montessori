@@ -57,6 +57,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
 
     Route::get('students', [StudentController::class, 'index']);
+    Route::get('students/add', [StudentController::class, 'create']);
+    Route::post('students/add', [StudentController::class, 'store']);
+    Route::get('students/data', [StudentController::class, 'studentData']);
 
     Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
     Route::get('settings/social-links-settings', [SettingController::class, 'social_link_setting']);
