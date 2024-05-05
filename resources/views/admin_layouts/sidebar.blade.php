@@ -45,6 +45,7 @@
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{url('admin/school-classes')}}" class="{{ request()->is('admin/school-classes') ? 'active' : '' }}">Class List</a></li>
+                         <li><a href="{{url('admin/school-classes/class-time/create')}}" class="{{ request()->is('admin/school-classes/class-time/create') ? 'active' : '' }}">Create Class TimeTable</a></li>
                     </ul>
                 </li>
                  {{-- 
