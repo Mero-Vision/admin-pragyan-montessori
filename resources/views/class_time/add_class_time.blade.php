@@ -31,7 +31,8 @@
                         <div class="col">
                             <h3 class="page-title">Add Create Class Time</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{url('admin/school-classes/class-time')}}">Class Time</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('admin/school-classes/class-time') }}">Class
+                                        Time</a></li>
                                 <li class="breadcrumb-item active">Add New Class Time</li>
                             </ul>
                         </div>
@@ -42,7 +43,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ url('admin/teachers/add') }}" method="POST"
+                                <form action="{{ url('admin/school-classes/class-time') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
@@ -53,9 +54,9 @@
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group local-forms">
                                                 <label>Start Time <span class="login-danger">*</span></label>
-                                                <input type="time" class="form-control" name="teacher_name"
+                                                <input type="time" class="form-control" name="start_time"
                                                     placeholder="Enter Name">
-                                                @error('teacher_name')
+                                                @error('start_time')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -63,13 +64,15 @@
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group local-forms">
                                                 <label>End Time <span class="login-danger">*</span></label>
-                                                <input type="time" class="form-control" name="teacher_name"
+                                                <input type="time" class="form-control" name="end_time"
                                                     placeholder="Enter Name">
-
+                                                @error('end_time')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
-                                        
-                                
+
+
 
                                         <div class="col-12 mt-3">
                                             <div class="student-submit">

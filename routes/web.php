@@ -60,6 +60,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('school-classes/delete/{id}', [ClassController::class, 'destroy']);
     Route::get('school-classes/students/{class_id}', [ClassController::class, 'getClassStudentData']);
     Route::get('school-classes/class-time', [ClassTimeController::class, 'index']);
+    Route::post('school-classes/class-time', [ClassTimeController::class, 'store']);
     Route::get('school-classes/class-time/data', [ClassTimeController::class, 'classTimeData']);
     Route::get('school-classes/class-time/create', [ClassTimeController::class, 'create']);
     Route::get('school-classes/class-time-table/create', [ClassTimeTableController::class, 'index']);

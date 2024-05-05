@@ -31,19 +31,20 @@
                         <div class="col">
                             <h3 class="page-title">Create Class Time-Table</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Create Time-Table</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                 <div class="row mb-3">
+                <div class="row mb-3">
 
                     <div class="col-lg-3 col-md-6">
 
                         <div class="search-student-btn">
-                            <a href="{{ url('admin/school-classes/class-time') }}" class="btn btn-primary">View Class Time</a>
+                            <a href="{{ url('admin/school-classes/class-time') }}" class="btn btn-primary">View Class
+                                Time</a>
                         </div>
 
                     </div>
@@ -65,11 +66,12 @@
 
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group local-forms">
-                                               <label>Select Class <span class="login-danger">*</span></label>
-                                                 <select class="form-control select2" name="class">
-                                                  @foreach ($classes as $class)
-                                                      <option value="{{$class->id}}">{{$class->class_name}}</option>
-                                                  @endforeach
+                                                <label>Select Class <span class="login-danger">*</span></label>
+                                                <select class="form-control select2" name="class">
+                                                    @foreach ($classes as $class)
+                                                        <option value="{{ $class->id }}">{{ $class->class_name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 @error('name')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -79,77 +81,60 @@
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group local-forms">
                                                 <label>Select Day <span class="login-danger">*</span></label>
-                                               <select class="form-control select2" name="class">
-                                                  @foreach ($days as $day)
-                                                      <option value="{{$day->id}}">{{$day->day}}</option>
-                                                  @endforeach
+                                                <select class="form-control select2" name="class">
+                                                    @foreach ($days as $day)
+                                                        <option value="{{ $day->id }}">{{ $day->day }}</option>
+                                                    @endforeach
                                                 </select>
 
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms ">
-                                                <label>Date Of Birth <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="date" name="dob">
-                                                @error('dob')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Guardian Email <span class="login-danger">*</span></label>
-                                                <input type="text" class="form-control" name="email"
-                                                    placeholder="Enter Email">
-                                                @error('email')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Guardian Mobile <span class="login-danger">*</span></label>
-                                                <input type="number" class="form-control" placeholder="Enter Phone"
-                                                    name="mobile_no">
-                                                @error('mobile_no')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Address <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="text" name="address" placeholder="Enter Address">
-                                                @error('address')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
+
+                                        <div class="border-2 container">
+                                            @forelse ($classTimes as $classTime)
+                                                <div class="border-2 row ">
+                                                    <div class="col-12 col-sm-4">
+                                                        <div class="form-group local-forms ">
+                                                            <label>Start Time <span
+                                                                    class="login-danger">*</span></label>
+                                                            <input class="form-control" type="text" name="dob" value="{{$classTime->start_time}}">
+                                                            @error('dob')
+                                                                <p class="text-danger">{{ $message }}</p>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-4">
+                                                        <div class="form-group local-forms">
+                                                            <label>End Time <span
+                                                                    class="login-danger">*</span></label>
+                                                            <input type="text" class="form-control" name="email" value="{{$classTime->start_time}}"
+                                                                >
+                                                            @error('email')
+                                                                <p class="text-danger">{{ $message }}</p>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-12 col-sm-4">
+                                                        <div class="form-group local-forms">
+                                                            <label>Subject/Break <span
+                                                                    class="login-danger">*</span></label>
+                                                            <input type="text" class="form-control" name="email"
+                                                                >
+                                                            @error('email')
+                                                                <p class="text-danger">{{ $message }}</p>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @empty
+                                            @endforelse
+
+
+
                                         </div>
 
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Roll number <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="number" name="roll_number" placeholder="Enter Roll Number">
-                                                @error('roll_number')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
 
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Select Class <span class="login-danger">*</span></label>
-                                                 <select class="form-control select2" name="class" style="height: 38px;">
-                                                  @foreach ($classes as $class)
-                                                      <option value="{{$class->id}}">{{$class->class_name}}</option>
-                                                  @endforeach
-                                                </select>
-                                                @error('class')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                       
+
                                         <div class="col-12 mt-4">
                                             <div class="student-submit">
                                                 <button type="submit" class="btn btn-primary">Submit</button>
