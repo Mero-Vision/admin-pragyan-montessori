@@ -37,8 +37,8 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                     <div class="db-info">
-                                        <h6>Students</h6>
-                                        <h3>50055</h3>
+                                        <h6>Total Students</h6>
+                                        <h3>{{$countStudent}}</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
@@ -52,8 +52,8 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                      <div class="db-info">
-                                        <h6>Students</h6>
-                                        <h3>50055</h3>
+                                        <h6>Total Teachers</h6>
+                                        <h3>{{$countTeachers}}</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
@@ -67,8 +67,8 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                      <div class="db-info">
-                                        <h6>Students</h6>
-                                        <h3>50055</h3>
+                                        <h6>Contact Us</h6>
+                                        <h3>{{$countContactUs}}</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
@@ -82,8 +82,8 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                      <div class="db-info">
-                                        <h6>Students</h6>
-                                        <h3>50055</h3>
+                                        <h6>Admission Inquiry</h6>
+                                        <h3>{{$countAdmissionInquiry}}</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">

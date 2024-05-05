@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,24 @@ class ClassController extends Controller
         return response()->json($class);
     }
 
+
+    public function getClassStudentData($class_id)
+    {
+        $classStudents = Student::where('class_id', $class_id)->get();
+        $class=SchoolClass::find($class_id);
+      
+
+        return view('class.student_class',compact('classStudents', 'class'));
+    }
+
+   
+    
+
+
+
+
+    
+
     public function destroy($id)
     {
         $class = SchoolClass::find($id);
@@ -43,10 +62,10 @@ class ClassController extends Controller
         if ($class) {
             $class->delete();
            
-            return response()->json(['status' => 'success', 'message' => 'Employee deleted successfully.']);
+            return response()->json(['status' => 'success', 'message' => 'Class deleted successfully.']);
           
         } else {
-            return response()->json(['status' => 'error', 'message' => 'Employee Not Found!']);
+            return response()->json(['status' => 'error', 'message' => 'Class Not Found!']);
         }
     }
 }

@@ -29,7 +29,8 @@ class StudentCreateRequest extends FormRequest
             'gender' => ['required'],
             'mobile_no' => ['required', 'numeric', Rule::unique('students', 'mobile_no')],
             'address' => ['required'],
-            'class'=>['required']
+            'class'=>['required'],
+            'roll_number' => ['required']
         
         ];
     }

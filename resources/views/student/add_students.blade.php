@@ -112,6 +112,16 @@
 
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
+                                                <label>Roll number <span class="login-danger">*</span></label>
+                                                <input class="form-control" type="number" name="roll_number" placeholder="Enter Roll Number">
+                                                @error('roll_number')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
                                                 <label>Select Class <span class="login-danger">*</span></label>
                                                  <select class="form-control select2" name="class" style="height: 38px;">
                                                   @foreach ($classes as $class)

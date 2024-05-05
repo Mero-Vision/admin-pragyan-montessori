@@ -36,9 +36,6 @@ class StudentController extends Controller
         $lastAdj = $latestStudent ? (int)Str::after($latestStudent->admission_id, '-') : 0;
         $adjNumber = $lastAdj + 1;
 
-        $latestStudent = Student::latest()->first();
-        $lastAdj = $latestStudent ? (int)Str::after($latestStudent->admission_id, '-') : 0;
-        $adjNumber = $lastAdj + 1;
         try {
 
             $student = DB::transaction(function () use ($request, $adjNumber) {
@@ -52,7 +49,8 @@ class StudentController extends Controller
                     'address' => $request->address,
                     'address' => $request->address,
                     'class_id' => $request->class,
-                    'admission_id' => 'PRG - ' . $adjNumber,
+                    'admission_id' => Str::uuid(),
+                    'roll_number'=>$request->roll_number
                    
                 ]);
 

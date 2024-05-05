@@ -68,7 +68,7 @@
                                                 <th>DOB</th>
                                                 <th>Email</th>
                                                 <th>Mobile No</th>
-                                                <th>Admission ID</th>
+                                                <th>Address</th>
                                                 <th>Roll No</th>
                                                 <th>Action</th>
                                             </tr>
@@ -147,7 +147,7 @@
                             "data": "mobile_no"
                         },
                         {
-                            "data": "admission_id"
+                            "data": "address"
                         },
                         {
                             "data": "roll_number"

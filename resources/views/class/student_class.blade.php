@@ -12,8 +12,6 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
-
-
 <body>
 
     <div class="main-wrapper">
@@ -30,27 +28,14 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">School Classes</h3>
+                            <h3 class="page-title">{{$class->class_name}} Student List</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">@lang('translation.dashboard')</a>
                                 </li>
-                                <li class="breadcrumb-item active">Class List</li>
+                                <li class="breadcrumb-item active">Student List</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-
-                <div class="row mb-3">
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="search-student-btn">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#login-modal">Add New Class</button>
-                        </div>
-
-                    </div>
-
-
                 </div>
 
 
@@ -64,9 +49,13 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Class Name</th>
-                                                <th>Class Code</th>
-                                                <th>Class Teacher</th>
+                                                <th>Name</th>
+                                                <th>Gender</th>
+                                                <th>DOB</th>
+                                                <th>Email</th>
+                                                <th>Mobile No</th>
+                                                <th>Address</th>
+                                                <th>Roll No</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -88,39 +77,6 @@
         </div>
 
 
-
-        <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="scrollableModalTitle">Create New Class</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-center mt-2 mb-4">
-                            <div class="auth-logo">
-                                <a href="index.html" class="logo logo-dark">
-                                    <span class="logo-lg">
-                                        <img src="{{ url('assets/img/logo.png') }}" alt height="82">
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="bg-primary p-4 rounded">
-
-                            @livewire('create-school-class')
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
         <!-- Add this modal code to your HTML -->
         <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
             aria-hidden="true">
@@ -131,7 +87,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this class?
+                        Are you sure you want to delete this event?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -146,47 +102,51 @@
         <script>
             $(document).ready(function() {
                 $('#table_data').DataTable({
-                    ajax: {
-                        url: '/admin/school-classes/data',
-                        type: 'GET',
-                        dataType: 'json',
-                        processing: true,
-                        serverSide: true,
-                    },
-                    processing: true,
-
+                    data: {!! json_encode($classStudents) !!},
                     "columns": [{
                             "data": "id"
                         },
                         {
-                            data: "class_name",
+                            data: "name",
 
                         },
                         {
-                            data: "class_code",
+                            data: "gender",
 
                         },
                         {
-                            data: "teacher_name",
+                            data: "dob",
 
                         },
-
+                        {
+                            "data": "email"
+                        },
+                        {
+                            "data": "mobile_no"
+                        },
+                        {
+                            "data": "address"
+                        },
+                        {
+                            "data": "roll_number"
+                        },
 
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-danger btn-sm" onclick="deleteData(' +
+                                return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
                                     row.id +
-                                    ')">Delete</button> <button class="btn btn-success btn-sm" onclick="viewStudent(' +
+                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
                                     row.id +
-                                    ')">View Students</button>';
+                                    ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewTeacher(' +
+                                    row.id + ')">View</button>';
                             }
                         }
 
 
                     ],
                     order: [
-                        [0, 'desc']
+                        [1, 'desc']
                     ],
                     "dom": 'Bfrtip',
                     "buttons": [{
@@ -213,7 +173,7 @@
                 });
             });
 
-            function deleteData(id) {
+            function deleteEvent(id) {
 
                 $('#confirmationModal').modal('show');
 
@@ -224,15 +184,14 @@
 
 
                     $.ajax({
-                        url: '/admin/school-classes/delete/' + id,
+                        url: '/admin/cms/events/delete/' + id,
                         type: 'GET',
                         data: {
                             _method: 'DELETE'
                         },
                         success: function(response) {
                             if (response.status === 'success') {
-                                location.reload();
-                                 window.location.href = window.location.href;
+
                                 $('#table_data').DataTable().ajax.reload();
                             } else {
 
@@ -247,68 +206,19 @@
         </script>
 
         <script>
-            function viewStudent(class_id) {
-                var baseUrl = '{{ url('admin/school-classes/students/') }}';
-                var url = baseUrl + '/' + class_id;
+            function viewTeacher(id) {
+                var baseUrl = '{{ url('admin/teachers/view/') }}';
+                var url = baseUrl + '/' + id;
 
 
                 window.location.href = url;
             }
-
-            function editStudentClass(id) {
-                $.get('/admin/school-classes/data/' + id, function(data) {
-                    $('#editModal').modal('show');
-                    console.log(data.id);
-                    $("#class_name").val(data.class_name);
-                    $("#class_id").val(data.id);
-                    $("#mobile").val(data.Mobile); // Corrected ID here
-                    $("#address").val(data.Address);
-                });
-            }
         </script>
-
-
-        <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="scrollableModalTitle">Edit Class</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-center mt-2 mb-4">
-                            <div class="auth-logo">
-                                <a href="index.html" class="logo logo-dark">
-                                    <span class="logo-lg">
-                                        <img src="{{ url('assets/img/logo.png') }}" alt height="82">
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="bg-primary p-4 rounded">
-
-                            @livewire('edit-school-class')
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
 
 
         @include('admin_layouts.footer2')
 
     </div>
-
-
-
-
 
     <script src="{{ url('assets/js/moment.min.js') }}"></script>
     <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
