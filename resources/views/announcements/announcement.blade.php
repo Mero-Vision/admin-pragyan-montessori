@@ -68,7 +68,7 @@
                                                 <th>ID</th>
                                                 <th>Title</th>
                                                 <th>Content</th>
-                                                <th>Author</th>
+                                                <th>Published By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
