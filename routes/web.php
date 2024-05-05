@@ -42,6 +42,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('cms/announcements/data', [AnnouncementController::class, 'announcementData']);
     Route::get('cms/announcements/create', [AnnouncementController::class, 'create']);
     Route::post('cms/announcements/create', [AnnouncementController::class, 'store']);
+    Route::get('cms/announcements/delete/{id}', [AnnouncementController::class, 'destroy']);
+    Route::get('cms/announcements/show/{id}', [AnnouncementController::class, 'show']);
 
     Route::get('teachers', [TeacherController::class, 'index']);
     Route::get('teachers/view/{id}', [TeacherController::class, 'show']);

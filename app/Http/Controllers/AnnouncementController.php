@@ -17,6 +17,12 @@ class AnnouncementController extends Controller
         return view('announcements.create_announcement');
     }
 
+    public function show($id)
+    {
+        $announcement = Announcement::find($id);
+        return view('announcements.view_announcement',compact('announcement'));
+    }
+
     public function store(AnnouncementRequestRequest $request){
         
 
@@ -43,5 +49,18 @@ class AnnouncementController extends Controller
     public function announcementData(){
         $announcements=Announcement::latest()->get();
         return response()->json(['data'=> $announcements]);
+    }
+
+    public function destroy($id)
+    {
+        $announcement = Announcement::find($id);
+
+        if ($announcement) {
+            $announcement->delete();
+
+            return response()->json(['status' => 'success', 'message' => 'Announcement deleted successfully.']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Announcement Not Found!']);
+        }
     }
 }

@@ -100,7 +100,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this event?
+                        Are you sure you want to delete this announcement?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -148,9 +148,9 @@
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
+                                return '<button class="btn btn-danger btn-sm" onclick="deleteAnnouncement(' +
                                     row.id +
-                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
+                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="show(' +
                                     row.id + ')">View</button>';
                             }
                         }
@@ -158,7 +158,7 @@
 
                     ],
                     order: [
-                        [1, 'desc']
+                        [0, 'desc']
                     ],
                     "dom": 'Bfrtip',
                     "buttons": [{
@@ -185,7 +185,7 @@
                 });
             });
 
-            function deleteEvent(id) {
+            function deleteAnnouncement(id) {
 
                 $('#confirmationModal').modal('show');
 
@@ -196,7 +196,7 @@
 
 
                     $.ajax({
-                        url: '/admin/cms/events/delete/' + id,
+                        url: '/admin/cms/announcements/delete/' + id,
                         type: 'GET',
                         data: {
                             _method: 'DELETE'
@@ -218,8 +218,8 @@
         </script>
 
         <script>
-            function editEvent(id) {
-                var baseUrl = '{{ url('admin/cms/events/edit/') }}';
+            function show(id) {
+                var baseUrl = '{{ url('admin/cms/announcements/show/') }}';
                 var url = baseUrl + '/' + id;
 
 
