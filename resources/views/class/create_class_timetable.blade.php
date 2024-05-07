@@ -99,7 +99,7 @@
                                                                     class="login-danger">*</span></label>
                                                             <input class="form-control" type="text"
                                                                 name="class_times[{{ $classTime->id }}][start_time]"
-                                                                value="{{ $classTime->start_time }}" readonly>
+                                                                value="{{ $classTime->start_time }}">
 
                                                             @error('class_times.' . $classTime->id . '.start_time')
                                                                 <p class="text-danger">{{ $message }}</p>
@@ -111,7 +111,7 @@
                                                             <label>End Time <span class="login-danger">*</span></label>
                                                             <input type="text" class="form-control"
                                                                 name="class_times[{{ $classTime->id }}][end_time]"
-                                                                value="{{ $classTime->start_time }}" readonly>
+                                                                value="{{ $classTime->start_time }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-4">
@@ -127,6 +127,7 @@
                                                     </div>
                                                 </div>
                                             @empty
+                                           
                                             @endforelse
 
 

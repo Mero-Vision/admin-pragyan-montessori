@@ -28,7 +28,7 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">{{$class->class_name}} Student List</h3>
+                            <h3 class="page-title">{{ $class->class_name }} Student List</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">@lang('translation.dashboard')</a>
                                 </li>
@@ -37,6 +37,44 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Class
+                                            Name: {{ $class->class_name }}</p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Class
+                                            Code: {{ $class->class_code }}</p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Class
+                                            Teacher Name: {{ $classTeacher->teacher_name }}</p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Total
+                                            Students: {{ $totalStudents }}</p>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
 
 
                 <div class="row">

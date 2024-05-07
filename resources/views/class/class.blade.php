@@ -179,7 +179,9 @@
                                     row.id +
                                     ')">Delete</button> <button class="btn btn-success btn-sm" onclick="viewStudent(' +
                                     row.id +
-                                    ')">View Students</button>';
+                                    ')">View Students</button> <button class="btn btn-secondary btn-sm" onclick="viewClassTimeTable(' +
+                                    row.id +
+                                    ')">View Time-Table</button>';
                             }
                         }
 
@@ -249,6 +251,14 @@
         <script>
             function viewStudent(class_id) {
                 var baseUrl = '{{ url('admin/school-classes/students/') }}';
+                var url = baseUrl + '/' + class_id;
+
+
+                window.location.href = url;
+            }
+
+            function viewClassTimeTable(class_id) {
+                var baseUrl = '{{ url('admin/school-classes/class-time-table/view/') }}';
                 var url = baseUrl + '/' + class_id;
 
 

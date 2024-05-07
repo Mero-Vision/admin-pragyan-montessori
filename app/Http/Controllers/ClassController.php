@@ -42,9 +42,11 @@ class ClassController extends Controller
     {
         $classStudents = Student::where('class_id', $class_id)->get();
         $class=SchoolClass::find($class_id);
+        $classTeacher=Teacher::find($class->class_teacher_id);
+        $totalStudents = Student::where('class_id', $class_id)->count();
       
 
-        return view('class.student_class',compact('classStudents', 'class'));
+        return view('class.student_class',compact('classStudents', 'class', 'classTeacher', 'totalStudents'));
     }
 
    

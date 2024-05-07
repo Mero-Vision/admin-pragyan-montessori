@@ -49,4 +49,14 @@ class ClassTimeTableController extends Controller
 
         return redirect()->back()->with('success', 'Class Time Table Added Successfully!');
     }
+
+    public function show($class_id){
+
+        $classTimeTables=ClassTimeTable::where('class_id',$class_id)->get()
+        ->groupBy('class_time_day');
+
+        $class=SchoolClass::find($class_id);
+
+        return view('class.view_class_time_table',compact('classTimeTables', 'class'));
+    }
 }
