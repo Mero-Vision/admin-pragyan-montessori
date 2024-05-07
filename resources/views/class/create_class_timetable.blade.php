@@ -56,7 +56,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ url('admin/students/add') }}" method="POST"
+                                <form action="{{ url('admin/school-classes/class-time-table/create') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
@@ -73,7 +73,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('name')
+                                                @error('class')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -81,9 +81,9 @@
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group local-forms">
                                                 <label>Select Day <span class="login-danger">*</span></label>
-                                                <select class="form-control select2" name="class">
+                                                <select class="form-control select2" name="day">
                                                     @foreach ($days as $day)
-                                                        <option value="{{ $day->id }}">{{ $day->day }}</option>
+                                                        <option value="{{ $day->day }}">{{ $day->day }}</option>
                                                     @endforeach
                                                 </select>
 
@@ -97,30 +97,30 @@
                                                         <div class="form-group local-forms ">
                                                             <label>Start Time <span
                                                                     class="login-danger">*</span></label>
-                                                            <input class="form-control" type="text" name="dob" value="{{$classTime->start_time}}">
-                                                            @error('dob')
+                                                            <input class="form-control" type="text"
+                                                                name="class_times[{{ $classTime->id }}][start_time]"
+                                                                value="{{ $classTime->start_time }}" readonly>
+
+                                                            @error('class_times.' . $classTime->id . '.start_time')
                                                                 <p class="text-danger">{{ $message }}</p>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-4">
                                                         <div class="form-group local-forms">
-                                                            <label>End Time <span
-                                                                    class="login-danger">*</span></label>
-                                                            <input type="text" class="form-control" name="email" value="{{$classTime->start_time}}"
-                                                                >
-                                                            @error('email')
-                                                                <p class="text-danger">{{ $message }}</p>
-                                                            @enderror
+                                                            <label>End Time <span class="login-danger">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                name="class_times[{{ $classTime->id }}][end_time]"
+                                                                value="{{ $classTime->start_time }}" readonly>
                                                         </div>
                                                     </div>
-                                                     <div class="col-12 col-sm-4">
+                                                    <div class="col-12 col-sm-4">
                                                         <div class="form-group local-forms">
                                                             <label>Subject/Break <span
                                                                     class="login-danger">*</span></label>
-                                                            <input type="text" class="form-control" name="email"
-                                                                >
-                                                            @error('email')
+                                                            <input type="text" class="form-control"
+                                                                name="class_times[{{ $classTime->id }}][subject]">
+                                                            @error('class_times.' . $classTime->id . '.subject')
                                                                 <p class="text-danger">{{ $message }}</p>
                                                             @enderror
                                                         </div>

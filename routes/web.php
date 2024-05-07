@@ -64,6 +64,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('school-classes/class-time/data', [ClassTimeController::class, 'classTimeData']);
     Route::get('school-classes/class-time/create', [ClassTimeController::class, 'create']);
     Route::get('school-classes/class-time-table/create', [ClassTimeTableController::class, 'index']);
+    Route::post('school-classes/class-time-table/create', [ClassTimeTableController::class, 'store']);
 
 
     Route::get('students', [StudentController::class, 'index']);
