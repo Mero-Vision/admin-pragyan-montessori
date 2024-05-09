@@ -17,6 +17,7 @@
                         <li><a href="{{url('admin/cms/announcements')}}" class="{{ request()->is('admin/cms/announcements') ? 'active' : '' }}">Announcements</a></li>
                         <li><a href="{{url('admin/cms/admission-inquiry')}}" class="{{ request()->is('admin/cms/admission-inquiry') ? 'active' : '' }}">Admission Inquiry</a></li>
                         <li><a href="{{url('admin/cms/contact-us')}}" class="{{ request()->is('admin/cms/contact-us') ? 'active' : '' }}">Contact Us</a></li>
+                         <li><a href="{{url('admin/cms/teachers')}}" class="{{ request()->is('admin/cms/teachers') ? 'active' : '' }}">Teachers</a></li>
                         
                     </ul>
                 </li>

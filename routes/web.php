@@ -5,6 +5,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ClassTimeController;
 use App\Http\Controllers\ClassTimeTableController;
+use App\Http\Controllers\CmsTeacherController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -46,6 +47,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('cms/announcements/create', [AnnouncementController::class, 'store']);
     Route::get('cms/announcements/delete/{id}', [AnnouncementController::class, 'destroy']);
     Route::get('cms/announcements/show/{id}', [AnnouncementController::class, 'show']);
+    Route::get('cms/teachers', [CmsTeacherController::class, 'index']);
+    Route::get('cms/teachers/add', [CmsTeacherController::class, 'create']);
+    Route::post('cms/teachers/add', [CmsTeacherController::class, 'store']);
+    Route::get('cms/teachers/delete/{id}', [CmsTeacherController::class, 'destroy']);
 
     Route::get('teachers', [TeacherController::class, 'index']);
     Route::get('teachers/view/{id}', [TeacherController::class, 'show']);
