@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdmissionInquiryController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ClassTimeController;
 use App\Http\Controllers\ClassTimeTableController;
@@ -51,6 +52,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('cms/teachers/add', [CmsTeacherController::class, 'create']);
     Route::post('cms/teachers/add', [CmsTeacherController::class, 'store']);
     Route::get('cms/teachers/delete/{id}', [CmsTeacherController::class, 'destroy']);
+    Route::get('cms/blogs', [BlogController::class, 'index']);
+    Route::get('cms/blogs/create', [BlogController::class, 'create']);
+    Route::post('cms/blogs/create', [BlogController::class, 'store']);
+    Route::get('cms/blogs/delete/{id}', [BlogController::class, 'destroy']);
 
     Route::get('teachers', [TeacherController::class, 'index']);
     Route::get('teachers/view/{id}', [TeacherController::class, 'show']);
