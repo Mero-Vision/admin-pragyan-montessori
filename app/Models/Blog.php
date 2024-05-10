@@ -29,7 +29,7 @@ class Blog extends BaseModel implements HasMedia
     {
         $this
             ->addMediaConversion('crop_blog_image')
-            ->fit(Manipulations::FIT_CROP, 832, 450)
+            ->fit(Manipulations::FIT_CROP, 880, 450)
             ->nonQueued();
     }
 }
