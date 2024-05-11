@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
+Route::get('/complete_registration', [UserController::class, 'setPasswordIndex']);
+Route::post('/complete_registration', [UserController::class, 'setNewUserPassword']);
 
 Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('logout', [LoginController::class, 'logout']);
