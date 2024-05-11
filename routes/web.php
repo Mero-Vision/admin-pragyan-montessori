@@ -40,6 +40,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('profile', [UserController::class, 'profile']);
     Route::get('users', [UserController::class, 'users']);
     Route::get('users/delete/{id}', [UserController::class, 'destroy']);
+    Route::get('users/restore/{id}', [UserController::class, 'restore']);
+    Route::get('users/create-account', [UserController::class, 'create']);
+    Route::post('users/create-account', [UserController::class, 'store']);
 
     Route::get('cms/contact-us', [ContactUsController::class, 'index']);
     Route::get('cms/admission-inquiry', [AdmissionInquiryController::class, 'index']);

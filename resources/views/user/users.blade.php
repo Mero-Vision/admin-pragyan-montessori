@@ -28,11 +28,11 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Teacher List</h3>
+                            <h3 class="page-title">User Management</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">@lang('translation.dashboard')</a>
                                 </li>
-                                <li class="breadcrumb-item active">Teacher List</li>
+                                <li class="breadcrumb-item active">User List</li>
                             </ul>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                     <div class="col-lg-3 col-md-6">
 
                         <div class="search-student-btn">
-                            <a href="{{ url('admin/cms/teachers/add') }}" class="btn btn-primary">Add New
+                            <a href="{{ url('admin/users/create-account') }}" class="btn btn-primary">Add New
                                 User</a>
                             <a href="{{ url('admin/cms/teachers/add') }}" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#standard-modal">View Roles</a>
@@ -72,6 +72,7 @@
                                                 <th>Gender</th>
                                                 <th>Address</th>
                                                 <th>Role</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -87,10 +88,24 @@
                                                     <td>{{ $user->address }}</td>
                                                     <td>{{ $user->role }}</td>
                                                     <td>
-                                                        <a href="#"
-                                                            class="btn btn-warning text-light disable-user-btn"
-                                                            data-user-id="{{ $user->id }}">Disable</a>
+                                                        @if ($user->deleted_at)
+                                                            Inactive
+                                                        @else
+                                                            Active
+                                                        @endif
                                                     </td>
+                                                    <td>
+                                                        @if ($user->deleted_at)
+                                                            <a href="#"
+                                                                class="btn btn-success text-light enable-user-btn"
+                                                                data-user-id="{{ $user->id }}">Enable</a>
+                                                        @else
+                                                            <a href="#"
+                                                                class="btn btn-warning text-light disable-user-btn"
+                                                                data-user-id="{{ $user->id }}">Disable</a>
+                                                        @endif
+                                                    </td>
+
                                                 </tr>
                                             @endforeach
 
@@ -110,7 +125,7 @@
         </div>
 
 
-        <!-- Modal -->
+        <!-- Disable User Model -->
         <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
             aria-labelledby="confirmationModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -118,7 +133,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="confirmationModalLabel">Confirm Disable</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                           
+
                         </button>
                     </div>
                     <div class="modal-body">
@@ -132,6 +147,30 @@
             </div>
         </div>
 
+
+        <!-- Enable User Model -->
+        <div class="modal fade" id="confirmationEnableModal" tabindex="-1" role="dialog"
+            aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Enable User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to enable this user?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a id="confirmEnableBtn" href="#" class="btn btn-success text-light">Yes, Enable</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <script>
             $(document).ready(function() {
                 $('.disable-user-btn').on('click', function(e) {
@@ -139,6 +178,15 @@
                     var userId = $(this).data('user-id');
                     $('#confirmDisableBtn').attr('href', "{{ url('admin/users/delete') }}/" + userId);
                     $('#confirmationModal').modal('show');
+                });
+            });
+
+            $(document).ready(function() {
+                $('.enable-user-btn').on('click', function(e) {
+                    e.preventDefault();
+                    var userId = $(this).data('user-id');
+                    $('#confirmEnableBtn').attr('href', "{{ url('admin/users/restore') }}/" + userId);
+                    $('#confirmationEnableModal').modal('show');
                 });
             });
         </script>
