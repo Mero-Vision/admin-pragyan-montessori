@@ -192,7 +192,7 @@ class UserController extends Controller
                 $user->password = Hash::make($request->input('password'));
                 $user->email_verified_at = now();
                 $user->save();
-                $passwordReset = PasswordReset::where('token', $token)->delete();
+                PasswordReset::where('token', $token)->delete();
             });
             sweetalert()->addSuccess('Password Set Successfully!');
             return redirect('/');
