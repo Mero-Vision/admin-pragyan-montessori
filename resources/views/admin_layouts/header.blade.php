@@ -18,4 +18,5 @@
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap-datetimepicker.min.css')}}">
     <link rel="stylesheet" href="{{ url('assets/css/select2.min.css')}}">
     <link href="{{ url('assets/css/filepond.css')}}" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>

@@ -38,6 +38,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('profile', [UserController::class, 'profile']);
+    Route::get('users', [UserController::class, 'users']);
+    Route::get('users/delete/{id}', [UserController::class, 'destroy']);
 
     Route::get('cms/contact-us', [ContactUsController::class, 'index']);
     Route::get('cms/admission-inquiry', [AdmissionInquiryController::class, 'index']);
