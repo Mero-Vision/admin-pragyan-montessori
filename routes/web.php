@@ -45,6 +45,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('users/restore/{id}', [UserController::class, 'restore']);
     Route::get('users/create-account', [UserController::class, 'create']);
     Route::post('users/create-account', [UserController::class, 'store']);
+    Route::get('users/resend-verification/{id}', [UserController::class, 'resentVerificationMail']);
 
     Route::get('cms/contact-us', [ContactUsController::class, 'index']);
     Route::get('cms/admission-inquiry', [AdmissionInquiryController::class, 'index']);

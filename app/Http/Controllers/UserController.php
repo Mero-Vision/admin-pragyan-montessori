@@ -77,6 +77,40 @@ class UserController extends Controller
     }
 
 
+
+    public function resentVerificationMail($id)
+    {
+
+        $user=User::find($id);
+       
+        try {
+
+            $user = DB::transaction(function () use ($user) {
+
+               
+
+                $token = Str::random(60);
+
+                DB::table('password_resets')->insert([
+                    'email' => $user->email,
+                    'token' => $token,
+                    'created_at' => now(),
+                ]);
+
+                Mail::to($user->email)->send(new UserVerificationMail($user, $token));
+
+
+                return $user;
+            });
+            if ($user) {
+                return back()->with('success', 'User verification email send successfully!');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+
     public function destroy($id)
     {
         $user = User::find($id);

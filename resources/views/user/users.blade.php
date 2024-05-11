@@ -104,6 +104,11 @@
                                                                 class="btn btn-warning text-light disable-user-btn"
                                                                 data-user-id="{{ $user->id }}">Disable</a>
                                                         @endif
+
+                                                        @if (!$user->email_verified_at)
+                                                            <a href="{{url('admin/users/resend-verification')}}/{{$user->id}}" class="btn btn-primary text-light"
+                                                                >Resend Verification</a>
+                                                        @endif
                                                     </td>
 
                                                 </tr>
@@ -200,7 +205,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="standard-modalLabel">Role List</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <table class="table" style="table-layout: fixed; width: 100%;">
