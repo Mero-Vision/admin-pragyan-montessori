@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\AdmissionInquiryController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlogController;
@@ -94,4 +95,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
     Route::get('settings/social-links-settings', [SettingController::class, 'social_link_setting']);
     Route::post('settings/site-settings', [SiteSettingController::class, 'store']);
+
+    Route::get('accounts/admission', [AdmissionController::class, 'listAdmission']);
+    Route::get('accounts/admission/create',[AdmissionController::class,'index']);
+    Route::post('accounts/admission/create', [AdmissionController::class, 'store']);
+    
 });

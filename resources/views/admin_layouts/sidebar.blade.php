@@ -32,7 +32,7 @@
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{url('admin/students')}}" class="{{ request()->is('admin/students') ? 'active' : '' }}">Student List</a></li>
-                         <li><a href="{{url('admin/students/add')}}" class="{{ request()->is('admin/students/add') ? 'active' : '' }}">Add Student</a></li>
+                         {{-- <li><a href="{{url('admin/students/add')}}" class="{{ request()->is('admin/students/add') ? 'active' : '' }}">Add Student</a></li> --}}
                        
                     </ul>
                 </li>
@@ -53,16 +53,17 @@
                          <li><a href="{{url('admin/school-classes/class-time-table/create')}}" class="{{ request()->is('admin/school-classes/class-time-table/create') ? 'active' : '' }}">Create Class Time-Table</a></li>
                     </ul>
                 </li>
-                <li class="submenu">
+                <li class="submenu {{ request()->is('admin/accounts*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="fees-collections.html">Admission</a></li>
-                        <li><a href="expenses.html">Expenses</a></li>
+                       <li><a href="{{url('admin/accounts/admission/create')}}" class="{{ request()->is('admin/accounts/admission/create') ? 'active' : '' }}">Student Admission</a></li>
+                        <li><a href="{{url('admin/accounts/admission')}}" class="{{ request()->is('admin/accounts/admission') ? 'active' : '' }}">Admission List</a></li>
+                        {{-- <li><a href="expenses.html">Expenses</a></li>
                         <li><a href="salary.html">Salary</a></li>
                         <li><a href="add-fees-collection.html">Add Fees</a></li>
                         <li><a href="add-expenses.html">Add Expenses</a></li>
-                        <li><a href="add-salary.html">Add Salary</a></li>
+                        <li><a href="add-salary.html">Add Salary</a></li> --}}
                     </ul>
                 </li>
                  {{-- 

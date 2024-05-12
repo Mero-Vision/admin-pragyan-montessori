@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->uuid('admission_id');
             $table->foreignId('class_id')->nullable();
             $table->string('name')->nullable();
             $table->string('gender')->nullable();
@@ -22,6 +21,10 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('mobile_no')->nullable();
             $table->string('address')->nullable();
+            $table->float('monthly_payment_amount')->nullable();
+            $table->uuid('admission_id');
+            $table->string('admission_date')->nullable();
+            $table->string('payment_status')->default('pending');
             $table->timestamps();
         });
     }
