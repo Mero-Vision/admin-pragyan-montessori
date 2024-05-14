@@ -40,7 +40,7 @@
 
                 <div class="row mb-3">
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
 
                         <div class="search-student-btn">
                             <a href="{{ url('admin/users/create-account') }}" class="btn btn-primary">Add New

@@ -38,7 +38,20 @@
                     </div>
                 </div>
 
-                
+                 <div class="row mb-3">
+
+                    <div class="col-lg-5 col-md-6">
+
+                        <div class="search-student-btn">
+                           
+                            <a href="{{ url('admin/accounts/admission/admission-particulars') }}" class="btn btn-primary" 
+                                >Create Admission Particulars</a>
+                        </div>
+
+                    </div>
+
+
+                </div>
 
 
                 <div class="row">
@@ -107,106 +120,9 @@
         </div>
 
 
-        <!-- Disable User Model -->
-        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
-            aria-labelledby="confirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Disable</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+       
 
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to disable this user?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <a id="confirmDisableBtn" href="#" class="btn btn-warning text-light">Yes, Disable</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Enable User Model -->
-        <div class="modal fade" id="confirmationEnableModal" tabindex="-1" role="dialog"
-            aria-labelledby="confirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Enable User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to enable this user?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <a id="confirmEnableBtn" href="#" class="btn btn-success text-light">Yes, Enable</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <script>
-            $(document).ready(function() {
-                $('.disable-user-btn').on('click', function(e) {
-                    e.preventDefault();
-                    var userId = $(this).data('user-id');
-                    $('#confirmDisableBtn').attr('href', "{{ url('admin/users/delete') }}/" + userId);
-                    $('#confirmationModal').modal('show');
-                });
-            });
-
-            $(document).ready(function() {
-                $('.enable-user-btn').on('click', function(e) {
-                    e.preventDefault();
-                    var userId = $(this).data('user-id');
-                    $('#confirmEnableBtn').attr('href', "{{ url('admin/users/restore') }}/" + userId);
-                    $('#confirmationEnableModal').modal('show');
-                });
-            });
-        </script>
-
-
-
-
-        <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="standard-modalLabel">Role List</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table" style="table-layout: fixed; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50%;">ID</th>
-                                    <th style="width: 50%;">Role Name</th>
-                                </tr>
-                            </thead>
-                            {{-- <tbody>
-                                @foreach ($roles as $role)
-                                    <tr>
-                                        <td>{{ $role->id }}</td>
-                                        <td>{{ $role->role_name }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody> --}}
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
+       
 
 
         <script>

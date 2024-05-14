@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\AdmissionInquiryController;
+use App\Http\Controllers\AdmissionParticularController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClassController;
@@ -99,5 +100,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/admission', [AdmissionController::class, 'listAdmission']);
     Route::get('accounts/admission/create',[AdmissionController::class,'index']);
     Route::post('accounts/admission/create', [AdmissionController::class, 'store']);
+
+    Route::get('accounts/admission/admission-particulars', [AdmissionParticularController::class, 'index']);
+    Route::post('accounts/admission/admission-particulars', [AdmissionParticularController::class, 'store']);
+    Route::get('accounts/admission/admission-particulars/delete/{id}', [AdmissionParticularController::class, 'destroy']);
     
 });
