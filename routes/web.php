@@ -103,6 +103,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
     Route::get('accounts/admission/admission-particulars', [AdmissionParticularController::class, 'index']);
     Route::post('accounts/admission/admission-particulars', [AdmissionParticularController::class, 'store']);
+    Route::get('accounts/admission/admission-particulars/edit/{id}', [AdmissionParticularController::class, 'edit']);
+    Route::post('accounts/admission/admission-particulars/update/{id}', [AdmissionParticularController::class, 'update']);
     Route::get('accounts/admission/admission-particulars/delete/{id}', [AdmissionParticularController::class, 'destroy']);
     
 });
