@@ -129,8 +129,8 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Particulars</th>
-                                                <th>Amount</th>
                                                 <th>Order Number</th>
+                                                <th>Amount</th>
                                                 <th>Created / Updated By</th>
                                                 <th>Action</th>
                                             </tr>
@@ -140,8 +140,10 @@
                                                 <tr>
                                                     <td>{{ $admissionParticular->id }}</td>
                                                     <td>{{ $admissionParticular->particulars }}</td>
-                                                    <td>{{ $admissionParticular->amount }}</td>
-                                                    <td>{{ $admissionParticular->order_number }}</td>
+                                                     <td>{{ $admissionParticular->order_number }}</td>
+                                                  <td>{{ isset($admissionParticular->amount) ? "Rs. " . $admissionParticular->amount : "" }}</td>
+
+                                             
                                                      <td>{{ $admissionParticular->user }}</td>
                                                     <td>
                                                         <a class="btn btn-danger px-2 py-1 delete-data"  data-admission-id="{{ $admissionParticular->id }}"><i class='bx bxs-message-square-x bx-sm'></i></a>
@@ -214,7 +216,7 @@
                     "info": true,
                     "autoWidth": false,
                     "order": [
-                        [3, 'asc null']
+                        [2, 'asc']
                     ],
                     "language": {
                         "paginate": {
