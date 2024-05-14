@@ -74,7 +74,7 @@
                                             <div class="form-group local-forms">
                                                 <label>Particular Name <span class="login-danger">*</span></label>
                                                 <input type="text" class="form-control" name="particular_name"
-                                                    placeholder="Enter Particular Name">
+                                                    >
                                                 @error('particular_name')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -86,7 +86,7 @@
                                             <div class="form-group local-forms">
                                                 <label>Amount </label>
                                                 <input type="number" class="form-control" name="amount"
-                                                    placeholder="Enter Amount">
+                                                    >
                                                 @error('amount')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -96,7 +96,7 @@
                                             <div class="form-group local-forms">
                                                 <label>Order Number <span class="login-danger">*</span></label>
                                                 <input type="number" class="form-control"
-                                                    placeholder="Enter Order Number" name="order_number">
+                                                     name="order_number">
                                                 @error('order_number')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
