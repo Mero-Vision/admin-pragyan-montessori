@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eac4d030ba6def742fb9efb0fcfc6b54",
+    "content-hash": "49bc0f6f13314576d82ca3f1a3f8f862",
     "packages": [
         {
             "name": "anuzpandey/laravel-nepali-date",
@@ -2604,6 +2604,54 @@
                 "source": "https://github.com/milantarami/nepali-calendar/tree/v1.4.2"
             },
             "time": "2024-03-04T16:12:00+00:00"
+        },
+        {
+            "name": "milantarami/number-to-words",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/milantarami/number-to-words.git",
+                "reference": "4ae3584897dbdaa6dc7031dca1997072ebf52d76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/milantarami/number-to-words/zipball/4ae3584897dbdaa6dc7031dca1997072ebf52d76",
+                "reference": "4ae3584897dbdaa6dc7031dca1997072ebf52d76",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MilanTarami\\NumberToWordsConverter\\NumberToWordsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MilanTarami\\NumberToWordsConverter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Tarami",
+                    "email": "milantarami.dev@gmail.com"
+                }
+            ],
+            "description": "A sweet package for converting a number to words that support Nepali & International Numbering System",
+            "support": {
+                "issues": "https://github.com/milantarami/number-to-words/issues",
+                "source": "https://github.com/milantarami/number-to-words/tree/v1.0.1"
+            },
+            "time": "2021-11-11T16:40:33+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

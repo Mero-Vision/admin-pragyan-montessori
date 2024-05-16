@@ -174,6 +174,7 @@
 
                                             discountInput.addEventListener('input', function() {
                                                 updateTotal();
+
                                             });
 
                                             // Initial calculation
@@ -253,14 +254,21 @@
 
                                                         <div class="links-info-discount"
                                                             style="display: flex; align-items: center;">
-                                                            <label for="discount-input"
-                                                                style="margin-right: 10px;">Discount:</label>
+                                                            <p for="discount-input"
+                                                                style="margin-right: 10px; margin-bottom: 0;">Discount:
+                                                            </p>
                                                             <input id="discount-input" class="form-control"
                                                                 type="text" style="height: 40px;">
                                                         </div>
+
                                                     </div>
                                                     <div class="invoice-total-footer">
-                                                        <h4>Total Amount: <span id="total-amount">Rs. 0.00</span></h4>
+                                                        <h5 style="font-family: Arial, sans-serif; font-size: 16px;">
+                                                            Total Amount: <span id="total-amount"
+                                                                style="font-family: Arial, sans-serif; font-size: 16px;">Rs.
+                                                                0.00</span></h5>
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -319,6 +327,59 @@
                 padding: 0;
             }
         </style>
+
+        <script>
+            // Function to convert a number to words
+            function convertNumberToWords(number) {
+                // Function to convert a number less than 1000 to words
+                function convertLessThanOneThousand(number) {
+                    var words = '';
+                    var units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+                    var teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen',
+                        'eighteen', 'nineteen'
+                    ];
+                    var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+                    if (number % 100 < 10) {
+                        words = units[number % 10];
+                        number = Math.floor(number / 10);
+                    } else if (number % 100 < 20) {
+                        words = teens[number % 10];
+                        number = Math.floor(number / 100);
+                    } else {
+                        words = units[number % 10];
+                        number = Math.floor(number / 10);
+                        words = tens[number % 10] + ' ' + words;
+                        number = Math.floor(number / 10);
+                    }
+                    if (number === 0) return words;
+                    return units[number] + ' hundred ' + words;
+                }
+
+                var words = '';
+                var units = ['', 'thousand', 'million', 'billion'];
+
+                for (var i = 0; i < units.length; i++) {
+                    if (number === 0) return words;
+                    var chunk = number % 1000;
+                    if (chunk !== 0) {
+                        words = convertLessThanOneThousand(chunk) + ' ' + units[i] + ' ' + words;
+                    }
+                    number = Math.floor(number / 1000);
+                }
+                return words.trim();
+            }
+
+            // Function to update the amount in words
+            function updateAmountInWords(amount) {
+                var amountSpan = document.getElementById('amountInWords');
+                var amountInWords = convertNumberToWords(amount);
+                amountSpan.textContent = 'Rs. ' + amount.toFixed(2) + ' (' + amountInWords + ' only)';
+            }
+
+            // Example usage: updateAmountInWords(1234.56);
+            updateAmountInWords(0.00); // Initial amount
+        </script>
 
 
         @include('admin_layouts.footer2')
