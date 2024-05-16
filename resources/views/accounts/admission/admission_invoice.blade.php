@@ -103,7 +103,7 @@
                                     <div class="invoice-add-table">
                                         <h4>Bill Details</h4>
                                         <div class="table-responsive">
-                                            <table class="table table-invoice">
+                                            <table class=" table-invoice">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
