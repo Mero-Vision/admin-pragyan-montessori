@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\AdmissionInquiryController;
+use App\Http\Controllers\AdmissionInvoiceController;
 use App\Http\Controllers\AdmissionParticularController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlogController;
@@ -100,11 +101,13 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/admission', [AdmissionController::class, 'listAdmission']);
     Route::get('accounts/admission/create',[AdmissionController::class,'index']);
     Route::post('accounts/admission/create', [AdmissionController::class, 'store']);
+    Route::get('accounts/admission/admission-invoice/create/{id}', [AdmissionInvoiceController::class, 'index']);
 
     Route::get('accounts/admission/admission-particulars', [AdmissionParticularController::class, 'index']);
     Route::post('accounts/admission/admission-particulars', [AdmissionParticularController::class, 'store']);
     Route::get('accounts/admission/admission-particulars/edit/{id}', [AdmissionParticularController::class, 'edit']);
     Route::post('accounts/admission/admission-particulars/update/{id}', [AdmissionParticularController::class, 'update']);
     Route::get('accounts/admission/admission-particulars/delete/{id}', [AdmissionParticularController::class, 'destroy']);
+    
     
 });
