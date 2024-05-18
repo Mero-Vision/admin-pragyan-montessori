@@ -95,7 +95,7 @@
                                                         @if ($admissionList->payment_status === 'pending')
                                                             <a href="{{url('admin/accounts/admission/admission-invoice/create')}}/{{$admissionList->id}}" class="btn btn-danger">Go to Payment</a>
                                                         @elseif($admissionList->payment_status === 'paid')
-                                                             <a  class="btn btn-success">Print Invoice</a>
+                                                             <a href="{{url('admin/accounts/admission/print-invoice')}}/{{$admissionList->id}}" class="btn btn-success">Print Invoice</a>
                                                         @else
                                                             <!-- Handle other cases if needed -->
                                                         @endif

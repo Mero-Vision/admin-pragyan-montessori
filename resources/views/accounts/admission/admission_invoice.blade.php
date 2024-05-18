@@ -45,12 +45,22 @@
                     <div class="col-md-12">
                         <div class="card invoices-add-card">
                             <div class="card-body">
-                                <form action="#" class="invoices-form">
+                                <form action="{{ url('admin/accounts/admission/admission-payment') }}"
+                                    class="invoices-form" method=POST>
+                                    @csrf
+
+                                    <input type="hidden" value="{{ $student->id }}" name="student_id">
+
+                                    <input type="hidden" value="{{ $student->class_id }}" name="class_id">
+
                                     <div class="invoices-main-form">
                                         <div class="row">
                                             <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                                 <div class="form-group">
                                                     <label>Student Name</label>
+
+
+
                                                     <input class="form-control" type="text"
                                                         value="{{ $student->name }}" readonly>
 
@@ -78,18 +88,20 @@
                                                         <div class="row align-items-center">
                                                             <div class="col-lg-6 col-md-6">
                                                                 <div class="invoice-inner-date">
-                                                                    <span>
-                                                                        Admission Date: <p></p>
-                                                                    </span>
+                                                                    <span
+                                                                        style="display: inline-block; margin-right: 5px;">Student
+                                                                        Class:</span>
+                                                                    <span
+                                                                        style="display: inline-block;">{{ $class->class_name }}</span>
                                                                 </div>
+
                                                             </div>
                                                             <div class="col-lg-6 col-md-6">
-                                                                <div class="invoice-inner-date invoice-inner-datepic">
-                                                                    <span>
-                                                                        Due Date <input
-                                                                            class="form-control datetimepicker"
-                                                                            type="text" placeholder="Select">
-                                                                    </span>
+                                                                <div class="invoice-inner-date">
+                                                                    <span
+                                                                        style="display: inline-block; margin-right: 5px;">Billing
+                                                                        Status:</span>
+                                                                    <span style="display: inline-block;">Pending</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -120,10 +132,14 @@
                                                             <td>{{ $counter }}</td>
                                                             <td>
                                                                 <p>{{ $admissionParticular->particulars }}</p>
+                                                                <input type="hidden"
+                                                                    value="{{ $admissionParticular->particulars }}"
+                                                                    name="particulars[{{ $counter }}][particular_name]" />
                                                             </td>
                                                             <td>
                                                                 <input class="form-control py-0 my-0 amount-input"
-                                                                    value="{{ $admissionParticular->amount }}">
+                                                                    value="{{ $admissionParticular->amount }}"
+                                                                    name="particulars[{{ $counter }}][particular_amount]">
                                                             </td>
                                                         </tr>
                                                         @php
@@ -186,37 +202,29 @@
                                             <div class="invoice-fields">
                                                 <h4 class="field-title">More Fields</h4>
                                                 <div class="field-box">
-                                                    <p>Payment Details</p>
-                                                    <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#bank_details"><i
-                                                            class="fas fa-plus-circle me-2"></i>Add Bank Details</a>
+                                                    <label class="bg-primary text-light px-2">Payment Details</label>
+                                                    @forelse ($paymentOptions as $paymentOption)
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio" name="payment_option_id"
+                                                                    value="{{ $paymentOption->id }}">
+                                                                {{ $paymentOption->payment_name }}
+                                                            </label>
+                                                        </div>
+
+
+                                                    @empty
+                                                    @endforelse
+                                                    @error('payment_option_id')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+
                                                 </div>
                                             </div>
                                             <div class="invoice-faq">
                                                 <div class="panel-group" id="accordion" role="tablist"
                                                     aria-multiselectable="true">
-                                                    <div class="faq-tab">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading" role="tab" id="headingTwo">
-                                                                <p class="panel-title">
-                                                                    <a class="collapsed" data-bs-toggle="collapse"
-                                                                        data-bs-parent="#accordion" href="#collapseTwo"
-                                                                        aria-expanded="false"
-                                                                        aria-controls="collapseTwo">
-                                                                        <i class="fas fa-plus-circle me-1"></i> Add
-                                                                        Terms & Conditions
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                            <div id="collapseTwo" class="panel-collapse collapse"
-                                                                role="tabpanel" aria-labelledby="headingTwo"
-                                                                data-bs-parent="#accordion">
-                                                                <div class="panel-body">
-                                                                    <textarea class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                                     <div class="faq-tab">
                                                         <div class="panel panel-default">
                                                             <div class="panel-heading" role="tab" id="headingThree">
@@ -234,7 +242,7 @@
                                                                 role="tabpanel" aria-labelledby="headingThree"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="panel-body">
-                                                                    <textarea class="form-control"></textarea>
+                                                                    <textarea class="form-control" name="note"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -247,15 +255,24 @@
                                                 <h4 class="invoice-total-title">Summary</h4>
                                                 <div class="invoice-total-box">
                                                     <div class="invoice-total-inner">
-                                                        <p class="sub-total" style="font-family: Arial, sans-serif; font-size: 16px;">Sub-Total Amount: <span
-                                                                id="sub-total-amount">Rs. 0.00</span></p>
+                                                        <p class="sub-total"
+                                                            style="font-family: Arial, sans-serif; font-size: 16px;">
+                                                            Sub-Total Amount: <span id="sub-total-amount">Rs.
+                                                                0.00</span></p>
+
+                                                        <input type="hidden" name="sub_total"
+                                                            id="sub-total-amount-input" value="0.00">
+
+
                                                         <div class="links-info-discount"
                                                             style="display: flex; align-items: center;">
                                                             <p for="discount-input"
-                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px;">Discount:
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px;">
+                                                                Discount:
                                                             </p>
                                                             <input id="discount-input" class="form-control"
-                                                                type="text" style="height: 40px;">
+                                                                type="text" style="height: 40px;"
+                                                                name="discount_amount">
                                                         </div>
 
                                                     </div>
@@ -264,6 +281,8 @@
                                                             Total Amount: <span id="total-amount"
                                                                 style="font-family: Arial, sans-serif; font-size: 16px;">Rs.
                                                                 0.00</span></h5>
+                                                        <input type="hidden" name="net_total"
+                                                            id="total-amount-input" value="0.00">
 
 
                                                     </div>
@@ -326,56 +345,25 @@
         </style>
 
         <script>
-            // Function to convert a number to words
-            function convertNumberToWords(number) {
-                // Function to convert a number less than 1000 to words
-                function convertLessThanOneThousand(number) {
-                    var words = '';
-                    var units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-                    var teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen',
-                        'eighteen', 'nineteen'
-                    ];
-                    var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-
-                    if (number % 100 < 10) {
-                        words = units[number % 10];
-                        number = Math.floor(number / 10);
-                    } else if (number % 100 < 20) {
-                        words = teens[number % 10];
-                        number = Math.floor(number / 100);
-                    } else {
-                        words = units[number % 10];
-                        number = Math.floor(number / 10);
-                        words = tens[number % 10] + ' ' + words;
-                        number = Math.floor(number / 10);
-                    }
-                    if (number === 0) return words;
-                    return units[number] + ' hundred ' + words;
-                }
-
-                var words = '';
-                var units = ['', 'thousand', 'million', 'billion'];
-
-                for (var i = 0; i < units.length; i++) {
-                    if (number === 0) return words;
-                    var chunk = number % 1000;
-                    if (chunk !== 0) {
-                        words = convertLessThanOneThousand(chunk) + ' ' + units[i] + ' ' + words;
-                    }
-                    number = Math.floor(number / 1000);
-                }
-                return words.trim();
+            function updateSubTotalAmount() {
+                var subTotalAmountText = document.getElementById('sub-total-amount').textContent;
+                var subTotalAmountValue = subTotalAmountText.replace('Rs.', '').trim();
+                document.getElementById('sub-total-amount-input').value = subTotalAmountValue;
             }
 
-            // Function to update the amount in words
-            function updateAmountInWords(amount) {
-                var amountSpan = document.getElementById('amountInWords');
-                var amountInWords = convertNumberToWords(amount);
-                amountSpan.textContent = 'Rs. ' + amount.toFixed(2) + ' (' + amountInWords + ' only)';
+            function updateTotalAmount() {
+                var totalAmountText = document.getElementById('total-amount').textContent;
+                var totalAmountValue = totalAmountText.replace('Rs.', '').trim();
+                document.getElementById('total-amount-input').value = totalAmountValue;
             }
 
-            // Example usage: updateAmountInWords(1234.56);
-            updateAmountInWords(0.00); // Initial amount
+            document.getElementById('sub-total-amount').textContent = 'Rs. 100.00';
+            document.getElementById('total-amount').textContent = 'Rs. 120.00';
+            updateSubTotalAmount();
+            updateTotalAmount();
+
+            document.getElementById('sub-total-amount').addEventListener('DOMSubtreeModified', updateSubTotalAmount);
+            document.getElementById('total-amount').addEventListener('DOMSubtreeModified', updateTotalAmount);
         </script>
 
 
