@@ -247,15 +247,12 @@
                                                 <h4 class="invoice-total-title">Summary</h4>
                                                 <div class="invoice-total-box">
                                                     <div class="invoice-total-inner">
-                                                        <p class="sub-total">Sub-Total Amount: <span
+                                                        <p class="sub-total" style="font-family: Arial, sans-serif; font-size: 16px;">Sub-Total Amount: <span
                                                                 id="sub-total-amount">Rs. 0.00</span></p>
-
-
-
                                                         <div class="links-info-discount"
                                                             style="display: flex; align-items: center;">
                                                             <p for="discount-input"
-                                                                style="margin-right: 10px; margin-bottom: 0;">Discount:
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px;">Discount:
                                                             </p>
                                                             <input id="discount-input" class="form-control"
                                                                 type="text" style="height: 40px;">

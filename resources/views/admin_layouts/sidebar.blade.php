@@ -59,6 +59,7 @@
                     <ul>
                        <li><a href="{{url('admin/accounts/admission/create')}}" class="{{ request()->is('admin/accounts/admission/create') ? 'active' : '' }}">Student Admission</a></li>
                         <li><a href="{{url('admin/accounts/admission')}}" class="{{ request()->is('admin/accounts/admission') ? 'active' : '' }}">Admission List</a></li>
+                         <li><a href="{{url('admin/accounts/settings/payment-options')}}" class="{{ request()->is('admin/accounts/settings/payment-options') ? 'active' : '' }}">Account Settings</a></li>
                         {{-- <li><a href="expenses.html">Expenses</a></li>
                         <li><a href="salary.html">Salary</a></li>
                         <li><a href="add-fees-collection.html">Add Fees</a></li>

@@ -13,6 +13,7 @@ use App\Http\Controllers\CmsTeacherController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PaymentOptionController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentController;
@@ -108,6 +109,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/admission/admission-particulars/edit/{id}', [AdmissionParticularController::class, 'edit']);
     Route::post('accounts/admission/admission-particulars/update/{id}', [AdmissionParticularController::class, 'update']);
     Route::get('accounts/admission/admission-particulars/delete/{id}', [AdmissionParticularController::class, 'destroy']);
+
+
+    Route::get('accounts/settings/payment-options', [PaymentOptionController::class, 'index']);
+    Route::get('accounts/settings/payment-options/delete/{slug}', [PaymentOptionController::class, 'destroy']);
     
     
 });
