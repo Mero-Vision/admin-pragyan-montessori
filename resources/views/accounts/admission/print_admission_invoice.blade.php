@@ -94,15 +94,15 @@
                                         <div class="col-md-8">
                                             <div class="invoice-info invoice-info2">
                                                 <strong class="customer-text-one">Payment Details</strong>
-                                                {{-- <p class="invoice-details font-weight-bold">
-                                                   PAYMENT MODE:  {{$paymentOption->payment_name}} <br>
-                                                    PAYMENT STATUS:  Paid <br>
+                                                <p class="invoice-details font-weight-bold">
+                                                   Payment Mode:  {{$paymentOption->payment_name}} <br>
+                                                    Payment Status:  Paid <br>
                                                    
-                                                </p> --}}
-                                                <div class="invoice-item-box">
+                                                </p>
+                                                {{-- <div class="invoice-item-box">
                                                     <p>Payment Mode : {{ $paymentOption->payment_name }}</p>
                                                     <p class="mb-0">Payment Mode: Paid</p>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
