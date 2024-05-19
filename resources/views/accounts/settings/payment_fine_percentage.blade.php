@@ -44,13 +44,13 @@
                             <ul>
                                 <li class="nav-item">
                                     <a href="{{ url('admin/accounts/settings/payment-options') }}"
-                                        class="nav-link active font-weight-600 bg-light p-1 px-3 mx-auto d-block text-center text-dark">
+                                        class="nav-link  font-weight-600 bg-light p-1 px-3 mx-auto d-block text-center text-dark">
                                         <i class="fe fe-git-commit"></i> <span>Payment Options</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('admin/accounts/settings/late-payment-fine') }}"
-                                        class="nav-link font-weight-600 bg-light p-1 px-3 mx-auto d-block text-center text-dark">
+                                    <a href="{{ url('admin/accounts/settings/payment-options') }}"
+                                        class="nav-link active font-weight-600 bg-light p-1 px-3 mx-auto d-block text-center text-dark">
                                         <i class="fe fe-git-commit"></i> <span>Penalty Interest Rate</span>
                                     </a>
                                 </li>
@@ -61,11 +61,8 @@
                     <div class="col-xl-9 col-md-8">
                         <div class="card invoices-settings-card">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-title mb-0">Payment Modes</h5>
-                                <div class="search-student-btn">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#login-modal">Add New Payment Mode</button>
-                                </div>
+                                <h5 class="card-title mb-0">Penalty Interest Rate</h5>
+
                             </div>
                             <div class="card-body">
 
@@ -74,25 +71,13 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Payment Name</th>
+                                                <th>Penalty Percentage</th>
                                                 <th>Created By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($paymentOptions as $paymentOption)
-                                                <tr>
-                                                    <td>{{ $paymentOption->id }}</td>
-                                                    <td>{{ $paymentOption->payment_name }}</td>
-                                                    <td>{{ $paymentOption->user }}</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-danger enable-user-btn"
-                                                            data-user-id="{{ $paymentOption->slug }}">Delete<a>
-                                                    </td>
 
-
-                                                </tr>
-                                            @endforeach
 
                                         </tbody>
                                     </table>
@@ -109,23 +94,33 @@
 
 
         <!-- Delete Payment Option Model -->
-        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
-            aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Disable</h5>
+                        <h5 class="modal-title" id="confirmationModalLabel">Edit Penalty Interest Rate</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this payment option?
+                        <form action="{{url('admin/accounts/settings/late-payment-fine/update')}}" method="POST">
+                            @csrf
+                            <input type="hidden"  name="id" id="id"
+                                    >
+                            <div class="form-group local-forms">
+                                <label>Penalty Interest Rate <span class="login-danger">*</span></label>
+                                <input type="text" class="form-control" name="penalty_interest_rate" id="penalty_interest_rate"
+                                    placeholder="Enter Penalty Interest Rate">
+                                @error('penalty_interest_rate')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <button class="btn btn-primary">Update</button>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <a id="confirmDisableBtn" href="#" class="btn btn-warning text-light">Yes, Delete</a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -134,38 +129,6 @@
 
 
 
-        <script>
-            $(document).ready(function() {
-                $('.enable-user-btn').on('click', function(e) {
-                    e.preventDefault();
-                    var userId = $(this).data('user-id');
-                    $('#confirmDisableBtn').attr('href',
-                        "{{ url('admin/accounts/settings/payment-options/delete') }}/" + userId);
-                    $('#confirmationModal').modal('show');
-                });
-            });
-        </script>
-
-
-
-        <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="scrollableModalTitle">New Payment Mode</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        @livewire('payment-mode-form')
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -177,24 +140,80 @@
 
     <script>
         $(document).ready(function() {
-            // Initialize DataTables with styling
             $('#table_data').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "info": true,
-                "autoWidth": false,
-                "order": [
+                ajax: {
+                    url: '/admin/accounts/settings/late-payment-fine/data',
+                    type: 'GET',
+                    dataType: 'json',
+                    processing: true,
+                    serverSide: true,
+                },
+                processing: true,
+
+                "columns": [{
+                        "data": "id"
+                    },
+                    {
+                        data: "fine_percent",
+
+                    },
+                    {
+                        data: "user",
+
+                    },
+
+
+
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" onclick="editLatePaymentFine(' +
+                                row.id +
+                                ')">Edit</button>';
+                        }
+                    }
+
+
+                ],
+                order: [
                     [0, 'desc']
                 ],
-                "language": {
-                    "paginate": {
-                        "next": "Next",
-                        "previous": "Prev"
+                "dom": 'Bfrtip',
+                "buttons": [{
+                        "extend": 'copyHtml5',
+                        "title": 'Data'
+                    },
+                    {
+                        "extend": 'excelHtml5',
+                        "title": 'Data'
+                    },
+                    {
+                        "extend": 'csvHtml5',
+                        "title": 'Data'
+                    },
+                    {
+                        "extend": 'pdfHtml5',
+                        "title": 'Data'
+                    },
+                    {
+                        "extend": 'print',
+                        "title": 'Print'
                     }
-                }
+                ]
             });
         });
+    </script>
+
+    <script>
+        function editLatePaymentFine(id) {
+            $.get('/admin/accounts/settings/late-payment-fine/edit/' + id, function(data) {
+                $('#editModal').modal('show');
+                console.log(data.id);
+                $("#penalty_interest_rate").val(data.fine_percent);
+                $("#id").val(data.id);
+               
+            });
+        }
     </script>
 
     <script src="{{ url('assets/js/moment.min.js') }}"></script>

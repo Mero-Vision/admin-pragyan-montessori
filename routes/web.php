@@ -13,6 +13,7 @@ use App\Http\Controllers\ClassTimeTableController;
 use App\Http\Controllers\CmsTeacherController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LatePaymentFineController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentOptionController;
 use App\Http\Controllers\SettingController;
@@ -117,6 +118,11 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
     Route::get('accounts/settings/payment-options', [PaymentOptionController::class, 'index']);
     Route::get('accounts/settings/payment-options/delete/{slug}', [PaymentOptionController::class, 'destroy']);
+    Route::get('accounts/settings/late-payment-fine', [LatePaymentFineController::class, 'index']);
+    Route::get('accounts/settings/late-payment-fine/data', [LatePaymentFineController::class, 'latePaymentFineData']);
+    Route::get('accounts/settings/late-payment-fine/edit/{id}', [LatePaymentFineController::class, 'getLatePaymentFineById']);
+    Route::post('accounts/settings/late-payment-fine/update', [LatePaymentFineController::class, 'update']);
+    
     
     
 });
