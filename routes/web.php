@@ -15,6 +15,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LatePaymentFineController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MonthlyFeesPaymentController;
 use App\Http\Controllers\PaymentOptionController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteSettingController;
@@ -122,6 +123,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/settings/late-payment-fine/data', [LatePaymentFineController::class, 'latePaymentFineData']);
     Route::get('accounts/settings/late-payment-fine/edit/{id}', [LatePaymentFineController::class, 'getLatePaymentFineById']);
     Route::post('accounts/settings/late-payment-fine/update', [LatePaymentFineController::class, 'update']);
+
+    Route::get('accounts/student-monthly-fees-payments', [MonthlyFeesPaymentController::class, 'index']);
+
+    
     
     
     
