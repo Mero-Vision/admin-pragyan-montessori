@@ -133,6 +133,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/monthly-fees-particulars/delete/{id}', [MonthlyFeesParticularController::class, 'destroy']);
     
     Route::get('accounts/student-monthly-fees-payments', [MonthlyFeesPaymentController::class, 'index']);
+    Route::get('accounts/student-monthly-fees-payments/{id}', [MonthlyFeesPaymentController::class, 'studentMonthlyFeesPaymentIndex']);
 
     
     

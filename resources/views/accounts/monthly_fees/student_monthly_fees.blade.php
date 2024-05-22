@@ -83,7 +83,7 @@
                                                     <td>{{ $student->mobile_no }}</td>
                                                     <td>{{ $student->email }}</td>
                                                     <td>
-                                                        <a href="{{ url('admin/accounts/admission/admission-invoice/create') }}/{{ $student->id }}"
+                                                        <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}/{{ $student->id }}"
                                                             class="btn btn-danger">Go to Payment</a>
                                                     </td>
 
