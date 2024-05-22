@@ -28,11 +28,11 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Recent Admission List</h3>
+                            <h3 class="page-title">Student List</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">@lang('translation.dashboard')</a>
                                 </li>
-                                <li class="breadcrumb-item active">Admission List</li>
+                                <li class="breadcrumb-item active">Student List</li>
                             </ul>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
 
                         <div class="search-student-btn">
 
-                            <a href="{{ url('admin/accounts/admission/admission-particulars') }}"
-                                class="btn btn-primary">Create Admission Particulars</a>
+                            <a href="{{ url('admin/accounts/monthly-fees-particulars') }}"
+                                class="btn btn-primary">Create Monthly Fees Particulars</a>
                         </div>
 
                     </div>

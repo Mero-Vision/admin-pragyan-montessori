@@ -15,6 +15,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LatePaymentFineController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MonthlyFeesParticularController;
 use App\Http\Controllers\MonthlyFeesPaymentController;
 use App\Http\Controllers\PaymentOptionController;
 use App\Http\Controllers\SettingController;
@@ -124,6 +125,13 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/settings/late-payment-fine/edit/{id}', [LatePaymentFineController::class, 'getLatePaymentFineById']);
     Route::post('accounts/settings/late-payment-fine/update', [LatePaymentFineController::class, 'update']);
 
+
+    Route::get('accounts/monthly-fees-particulars', [MonthlyFeesParticularController::class, 'index']);
+    Route::post('accounts/monthly-fees-particulars', [MonthlyFeesParticularController::class, 'store']);
+    Route::get('accounts/monthly-fees-particulars/edit/{id}', [MonthlyFeesParticularController::class, 'edit']);
+    Route::post('accounts/monthly-fees-particulars/update/{id}', [MonthlyFeesParticularController::class, 'update']);
+    Route::get('accounts/monthly-fees-particulars/delete/{id}', [MonthlyFeesParticularController::class, 'destroy']);
+    
     Route::get('accounts/student-monthly-fees-payments', [MonthlyFeesPaymentController::class, 'index']);
 
     
