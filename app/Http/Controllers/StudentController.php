@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentCreateRequest;
+use App\Models\AdmissionPayment;
+use App\Models\AdmissionPaymentDetail;
+use App\Models\MonthlyFeePayment;
+use App\Models\PaymentOption;
 use App\Models\SchoolClass;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -24,8 +28,12 @@ class StudentController extends Controller
         }
 
         $class=SchoolClass::find($student->class_id);
+        $admission = AdmissionPayment::where('student_id', $id)->latest()->first();
+        $paymentOption = PaymentOption::find($admission->payment_option_id);
+        $admissionPaymentDetails = AdmissionPaymentDetail::where('admission_payment_id', $admission->id)->get();
+        $monthlyFeePayments=MonthlyFeePayment::where('student_id',$student->id)->get();
 
-        return view('student.view_student',compact('student', 'class'));
+        return view('student.view_student',compact('student', 'class', 'admission', 'paymentOption', 'admissionPaymentDetails', 'monthlyFeePayments'));
     }
 
     public function create()

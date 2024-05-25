@@ -21,13 +21,11 @@ class AdmissionPaymentController extends Controller
         ]);
 
         $student=Student::find($request->student_id);
-        $student->update([
-            'payment_status'=>'paid'
-        ]);
+       
         
         try {
 
-            $admissionPayment = DB::transaction(function () use ($request, $validatedData) {
+            $admissionPayment = DB::transaction(function () use ($request, $validatedData,$student) {
                 $admissionPayment = AdmissionPayment::create([
                     'user' => auth()->user()->name,
                     'student_id'=>$request->student_id,
@@ -50,6 +48,10 @@ class AdmissionPaymentController extends Controller
                     $admissionPaymentDetail->amount = $particularsData['particular_amount'];
                     $admissionPaymentDetail->save();
                 }
+
+                $student->update([
+                    'payment_status' => 'paid'
+                ]);
 
                 return $admissionPayment;
             });

@@ -88,8 +88,8 @@
                                         <div class="col-lg-4 col-md-4 d-flex align-items-center">
                                             <div class="follow-btn-group">
                                                 {{-- <button type="submit" class="btn btn-info follow-btns">Follow</button> --}}
-                                                <button type="submit"
-                                                    class="btn btn-primary">View Admission Details</button>
+                                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#myModal">View Admission Details</button>
                                             </div>
                                         </div>
 
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="student-personals-grp">
                                         <div class="card">
                                             <div class="card-body">
@@ -183,7 +183,7 @@
                                                     </div>
                                                 </div>
 
-                                                 <div class="personal-activity">
+                                                <div class="personal-activity">
                                                     <div class="personal-icons">
                                                         <i class="feather-dollar-sign"></i>
                                                     </div>
@@ -230,10 +230,52 @@
 
 
 
-                                <div class="col-lg-8">
+                                <div class="col-lg-9">
                                     <div class="student-personals-grp">
                                         <div class="card mb-0">
                                             <div class="card-body">
+
+
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped custom-table" id="table_data">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Payment Date</th>
+                                                                <th>Payment Month</th>
+                                                                <th>Sub Total</th>
+                                                                <th>Discount Amount</th>
+                                                                <th>Paid Amount</th>
+                                                                <th>Return Amount</th>
+                                                                <th>Net Total</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($monthlyFeePayments as $monthlyFeePayment)
+                                                                <tr>
+                                                                    <td>{{ $monthlyFeePayment->id }}</td>
+                                                                    <td>{{ $monthlyFeePayment->nepali_payment_date }}</td>
+                                                                    <td>{{ $monthlyFeePayment->month }}</td>
+                                                                    <td>{{ $monthlyFeePayment->sub_total }}</td>
+                                                                    <td>{{ $monthlyFeePayment->discount_amount }}</td>
+                                                                     <td>{{ $monthlyFeePayment->paid_amount }}</td>
+                                                                    <td>{{ $monthlyFeePayment->return_amount }}</td>
+                                                                     <td>{{ $monthlyFeePayment->net_total}}</td>
+                                                                    <td>
+                                                                       
+                                                                    </td>
+
+                                                                </tr>
+                                                            @endforeach
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+
 
                                             </div>
                                         </div>
@@ -248,7 +290,148 @@
             </div>
 
 
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ $student->name }} Admission Payment Details</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+
+                            <div class="student-personals-grp">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p>Student Name: {{ $student->name }}</p>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Enrollment Date: {{ $admission->enrollment_date }}</p>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Payment Mode: {{ $paymentOption->payment_name }}</p>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <p>Gross Total: {{ $paymentOption->payment_name }}</p>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Discount Amount: {{ $paymentOption->payment_name }}</p>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Paid Amount: {{ $paymentOption->payment_name }}</p>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Net Total: {{ $paymentOption->payment_name }}</p>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Billing Status: Paid</p>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="student-personals-grp">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table invoice-tables">
+                                                <colgroup>
+                                                    <col style="width: 33.33%;">
+                                                    <col style="width: 33.33%;">
+                                                    <col style="width: 33.33%;">
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">ID</th>
+                                                        <th class="text-center">Particulars</th>
+                                                        <th class="text-center">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                        $counter = 1;
+                                                    $totalAmount = 0; @endphp
+                                                    @foreach ($admissionPaymentDetails as $admissionPaymentDetail)
+                                                        <tr>
+                                                            <td>{{ $counter }}</td>
+                                                            <td>{{ $admissionPaymentDetail->particulars }}</td>
+                                                            <td class="text-end">
+                                                                @if ($admissionPaymentDetail->amount !== null)
+                                                                    Rs. {{ $admissionPaymentDetail->amount }}
+                                                                @endif
+                                                            </td>
+
+                                                        </tr>
+                                                        @php
+                                                            $counter++;
+                                                        @endphp
+                                                    @endforeach
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
             @include('admin_layouts.footer2')
+
+            <script>
+                $(document).ready(function() {
+                    // Initialize DataTables with styling
+                    $('#table_data').DataTable({
+                        "paging": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "order": [
+                            [0, 'desc']
+                        ],
+                        "language": {
+                            "paginate": {
+                                "next": "Next",
+                                "previous": "Prev"
+                            }
+                        }
+                    });
+                });
+            </script>
 
             <style>
                 .right-bottom-corner {
