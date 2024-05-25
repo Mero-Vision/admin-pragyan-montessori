@@ -31,8 +31,8 @@
                         <div class="col-auto">
                             <ul class="breadcrumb invoices-breadcrumb">
                                 <li class="breadcrumb-item invoices-breadcrumb-item">
-                                    <a href="{{ url('admin/accounts/admission') }}">
-                                        <i class='bx bx-arrow-back'></i> Back to Admission List
+                                    <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}">
+                                        <i class='bx bx-arrow-back'></i> Back to Monthly Fees Payment
                                     </a>
                                 </li>
                             </ul>
@@ -58,54 +58,48 @@
                                             <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                                 <div class="form-group">
                                                     <label>Student Name</label>
-
-
-
                                                     <input class="form-control" type="text"
                                                         value="{{ $student->name }}" readonly>
-
-
-
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Admission ID</label>
+                                                    <label>Student Class</label>
                                                     <input class="form-control" type="text"
-                                                        value="{{ $student->admission_id }}" readonly>
+                                                        value="{{ $class->class_name }}" readonly>
+
+
                                                 </div>
                                             </div>
-                                            <div class="col-xl-8 col-md-6 col-sm-12 col-12">
-                                                <h4 class="invoice-details-title">Admission details</h4>
+
+                                            {{-- Last Payment History --}}
+                                            <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                                <h4 class="invoice-details-title">Monthly Payment History</h4>
                                                 <div class="invoice-details-box">
-                                                    <div class="invoice-inner-head">
-                                                        <span style="display: inline-flex; align-items: center;">
-                                                            Enrollment Date: <p style="margin: 0 0 0 10px; padding: 0;">
-                                                                {{ $englishDate }}</p>
-                                                        </span>
+                                                    @forelse ($monthlyPaymentHistories as $monthlyPaymentHistory)
+                                                    @empty
+                                                        <p class="text-center p-5">There is no recent payment history
+                                                        </p>
+                                                    @endforelse
+                                                </div>
+                                            </div>
 
-
-                                                    </div>
-                                                    <div class="invoice-inner-footer">
-                                                        <div class="row align-items-center">
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <div class="invoice-inner-date">
-                                                                    <span
-                                                                        style="display: inline-block; margin-right: 5px;">Student
-                                                                        Class:</span>
-                                                                    <span
-                                                                        style="display: inline-block;">{{ $class->class_name }}</span>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <div class="invoice-inner-date">
-                                                                    <span
-                                                                        style="display: inline-block; margin-right: 5px;">Billing
-                                                                        Status:</span>
-                                                                    <span style="display: inline-block;">Pending</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            {{-- Last Payment History --}}
+                                            <div class="col-xl-4 col-md-6 col-sm-12 col-12">
+                                                <h4 class="invoice-details-title">Select Payment Month</h4>
+                                                <div class="invoice-details-box">
+                                                    <select id="nepali_months" name="nepali_months" class="form-control select">
+                                                        <option value="1">Baishakh</option>
+                                                        <option value="2">Jestha</option>
+                                                        <option value="3">Ashadh</option>
+                                                        <option value="4">Shrawan</option>
+                                                        <option value="5">Bhadra</option>
+                                                        <option value="6">Ashwin</option>
+                                                        <option value="7">Kartik</option>
+                                                        <option value="8">Mangsir</option>
+                                                        <option value="9">Poush</option>
+                                                        <option value="10">Magh</option>
+                                                        <option value="11">Falgun</option>
+                                                        <option value="12">Chaitra</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -130,31 +124,31 @@
                                                     <tr>
                                                         <td>1</td>
                                                         <td>Monthly Fees</td>
-                                                        
+
                                                         <td>
                                                             <input class="form-control py-0 my-0 amount-input"
-                                                                value="{{$student->monthly_payment_amount}}"
+                                                                value="{{ $student->monthly_payment_amount }}"
                                                                 name="particulars[{{ $counter }}][particular_amount]">
                                                         </td>
                                                     </tr>
-                                                    @forelse ($admissionParticulars as $admissionParticular)
+                                                    @forelse ($monthlyParticulars as $monthlyParticular)
                                                         <tr>
                                                             <td>{{ $counter }}</td>
                                                             <td>
-                                                                <p>{{ $admissionParticular->particulars }}</p>
+                                                                <p>{{ $monthlyParticular->particulars }}</p>
                                                                 <input type="hidden"
-                                                                    value="{{ $admissionParticular->particulars }}"
+                                                                    value="{{ $monthlyParticular->particulars }}"
                                                                     name="particulars[{{ $counter }}][particular_name]" />
                                                             </td>
                                                             <td>
                                                                 <input class="form-control py-0 my-0 amount-input"
-                                                                    value="{{ $admissionParticular->amount }}"
+                                                                    value="{{ $monthlyParticular->amount }}"
                                                                     name="particulars[{{ $counter }}][particular_amount]">
                                                             </td>
                                                         </tr>
                                                         @php
                                                             $counter++;
-                                                        $totalAmount += $admissionParticular->amount; @endphp
+                                                        $totalAmount += $monthlyParticular->amount; @endphp
                                                     @empty
                                                         <tr>
                                                             <td colspan="3">No particulars found</td>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->nullable();
             $table->float('sub_total')->nullable();
             $table->float('discount_amount')->nullable();
+            $table->float('paid_amount')->nullable();
             $table->float('net_total')->nullable();
             $table->string('month')->nullable();
             $table->string('year')->nullable();
