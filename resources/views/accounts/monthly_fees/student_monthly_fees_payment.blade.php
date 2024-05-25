@@ -45,7 +45,7 @@
                     <div class="col-md-12">
                         <div class="card invoices-add-card">
                             <div class="card-body">
-                                <form action="{{ url('admin/accounts/admission/admission-payment') }}"
+                                <form action="{{ url('admin/accounts/student-monthly-fees-payments') }}"
                                     class="invoices-form" method=POST>
                                     @csrf
 
@@ -74,32 +74,48 @@
                                             <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                                 <h4 class="invoice-details-title">Monthly Payment History</h4>
                                                 <div class="invoice-details-box">
-                                                    @forelse ($monthlyPaymentHistories as $monthlyPaymentHistory)
-                                                    @empty
+                                                    @if ($monthlyPaymentHistories->isNotEmpty())
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Month</th>
+                                                                        <th>Paid Amount</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($monthlyPaymentHistories as $monthlyPaymentHistory)
+                                                                        <tr>
+                                                                            <td>{{ $monthlyPaymentHistory['month'] }}
+                                                                            </td>
+                                                                            <td>{{ $monthlyPaymentHistory['paid_amount'] }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    @else
                                                         <p class="text-center p-5">There is no recent payment history
                                                         </p>
-                                                    @endforelse
+                                                    @endif
                                                 </div>
                                             </div>
+
+
 
                                             {{-- Last Payment History --}}
                                             <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                                 <h4 class="invoice-details-title">Select Payment Month</h4>
                                                 <div class="invoice-details-box">
-                                                    <select id="nepali_months" name="nepali_months"
+                                                    <select id="nepali_months" name="nepali_month"
                                                         class="form-control select">
-                                                        <option value="1">Baishakh</option>
-                                                        <option value="2">Jestha</option>
-                                                        <option value="3">Ashadh</option>
-                                                        <option value="4">Shrawan</option>
-                                                        <option value="5">Bhadra</option>
-                                                        <option value="6">Ashwin</option>
-                                                        <option value="7">Kartik</option>
-                                                        <option value="8">Mangsir</option>
-                                                        <option value="9">Poush</option>
-                                                        <option value="10">Magh</option>
-                                                        <option value="11">Falgun</option>
-                                                        <option value="12">Chaitra</option>
+                                                        @foreach ($nepaliMonthMap as $monthNumber => $monthName)
+                                                            @unless (in_array($monthName, $paymentMonths))
+                                                                <option value="{{ $monthNumber }}">{{ $monthName }}
+                                                                </option>
+                                                            @endunless
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -129,7 +145,7 @@
                                                         <td>
                                                             <input class="form-control py-0 my-0 amount-input"
                                                                 value="{{ $student->monthly_payment_amount }}"
-                                                                name="particulars[{{ $counter }}][particular_amount]">
+                                                                name="monthly_fees" required>
                                                         </td>
                                                     </tr>
                                                     @forelse ($monthlyParticulars as $monthlyParticular)
@@ -143,6 +159,7 @@
                                                             </td>
                                                             <td>
                                                                 <input class="form-control py-0 my-0 amount-input"
+                                                                    type="number"
                                                                     value="{{ $monthlyParticular->amount }}"
                                                                     name="particulars[{{ $counter }}][particular_amount]">
                                                             </td>
@@ -276,7 +293,7 @@
                                                                 Discount Amount:
                                                             </p>
                                                             <input id="discount-input" class="form-control"
-                                                                type="text" style="height: 40px;"
+                                                                type="number" style="height: 40px;"
                                                                 name="discount_amount">
                                                         </div>
 
@@ -287,9 +304,12 @@
                                                                 Paid Amount:
                                                             </p>
                                                             <input id="paid-input" class="form-control"
-                                                                type="text" style="height: 40px;"
+                                                                type="number" style="height: 40px;"
                                                                 name="paid_amount">
                                                         </div>
+                                                        @error('paid_amount')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
 
                                                         <div class="links-info-discount mt-2"
                                                             style="display: flex; align-items: center;">
@@ -298,7 +318,7 @@
                                                                 Return Amount:
                                                             </p>
                                                             <input id="return-input" class="form-control"
-                                                                type="text" style="height: 40px; flex-grow: 1;"
+                                                                type="number" style="height: 40px; flex-grow: 1;"
                                                                 name="return_amount" readonly>
                                                         </div>
 

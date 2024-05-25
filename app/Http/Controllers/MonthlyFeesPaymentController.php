@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdmissionParticular;
 use App\Models\MonthlyFeePayment;
+use App\Models\MonthlyFeePaymentDetail;
 use App\Models\MonthlyFeesParticular;
 use App\Models\PaymentOption;
 use App\Models\SchoolClass;
@@ -16,16 +17,18 @@ use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
 class MonthlyFeesPaymentController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        
+
         $students = Student::join('school_classes', 'school_classes.id', '=', 'students.class_id')
-        ->select('students.*', 'school_classes.class_name')->get();
-        
-        return view('accounts.monthly_fees.student_monthly_fees',compact('students'));
+            ->select('students.*', 'school_classes.class_name')->get();
+
+        return view('accounts.monthly_fees.student_monthly_fees', compact('students'));
     }
 
-    public function studentMonthlyFeesPaymentIndex($id){
+    public function studentMonthlyFeesPaymentIndex($id)
+    {
 
         $student = Student::find($id);
         if (!$student) {
@@ -35,14 +38,39 @@ class MonthlyFeesPaymentController extends Controller
         $date = Carbon::today();
         $englishDate = NepaliDate::create(\Carbon\Carbon::now())->toFormattedBSDate();
 
-        $monthlyParticulars = MonthlyFeesParticular::orderBy('order_number')->where('class_id',$student->class_id)->get();
+        $monthlyParticulars = MonthlyFeesParticular::orderBy('order_number')->where('class_id', $student->class_id)->get();
 
         $paymentOptions = PaymentOption::get();
-        $monthlyPaymentHistories=MonthlyFeePayment::where('student_id',$student->id)->limit(5)->get();
-        
-        return view('accounts.monthly_fees.student_monthly_fees_payment', compact('class', 'student', 
-        'englishDate', 'monthlyParticulars', 'paymentOptions',
-            'monthlyPaymentHistories'));
+        $monthlyPaymentHistories = MonthlyFeePayment::where('student_id', $student->id)->latest()->limit(4)->get();
+
+        $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)->pluck('month')->toArray();
+
+        $nepaliMonthMap = [
+                1 => 'Baishakh',
+                2 => 'Jestha',
+                3 => 'Ashadh',
+                4 => 'Shrawan',
+                5 => 'Bhadra',
+                6 => 'Ashwin',
+                7 => 'Kartik',
+                8 => 'Mangsir',
+                9 => 'Poush',
+                10 => 'Magh',
+                11 => 'Falgun',
+                12 => 'Chaitra'
+         ];
+        // dd($paymentMonths);
+
+        return view('accounts.monthly_fees.student_monthly_fees_payment', compact(
+            'class',
+            'student',
+            'englishDate',
+            'monthlyParticulars',
+            'paymentOptions',
+            'monthlyPaymentHistories',
+            'paymentMonths',
+            'nepaliMonthMap'
+        ));
     }
 
     public function store(Request $request)
@@ -55,21 +83,25 @@ class MonthlyFeesPaymentController extends Controller
         // $currentNepaliMonth = $date['MM'];
 
         $nepaliMonthMap = [
-            'Baishakh' => 1,
-            'Jestha' => 2,
-            'Ashadh' => 3,
-            'Shrawan' => 4,
-            'Bhadra' => 5,
-            'Ashwin' => 6,
-            'Kartik' => 7,
-            'Mangsir' => 8,
-            'Poush' => 9,
-            'Magh' => 10,
-            'Falgun' => 11,
-            'Chaitra' => 12
+            1 => 'Baishakh',
+            2 => 'Jestha',
+            3 => 'Ashadh',
+            4 => 'Shrawan',
+            5 => 'Bhadra',
+            6 => 'Ashwin',
+            7 => 'Kartik',
+            8 => 'Mangsir',
+            9 => 'Poush',
+            10 => 'Magh',
+            11 => 'Falgun',
+            12 => 'Chaitra'
         ];
 
+
+
         $nepaliMonth = $nepaliMonthMap[$request->nepali_month];
+
+
 
         $existingPayment = MonthlyFeePayment::where('student_id', $request->student_id)
             ->where('month', $nepaliMonth)
@@ -79,40 +111,58 @@ class MonthlyFeesPaymentController extends Controller
             return back()->with('error', 'Payment for this month has already been completed.');
         }
 
-        $date = Carbon::today();
-        $nepaliDate = NepaliDate::create(\Carbon\Carbon::now())->toFormattedBSDate();
+        $validatedData = $request->validate([
+            'payment_option_id' => ['required'],
+            'monthly_fees' => ['required', 'numeric'],
+             'paid_amount'=>['required','numeric'],
+            'particulars.*' => 'required|array',
+            'particulars.*.particular_name' => 'nullable|string',
+            'particulars.*.particular_amount' => 'nullable|numeric',
+        ]);
 
-        try{
-            $monthlyPayment=DB::transaction(function()use($request,$nepaliMonth, $nepaliDate){
-                
-                $monthlyPayment=MonthlyFeePayment::create([
-                    'student_id'=>$request->student_id,
+
+        $date = Carbon::today();
+        $currentNepaliDate = NepaliDate::create(\Carbon\Carbon::now())->toFormattedBSDate();
+        // dd($currentNepaliDate);
+
+        try {
+            $monthlyPayment = DB::transaction(function () use ($request, $nepaliMonth, $currentNepaliDate, $validatedData) {
+
+                $monthlyPayment = MonthlyFeePayment::create([
+                    'student_id' => $request->student_id,
+                    'class_id' => $request->class_id,
                     'payment_option_id' => $request->payment_option_id,
                     'note' => $request->note,
                     'sub_total' => $request->sub_total,
                     'discount_amount' => $request->discount_amount,
+                    'paid_amount' => $request->paid_amount,
+                    'return_amount' => $request->return_amount,
                     'net_total' => $request->net_total,
-                    'month'=>$nepaliMonth,
-                    'year'=>Carbon::now()->year,
-                    'nepali_payment_date'=> $nepaliDate,
-                    'payment_date'=>Carbon::today(),
+                    'month' => $nepaliMonth,
+                    'year' => Carbon::now()->year,
+                    'nepali_payment_date' => $currentNepaliDate,
+                    'payment_date' => Carbon::today(),
                 ]);
 
-                
+                $monthlyPayment->monthlyFeePaymentDetail()->create([
+                    'monthly_fee_payment_id' => $monthlyPayment->id,
+                    'particulars' => "Monthly Fees",
+                    'amount' => $request->monthly_fees,
+                ]);
+
+                foreach ($validatedData['particulars'] as $particularsData) {
+                    $admissionPaymentDetail = new MonthlyFeePaymentDetail();
+                    $admissionPaymentDetail->monthly_fee_payment_id = $monthlyPayment->id;
+                    $admissionPaymentDetail->particulars = $particularsData['particular_name'];
+                    $admissionPaymentDetail->amount = $particularsData['particular_amount'];
+                    $admissionPaymentDetail->save();
+                }
             });
-            
-        }
-        catch(\Exception $e){
-            return back()->with('error',$e->getMessage());
-            
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
 
-        $monthlyFee = new MonthlyFees();
-        $monthlyFee->class_id = $request->class;
-        $monthlyFee->particulars = $request->particular_name;
-        $monthlyFee->amount = $request->amount;
-        $monthlyFee->month = $currentNepaliMonth;
-        $monthlyFee->save();
+
 
         return back()->with('success', 'Monthly fee added successfully.');
     }
