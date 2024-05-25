@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MonthlyFeesParticularCreateRequest;
 use App\Models\MonthlyFeePayment;
 use App\Models\MonthlyFeesParticular;
+use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,8 +14,10 @@ class MonthlyFeesParticularController extends Controller
     public function index()
     {
 
-        $monthlyFeesParticulars = MonthlyFeesParticular::get();
-        return view('accounts.monthly_fees.monthly_fees_particular.monthly_fees_particular', compact('monthlyFeesParticulars'));
+        $monthlyFeesParticulars = MonthlyFeesParticular::join('school_classes', 'school_classes.id','=', 'monthly_fees_particulars.class_id')
+        ->select('monthly_fees_particulars.*', 'school_classes.class_name')->get();
+        $classes = SchoolClass::latest()->get();
+        return view('accounts.monthly_fees.monthly_fees_particular.monthly_fees_particular', compact('monthlyFeesParticulars', 'classes'));
     }
 
     public function edit($id)
@@ -32,7 +35,7 @@ class MonthlyFeesParticularController extends Controller
             return back()->with('error', 'Admission Particular ID Not Found!');
         }
 
-        $existingOrderNumber = MonthlyFeesParticular::where('order_number', $request->order_number)->where('id',$id)->first();
+        $existingOrderNumber = MonthlyFeesParticular::where('order_number', $request->order_number)->where('id', $id)->first();
         if ($existingOrderNumber) {
             $existingOrderNumber->update([
                 'order_number' => null
@@ -44,7 +47,8 @@ class MonthlyFeesParticularController extends Controller
                     'particulars' => $request->particular_name,
                     'amount' => $request->amount,
                     'user' => auth()->user()->name,
-                    'order_number' => $request->order_number
+                    'order_number' => $request->order_number,
+                    'class_id' => $request->class
                 ]);
                 return $MonthlyFeesParticulars;
             });
@@ -66,6 +70,15 @@ class MonthlyFeesParticularController extends Controller
             ]);
         }
 
+        $existingClass = MonthlyFeesParticular::where('class_id', $request->class)
+            ->where('particulars', $request->particular_name)
+            ->exists();
+
+        if ($existingClass) {
+            return back()->with('error', 'This class already has this particular name.');
+        }
+
+
         try {
 
             $MonthlyFeesParticulars = DB::transaction(function () use ($request) {
@@ -73,7 +86,8 @@ class MonthlyFeesParticularController extends Controller
                     'particulars' => $request->particular_name,
                     'amount' => $request->amount,
                     'user' => auth()->user()->name,
-                    'order_number' => $request->order_number
+                    'order_number' => $request->order_number,
+                    'class_id' => $request->class
                 ]);
                 return $MonthlyFeesParticulars;
             });

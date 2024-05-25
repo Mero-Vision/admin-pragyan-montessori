@@ -14,7 +14,9 @@ class MonthlyFeesPaymentController extends Controller
 {
     public function index(){
 
-        $students = Student::latest()->get();
+        
+        $students = Student::join('school_classes', 'school_classes.id', '=', 'students.class_id')
+        ->select('students.*', 'school_classes.class_name')->get();
         
         return view('accounts.monthly_fees.student_monthly_fees',compact('students'));
     }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('monthly_fees_particulars', function (Blueprint $table) {
             $table->id();
             $table->string('user')->nullable();
+            $table->foreignId('class_id')->nullable();
             $table->string('particulars')->nullable();
             $table->float('amount')->nullable();
             $table->float('order_number')->nullable();

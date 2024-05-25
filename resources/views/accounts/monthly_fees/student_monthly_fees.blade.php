@@ -66,6 +66,7 @@
                                                 <th>ID</th>
                                                 <th>Student Name</th>
                                                 <th>Gender</th>
+                                                 <th>Class</th>
                                                 <th>Mobile No</th>
                                                 <th>Email</th>
 
@@ -80,6 +81,7 @@
                                                     <td>{{ $student->id }}</td>
                                                     <td>{{ $student->name }}</td>
                                                     <td>{{ $student->gender }}</td>
+                                                     <td>{{ $student->class_name }}</td>
                                                     <td>{{ $student->mobile_no }}</td>
                                                     <td>{{ $student->email }}</td>
                                                     <td>

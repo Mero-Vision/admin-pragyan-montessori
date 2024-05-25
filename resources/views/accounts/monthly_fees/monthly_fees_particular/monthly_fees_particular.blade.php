@@ -102,6 +102,21 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Class <span class="login-danger">*</span></label>
+                                               <select class="form-control select2" name="class">
+                                                    @foreach ($classes as $class)
+                                                        <option value="{{ $class->id }}">{{ $class->class_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('class')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
 
                                         <div class="col-12 mt-1">
                                             <div class="student-submit">
@@ -128,6 +143,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Particulars</th>
+                                                 <th>Class</th>
                                                 <th>Order Number</th>
                                                 <th>Amount</th>
                                                 <th>Created / Updated By</th>
@@ -139,6 +155,7 @@
                                                 <tr>
                                                     <td>{{ $monthlyFeesParticular->id }}</td>
                                                     <td>{{ $monthlyFeesParticular->particulars }}</td>
+                                                     <td>{{ $monthlyFeesParticular->class_name }}</td>
                                                     <td>{{ $monthlyFeesParticular->order_number }}</td>
                                                     <td>{{ isset($monthlyFeesParticular->amount) ? 'Rs. ' . $monthlyFeesParticular->amount : '' }}
                                                     </td>

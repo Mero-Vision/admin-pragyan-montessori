@@ -24,7 +24,8 @@ class MonthlyFeesParticularCreateRequest extends FormRequest
         return [
             'particular_name' => ['required', 'max:200', 'string'],
             'amount' => ['nullable', 'numeric'],
-            'order_number' => ['required', 'integer']
+            'order_number' => ['required', 'integer'],
+            'class'=>['required']
         ];
     }
 }
