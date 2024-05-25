@@ -55,12 +55,19 @@
             </div>
         </li> --}}
 
+         <li class="nav-item mt-2">
+            <iframe scrolling="no" border="0" frameborder="0" marginwidth="0" marginheight="0"
+                allowtransparency="true"
+                src="https://www.ashesh.com.np/linknepali-time.php?dwn=only&font_color=333333&font_size=14&bikram_sambat=0&api=731273n184"
+                width="120" height="23">
+            </iframe>
+        </li>
+
         <li class="nav-item zoom-screen me-2">
             <a href="#" class="nav-link header-nav-list win-maximize">
                 <img src="{{ url('assets/img/header-icon-04.svg') }}" alt>
             </a>
         </li>
-
         <li class="nav-item dropdown has-arrow new-user-menus">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <div class="user-img">

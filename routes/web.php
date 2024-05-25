@@ -139,6 +139,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
 
     Route::get('tools/calendar', [ToolsController::class, 'calendarIndex']);
+    Route::get('tools/nepali-date-converter', [ToolsController::class, 'nepaliDateConverter']);
     
     
 });

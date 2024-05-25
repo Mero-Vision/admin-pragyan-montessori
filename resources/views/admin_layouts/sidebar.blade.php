@@ -74,12 +74,9 @@
                             class="menu-arrow"></span></a>
                     <ul>
                        <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
+                        <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li>
                        
-                        {{-- <li><a href="expenses.html">Expenses</a></li>
-                        <li><a href="salary.html">Salary</a></li>
-                        <li><a href="add-fees-collection.html">Add Fees</a></li>
-                        <li><a href="add-expenses.html">Add Expenses</a></li>
-                        <li><a href="add-salary.html">Add Salary</a></li> --}}
+                       
                     </ul>
                 </li>
                  {{-- 
