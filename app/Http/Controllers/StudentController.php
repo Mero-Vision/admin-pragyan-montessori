@@ -16,6 +16,18 @@ class StudentController extends Controller
         return view('student.student');
     }
 
+    public function show($id){
+        
+        $student=Student::find($id);
+        if(!$student){
+            return back()->with('error','Student Detail Not Found!');
+        }
+
+        $class=SchoolClass::find($student->class_id);
+
+        return view('student.view_student',compact('student', 'class'));
+    }
+
     public function create()
     {
         $classes=SchoolClass::latest()->get();

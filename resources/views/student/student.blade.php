@@ -160,7 +160,7 @@
                                     row.id +
                                     ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
                                     row.id +
-                                    ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewTeacher(' +
+                                    ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewStudent(' +
                                     row.id + ')">View</button>';
                             }
                         }
@@ -228,8 +228,8 @@
         </script>
 
         <script>
-            function viewTeacher(id) {
-                var baseUrl = '{{ url('admin/teachers/view/') }}';
+            function viewStudent(id) {
+                var baseUrl = '{{ url('admin/students/view/') }}';
                 var url = baseUrl + '/' + id;
 
 
