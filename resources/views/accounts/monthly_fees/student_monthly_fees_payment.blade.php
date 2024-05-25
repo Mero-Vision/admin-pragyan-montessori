@@ -86,7 +86,8 @@
                                             <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                                 <h4 class="invoice-details-title">Select Payment Month</h4>
                                                 <div class="invoice-details-box">
-                                                    <select id="nepali_months" name="nepali_months" class="form-control select">
+                                                    <select id="nepali_months" name="nepali_months"
+                                                        class="form-control select">
                                                         <option value="1">Baishakh</option>
                                                         <option value="2">Jestha</option>
                                                         <option value="3">Ashadh</option>
@@ -271,13 +272,38 @@
                                                         <div class="links-info-discount"
                                                             style="display: flex; align-items: center;">
                                                             <p for="discount-input"
-                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px;">
-                                                                Discount:
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Discount Amount:
                                                             </p>
                                                             <input id="discount-input" class="form-control"
                                                                 type="text" style="height: 40px;"
                                                                 name="discount_amount">
                                                         </div>
+
+                                                        <div class="links-info-discount mt-2"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="paid-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Paid Amount:
+                                                            </p>
+                                                            <input id="paid-input" class="form-control"
+                                                                type="text" style="height: 40px;"
+                                                                name="paid_amount">
+                                                        </div>
+
+                                                        <div class="links-info-discount mt-2"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="discount-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Return Amount:
+                                                            </p>
+                                                            <input id="return-input" class="form-control"
+                                                                type="text" style="height: 40px; flex-grow: 1;"
+                                                                name="return_amount" readonly>
+                                                        </div>
+
+
+
 
                                                     </div>
                                                     <div class="invoice-total-footer">
@@ -347,6 +373,28 @@
                 padding: 0;
             }
         </style>
+
+        <script>
+            // Get the elements
+            const paidInput = document.getElementById('paid-input');
+            const returnInput = document.getElementById('return-input');
+            const netTotalInput = document.getElementById('total-amount-input');
+
+            // Add event listener to the paid input field
+            paidInput.addEventListener('input', function() {
+                // Get the paid amount
+                const paidAmount = parseFloat(this.value);
+
+                // Get the net total
+                const netTotal = parseFloat(netTotalInput.value);
+
+                // Calculate the return amount
+                const returnAmount = paidAmount > netTotal ? (paidAmount - netTotal) : 0;
+
+                // Update the return amount input field
+                returnInput.value = returnAmount.toFixed(2);
+            });
+        </script>
 
         <script>
             function updateSubTotalAmount() {

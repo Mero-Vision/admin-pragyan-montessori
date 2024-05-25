@@ -10,6 +10,7 @@ use App\Models\SchoolClass;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Pratiksh\Nepalidate\Facades\NepaliDate;
 use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
@@ -70,17 +71,42 @@ class MonthlyFeesPaymentController extends Controller
 
         $nepaliMonth = $nepaliMonthMap[$request->nepali_month];
 
-        // Check if the class already has the particular name for the current Nepali month
-        $existingClass = MonthlyFeesParticular::where('class_id', $request->class)
-            ->where('particulars', $request->particular_name)
+        $existingPayment = MonthlyFeePayment::where('student_id', $request->student_id)
             ->where('month', $nepaliMonth)
             ->exists();
 
-        if ($existingClass) {
-            return back()->with('error', 'This class already has this particular name for the current Nepali month.');
+        if ($existingPayment) {
+            return back()->with('error', 'Payment for this month has already been completed.');
         }
 
-        // Proceed to store the fees information
+        $date = Carbon::today();
+        $nepaliDate = NepaliDate::create(\Carbon\Carbon::now())->toFormattedBSDate();
+
+        try{
+            $monthlyPayment=DB::transaction(function()use($request,$nepaliMonth, $nepaliDate){
+                
+                $monthlyPayment=MonthlyFeePayment::create([
+                    'student_id'=>$request->student_id,
+                    'payment_option_id' => $request->payment_option_id,
+                    'note' => $request->note,
+                    'sub_total' => $request->sub_total,
+                    'discount_amount' => $request->discount_amount,
+                    'net_total' => $request->net_total,
+                    'month'=>$nepaliMonth,
+                    'year'=>Carbon::now()->year,
+                    'nepali_payment_date'=> $nepaliDate,
+                    'payment_date'=>Carbon::today(),
+                ]);
+
+                
+            });
+            
+        }
+        catch(\Exception $e){
+            return back()->with('error',$e->getMessage());
+            
+        }
+
         $monthlyFee = new MonthlyFees();
         $monthlyFee->class_id = $request->class;
         $monthlyFee->particulars = $request->particular_name;
