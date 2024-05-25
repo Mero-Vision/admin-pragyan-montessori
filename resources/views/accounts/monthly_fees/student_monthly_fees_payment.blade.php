@@ -88,7 +88,7 @@
                                                                         <tr>
                                                                             <td>{{ $monthlyPaymentHistory['month'] }}
                                                                             </td>
-                                                                            <td>{{ $monthlyPaymentHistory['paid_amount'] }}
+                                                                            <td>Rs. {{ $monthlyPaymentHistory['paid_amount'] }}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
