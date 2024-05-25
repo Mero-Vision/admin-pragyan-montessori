@@ -68,6 +68,20 @@
                         <li><a href="add-salary.html">Add Salary</a></li> --}}
                     </ul>
                 </li>
+
+                <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
+                    <a href="#"><i class="feather-box"></i> <span> Tools</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                       <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
+                       
+                        {{-- <li><a href="expenses.html">Expenses</a></li>
+                        <li><a href="salary.html">Salary</a></li>
+                        <li><a href="add-fees-collection.html">Add Fees</a></li>
+                        <li><a href="add-expenses.html">Add Expenses</a></li>
+                        <li><a href="add-salary.html">Add Salary</a></li> --}}
+                    </ul>
+                </li>
                  {{-- 
                 <li class="submenu">
                     <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span

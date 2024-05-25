@@ -22,6 +22,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ToolsController;
 use App\Http\Controllers\UserController;
 use App\Models\ContactUs;
 use Illuminate\Support\Facades\Route;
@@ -136,8 +137,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('accounts/student-monthly-fees-payments', [MonthlyFeesPaymentController::class, 'store']);
     Route::get('accounts/student-monthly-fees-payments/{id}', [MonthlyFeesPaymentController::class, 'studentMonthlyFeesPaymentIndex']);
 
-    
-    
+
+    Route::get('tools/calendar', [ToolsController::class, 'calendarIndex']);
     
     
 });
