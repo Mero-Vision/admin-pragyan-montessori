@@ -245,6 +245,7 @@
                                                                 <th>Discount Amount</th>
                                                                 <th>Paid Amount</th>
                                                                 <th>Return Amount</th>
+                                                                <th>Credit</th>
                                                                 <th>Net Total</th>
                                                                 <th>Action</th>
                                                             </tr>
@@ -260,6 +261,7 @@
                                                                     <td>{{ $monthlyFeePayment->discount_amount }}</td>
                                                                     <td>{{ $monthlyFeePayment->paid_amount }}</td>
                                                                     <td>{{ $monthlyFeePayment->return_amount }}</td>
+                                                                    <td>{{ $monthlyFeePayment->credit_amount }}</td>
                                                                     <td>{{ $monthlyFeePayment->net_total }}</td>
                                                                     <td>
 
