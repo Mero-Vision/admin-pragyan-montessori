@@ -28,8 +28,8 @@ class AdmissionController extends Controller
 
     public function store(StudentCreateRequest $request)
     {
-        $latestStudent = Student::latest()->first();
-        $lastAdj = $latestStudent ? (int)Str::after($latestStudent->admission_id, '-') : 0;
+        $latestStudent = Student::where('class_id',$request->class)->latest()->first();
+        $lastAdj = $latestStudent ? (int)$latestStudent->roll_number : 0; // Assume admission_id is numeric
         $adjNumber = $lastAdj + 1;
 
         try {
@@ -46,11 +46,20 @@ class AdmissionController extends Controller
                     'address' => $request->address,
                     'class_id' => $request->class,
                     'monthly_payment_amount'=>$request->monthly_payment_amount,
-                    'roll_number' => $request->roll_number,
+                    'roll_number' => $adjNumber,
                     'admission_id' => Str::uuid(),
+                    'guardian_name'=>$request->guardian_name,
+                    'guardian_occupation' => $request->guardian_occupation,
+                    'previous_school' => $request->previous_school,
+                    'blood_group' => $request->blood_group,
+                    'disease_if_any' => $request->disease_if_any,
                     'admission_date' => $request->admission_date
 
                 ]);
+
+                if($request->profile_image){
+                    $student->addMedia($request->profile_image)->toMediaCollection('student_profile_image');
+                }
 
                
 

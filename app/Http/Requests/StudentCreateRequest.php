@@ -30,9 +30,10 @@ class StudentCreateRequest extends FormRequest
             'mobile_no' => ['required', 'numeric', Rule::unique('students', 'mobile_no')],
             'address' => ['required'],
             'class'=>['required'],
-            'roll_number' => ['required'],
             'monthly_payment_amount'=>['required'],
-            'admission_date'=>['required']
+            'admission_date'=>['required'],
+            'guardian_name'=>['required','max:100','string'],
+            'profile_image'=>['nullable','image','max:2024']
         
         ];
     }

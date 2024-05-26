@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('mobile_no')->nullable();
             $table->string('address')->nullable();
+            $table->string('previous_school')->nullable();
+            $table->string('blood_group')->nullable();
+            $table->string('disease_if_any')->nullable();
+            $table->string('guardian_name')->nullable();
+            $table->string('guardian_occupation')->nullable();
             $table->float('monthly_payment_amount')->nullable();
             $table->uuid('admission_id');
             $table->string('admission_date')->nullable();

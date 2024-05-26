@@ -31,7 +31,10 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Students Admission</h3>
+                            <h3 class="page-title"
+                                style="font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 600; line-height: 20px; color: rgb(34, 34, 34); text-align: center;">
+                                Students Admission Form
+                            </h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('admin/students') }}">Students</a></li>
                                 <li class="breadcrumb-item active">Students Admission</li>
@@ -65,13 +68,20 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-                                        <div class="col-12">
-                                            <h5 class="form-title"><span>Student Details</span></h5>
-                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <h6 class="w-100" style="border-bottom:1px solid #999;">
+                                                <div class="bg-gradient-dark m-white badge bg-dark"
+                                                    style="width:20px;height:20px;border-radius:10px;display:inline-block;padding-top:3px;padding-left:7px;">
+                                                    1</div> Student Information <span style="font-size:12px;"
+                                                    class="f-right"></span>
+                                            </h6>
 
+                                        </div>
+                                        <br>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Student Name <span class="login-danger">*</span></label>
+                                                <label class="text-dark">Student Name <span
+                                                        class="login-danger">*</span></label>
                                                 <input type="text" class="form-control" name="name"
                                                     placeholder="Enter Student Name">
                                                 @error('name')
@@ -81,69 +91,34 @@
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Gender <span class="login-danger">*</span></label>
+                                                <label class="text-dark">Gender <span
+                                                        class="login-danger">*</span></label>
                                                 <select class="form-control select2" name="gender">
-                                                    <option>Male</option>
-                                                    <option>Female</option>
-                                                    <option>Others</option>
+                                                     <option value="">Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
                                                 </select>
+                                                 @error('gender')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
 
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms ">
-                                                <label>Date Of Birth <span class="login-danger">*</span></label>
+                                                <label class="text-dark">Date Of Birth <span
+                                                        class="login-danger">*</span></label>
                                                 <input class="form-control" type="date" name="dob">
                                                 @error('dob')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Guardian Email <span class="login-danger">*</span></label>
-                                                <input type="text" class="form-control" name="email"
-                                                    placeholder="Enter Email">
-                                                @error('email')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Guardian Mobile <span class="login-danger">*</span></label>
-                                                <input type="number" class="form-control" placeholder="Enter Phone"
-                                                    name="mobile_no">
-                                                @error('mobile_no')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Address <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="text" name="address"
-                                                    placeholder="Enter Address">
-                                                @error('address')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
 
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Roll number <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="number" name="roll_number"
-                                                    placeholder="Enter Roll Number">
-                                                @error('roll_number')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-4">
-                                            <div class="form-group local-forms">
-                                                <label>Select Class <span class="login-danger">*</span></label>
+                                                <label class="text-dark">Select Class <span
+                                                        class="login-danger">*</span></label>
                                                 <select class="form-control select2" name="class">
                                                     @foreach ($classes as $class)
                                                         <option value="{{ $class->id }}">{{ $class->class_name }}
@@ -156,10 +131,11 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-12 col-sm-4">
+                                        <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Monthly Payment Amount <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="number"  name="monthly_payment_amount"
+                                                <label class="text-dark">Monthly Payment Amount <span
+                                                        class="login-danger">*</span></label>
+                                                <input class="form-control" type="number" name="monthly_payment_amount"
                                                     placeholder="Enter Monthly Payment Amount">
                                                 @error('monthly_payment_amount')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -169,9 +145,137 @@
 
                                         <div class="col-12 col-sm-4">
                                             <div class="form-group local-forms">
-                                                <label>Admission Date <span class="login-danger">*</span></label>
-                                                <input class="form-control" type="text" id="nepali-datepicker" name="admission_date"
-                                                    placeholder="Select Nepali Date">
+                                                <label class="text-dark">Blood Group </label>
+                                                <select class="form-control select2" name="blood_group">
+                                                    <option value="">Blood Group</option>
+                                                    <option value="A+">A+</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="O+">O+</option>
+                                                    <option value="O-">O-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="AB-">AB-</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Disease If Any? </label>
+                                                <input class="form-control" type="text" name="disease_if_any"
+                                                    placeholder="Enter Disease Name If Any?">
+                                                @error('disease_if_any')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Profile Image </label>
+                                                <input class="form-control" type="file" name="profile_image">
+                                                @error('profile_image')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <h6 class="w-100" style="border-bottom:1px solid #999;">
+                                                <div class="bg-gradient-dark m-white badge bg-dark"
+                                                    style="width:20px;height:20px;border-radius:10px;display:inline-block;padding-top:3px;padding-left:7px;">
+                                                    2</div> Guardian Information <span style="font-size:12px;"
+                                                    class="f-right"></span>
+                                            </h6>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Guardian Name <span class="login-danger">*</span></label>
+                                                <input type="text" class="form-control" name="guardian_name"
+                                                    placeholder="Enter Guardian Name">
+                                                @error('guardian_name')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Guardian Email <span class="login-danger">*</span></label>
+                                                <input type="email" class="form-control" name="email"
+                                                    placeholder="Enter Email">
+                                                @error('email')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Guardian Mobile <span class="login-danger">*</span></label>
+                                                <input type="number" class="form-control" placeholder="Enter Phone"
+                                                    name="mobile_no">
+                                                @error('mobile_no')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Guardian Occupation </label>
+                                                <input type="text" class="form-control" name="guardian_occupation"
+                                                    placeholder="Enter Guardiuan Occupation">
+                                                @error('guardian_occupation')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <h6 class="w-100" style="border-bottom:1px solid #999;">
+                                                <div class="bg-gradient-dark m-white badge bg-dark"
+                                                    style="width:20px;height:20px;border-radius:10px;display:inline-block;padding-top:3px;padding-left:7px;">
+                                                    3</div> Other Information <span style="font-size:12px;"
+                                                    class="f-right"></span>
+                                            </h6>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Home Address <span class="login-danger">*</span></label>
+                                                <input class="form-control" type="text" name="address"
+                                                    placeholder="Enter Home Address">
+                                                @error('address')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Previous School </label>
+                                                <input class="form-control" type="text"
+                                                    name="previous_school"
+                                                    placeholder="Enter Previous School Name">
+                                                @error('previous_school')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label class="text-dark">Admission Date <span class="login-danger">*</span></label>
+                                                <input class="form-control" type="text" id="nepali-datepicker"
+                                                    name="admission_date" placeholder="Select Nepali Date">
                                                 @error('admission_date')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -179,9 +283,17 @@
                                         </div>
 
                                         <div class="col-12 mt-4">
-                                            <div class="student-submit">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            <div class="student-submit" style="display: flex; gap: 10px;">
+                                                <button type="reset" class="btn btn-primary"
+                                                    style="display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; color: white;">
+                                                    <i class='bx bx-reset bx-sm' style="margin-right: 5px;"></i> Reset
+                                                </button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    style="display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; color: white;">
+                                                    <i class='bx bx-check bx-sm' style="margin-right: 5px;"></i> Submit
+                                                </button>
                                             </div>
+
                                         </div>
                                     </div>
                                 </form>

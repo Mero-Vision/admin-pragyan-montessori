@@ -32,7 +32,7 @@
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{url('admin/students')}}" class="{{ request()->is('admin/students') ? 'active' : '' }}">Student List</a></li>
-                         {{-- <li><a href="{{url('admin/students/add')}}" class="{{ request()->is('admin/students/add') ? 'active' : '' }}">Add Student</a></li> --}}
+                         <li><a href="{{url('admin/students/add')}}" class="{{ request()->is('admin/students/add') ? 'active' : '' }}">Add Student</a></li>
                        
                     </ul>
                 </li>
@@ -66,6 +66,50 @@
                         <li><a href="add-fees-collection.html">Add Fees</a></li>
                         <li><a href="add-expenses.html">Add Expenses</a></li>
                         <li><a href="add-salary.html">Add Salary</a></li> --}}
+                    </ul>
+                </li>
+
+                <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
+                    <a href="#"><i class="feather-box"></i> <span> Day Book</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                       <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
+                        <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li>
+                       
+                       
+                    </ul>
+                </li>
+
+                 <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
+                    <a href="#"><i class="feather-box"></i> <span> Staff Management</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                       <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
+                        <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li>
+                       
+                       
+                    </ul>
+                </li>
+
+                <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
+                    <a href="#"><i class="feather-box"></i> <span> Reports</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                       <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
+                        <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li>
+                       
+                       
+                    </ul>
+                </li>
+
+                 <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
+                    <a href="#"><i class="feather-box"></i> <span> Graph Reports</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul>
+                       <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
+                        <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li>
+                       
+                       
                     </ul>
                 </li>
 
