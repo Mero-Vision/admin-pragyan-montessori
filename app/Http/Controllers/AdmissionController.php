@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentCreateRequest;
+use App\Mail\UserVerificationMail;
 use App\Models\Admission;
 use App\Models\SchoolClass;
 use App\Models\Student;
 use App\Models\StudentDueAmount;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AdmissionController extends Controller
@@ -43,7 +47,6 @@ class AdmissionController extends Controller
                     'gender' => $request->gender,
                     'mobile_no' => $request->mobile_no,
                     'address' => $request->address,
-                    'address' => $request->address,
                     'class_id' => $request->class,
                     'monthly_payment_amount'=>$request->monthly_payment_amount,
                     'roll_number' => $adjNumber,
@@ -60,6 +63,27 @@ class AdmissionController extends Controller
                 if($request->profile_image){
                     $student->addMedia($request->profile_image)->toMediaCollection('student_profile_image');
                 }
+
+                $user = User::create([
+                    'name' => $request->name,
+                    'dob' => $request->dob,
+                    'email' => $request->email,
+                    'gender' => $request->gender,
+                    'password' => Hash::make('4546567'),
+                    'address' => $request->address,
+                    'mobile_no' => $request->mobile_no,
+                    'role' => 'student',
+                ]);
+
+                $token = Str::random(60);
+
+                DB::table('password_resets')->insert([
+                    'email' => $user->email,
+                    'token' => $token,
+                    'created_at' => now(),
+                ]);
+
+                Mail::to($request->email)->send(new UserVerificationMail($user, $token));
 
                
 
