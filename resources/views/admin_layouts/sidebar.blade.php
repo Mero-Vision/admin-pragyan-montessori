@@ -32,7 +32,7 @@
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{url('admin/students')}}" class="{{ request()->is('admin/students') ? 'active' : '' }}">Student List</a></li>
-                         <li><a href="{{url('admin/students/add')}}" class="{{ request()->is('admin/students/add') ? 'active' : '' }}">Add Student</a></li>
+                         <li><a href="{{url('admin/students/add')}}" class="{{ request()->is('admin/students/add') ? 'active' : '' }}">Add New Student</a></li>
                        
                     </ul>
                 </li>

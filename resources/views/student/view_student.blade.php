@@ -13,6 +13,25 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 @livewireStyles()
 
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        .container,
+        .container * {
+            visibility: visible;
+        }
+
+        .container {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+
 <body>
 
     <div class="main-wrapper">
@@ -97,6 +116,9 @@
                                                 {{-- <button type="submit" class="btn btn-info follow-btns">Follow</button> --}}
                                                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#myModal">View Admission Details</button>
+
+                                                <button type="submit" class="btn btn-primary mx-2"
+                                                    data-bs-toggle="modal" data-bs-target="#idCard">ID Card</button>
                                             </div>
                                         </div>
 
@@ -486,6 +508,81 @@
             </div>
 
 
+            <!-- The ID Card Modal -->
+            <div class="modal" id="idCard">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ $student->name }} ID Card</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="padding">
+                                    <div class="font">
+                                        <div class="companyname">Pragyan Montessori<br><span class="tab">&
+                                                Childcare, PMC </span></div>
+                                        <div class="top">
+                                            <?php
+                                            // Get the URL of the image from the media library
+                                            $imageURL = $student->getFirstMediaUrl('student_profile_image');
+                                            if (!$imageURL) {
+                                                // If no image found in the media library, use a placeholder or default image
+                                                $imageURL = url('assets/img/placeholder.jpg');
+                                            }
+                                            ?>
+                                            <img src="{{ $imageURL }}" alt="Profile Image">
+                                        </div>
+                                        <div class="">
+                                            <div class="ename">
+                                                <p class="p1"><b>{{ $student->name }}</b></p>
+
+                                            </div>
+                                            <div class="edetails">
+                                                <P class="mb-0"><b>Mobile No :</b> {{ $student->mobile_no }}</P>
+                                                <p class="mb-0"><b>DOB :</b> {{ $student->dob }}</p>
+                                                <div class="Address2 mt-0"><b>Address:</b> {{ $student->address }}
+                                                </div>
+
+                                            </div>
+
+                                            {{-- <div class="signature">
+                                                <img src="{{url('assets/img/qr.png')}}" alt="">
+                                            </div> --}}
+
+                                            <div class="barcode">
+                                                <img src="{{ url('assets/img/qr.png') }}" alt="">
+                                            </div>
+                                            <div class="qr">
+                                                <img src="{{ url('assets/img/barcode.gif') }}" alt="">
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button onclick="printContainer()" class="btn btn-primary">Print</button>
+                            <button onclick="generatePDF()" class="btn btn-primary">Generate PDF</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
 
             @include('admin_layouts.footer2')
 
@@ -523,6 +620,135 @@
                 }
             </style>
 
+
+            {{-- ID Card Style --}}
+            <style>
+                * {
+                    margin: 00px;
+                    padding: 00px;
+
+                }
+
+
+                .container {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    flex-wrap: wrap;
+                    box-sizing: border-box;
+                    flex-direction: row;
+
+
+
+                }
+
+                .font {
+
+                    height: 375px;
+                    width: 225px;
+                    position: relative;
+                    border-radius: 10px;
+                    background-image: url('{{ asset('assets/img/ecardbgfinal.png') }}');
+                    ;
+                    background-size: 225px 375px;
+                    background-repeat: no-repeat;
+                }
+
+                .companyname {
+                    color: White;
+
+                    padding: 10px;
+                    font-size: 14px;
+                }
+
+                .tab {
+                    padding-right: 30px;
+                }
+
+                .top img {
+                    height: 90px;
+                    width: 90px;
+                    background-color: #e6ebe0;
+                    border-radius: 57px;
+                    position: absolute;
+                    top: 60px;
+                    left: 102px;
+                    object-fit: content;
+                    border: 3px solid rgba(255, 255, 255, .2);
+
+                }
+
+                .ename {
+                    position: absolute;
+                    top: 160px;
+                    left: 90px;
+                    color: white;
+                    font-size: 16px;
+                }
+
+                .edetails {
+                    position: absolute;
+                    top: 212px;
+                    text-transform: capitalize;
+                    font-size: 11px;
+                    text-emphasis: spacing;
+                    margin-left: 5px;
+                }
+
+                .signature {
+                    position: absolute;
+                    top: 75%;
+                    height: 80px;
+                    width: 160px;
+                }
+
+                .signature img {
+
+                    height: 40px;
+                    width: 100px;
+                    margin: 15px 00px 00px 5px;
+                    border-radius: 7px;
+
+                }
+
+
+                .barcode img {
+                    height: 65px;
+                    width: 65px;
+                    text-align: center;
+                    margin: 5px;
+
+                }
+
+                .barcode {
+                    text-align: center;
+                    position: absolute;
+                    top: 62.5%;
+                    left: 135px;
+                }
+
+
+                .qr img {
+                    position: absolute;
+                    top: 85%;
+                    left: 32%;
+                    height: 30px;
+                    width: 120px;
+                    margin: 20px;
+                    background-color: white;
+
+                }
+
+                .edetails .Address2 {
+
+                    width: 70%;
+                    text-align: justify;
+                }
+            </style>
+
+
+
         </div>
 
         <script src="{{ url('assets/js/moment.min.js') }}"></script>
@@ -536,6 +762,36 @@
         <script src="{{ url('assets/js/apexcharts.min.js') }}"></script>
         <script src="{{ url('assets/js/chart-data.js') }}"></script>
         @livewireScripts()
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+        <script>
+            function printContainer() {
+                window.print();
+            }
+
+            function generatePDF() {
+                const container = document.querySelector('.container');
+
+                // Convert images to Data URIs to embed them directly into the HTML
+                const images = container.querySelectorAll('img');
+                images.forEach(img => {
+                    const imageUrl = img.getAttribute('src');
+                    fetch(imageUrl)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            const reader = new FileReader();
+                            reader.onloadend = function() {
+                                const base64data = reader.result;
+                                img.src = base64data;
+                            };
+                            reader.readAsDataURL(blob);
+                        });
+                });
+
+                // Generate PDF
+                html2pdf().from(container).save();
+            }
+        </script>
 
 </body>
 
