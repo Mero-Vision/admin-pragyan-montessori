@@ -9,6 +9,7 @@ use App\Models\MonthlyFeePayment;
 use App\Models\PaymentOption;
 use App\Models\SchoolClass;
 use App\Models\Student;
+use App\Models\StudentDueAmount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -32,8 +33,12 @@ class StudentController extends Controller
         $paymentOption = PaymentOption::find($admission->payment_option_id);
         $admissionPaymentDetails = AdmissionPaymentDetail::where('admission_payment_id', $admission->id)->get();
         $monthlyFeePayments=MonthlyFeePayment::where('student_id',$student->id)->get();
+        $studentDueAmount=StudentDueAmount::find($student->id);
+        $paymentOptions = PaymentOption::get();
 
-        return view('student.view_student',compact('student', 'class', 'admission', 'paymentOption', 'admissionPaymentDetails', 'monthlyFeePayments'));
+        return view('student.view_student',compact('student', 'class', 'admission', 'paymentOption',
+         'admissionPaymentDetails', 'monthlyFeePayments', 'studentDueAmount',
+            'paymentOptions'));
     }
 
     public function create()

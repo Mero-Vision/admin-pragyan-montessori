@@ -11,6 +11,7 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+@livewireStyles()
 
 <body>
 
@@ -216,19 +217,15 @@
                                         <div class="card mb-0">
                                             <div class="card-body">
                                                 <div class="heading-detail">
-                                                    <h4>Due Amount:</h4>
+                                                    <h4>Due Amount: {{ $studentDueAmount->due_amount ?? 0 }}</h4>
                                                 </div>
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#creditPayment">Pay Due</button>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
-
 
                                 <div class="col-lg-9">
                                     <div class="student-personals-grp">
@@ -256,15 +253,16 @@
                                                             @foreach ($monthlyFeePayments as $monthlyFeePayment)
                                                                 <tr>
                                                                     <td>{{ $monthlyFeePayment->id }}</td>
-                                                                    <td>{{ $monthlyFeePayment->nepali_payment_date }}</td>
+                                                                    <td>{{ $monthlyFeePayment->nepali_payment_date }}
+                                                                    </td>
                                                                     <td>{{ $monthlyFeePayment->month }}</td>
                                                                     <td>{{ $monthlyFeePayment->sub_total }}</td>
                                                                     <td>{{ $monthlyFeePayment->discount_amount }}</td>
-                                                                     <td>{{ $monthlyFeePayment->paid_amount }}</td>
+                                                                    <td>{{ $monthlyFeePayment->paid_amount }}</td>
                                                                     <td>{{ $monthlyFeePayment->return_amount }}</td>
-                                                                     <td>{{ $monthlyFeePayment->net_total}}</td>
+                                                                    <td>{{ $monthlyFeePayment->net_total }}</td>
                                                                     <td>
-                                                                       
+
                                                                     </td>
 
                                                                 </tr>
@@ -289,6 +287,78 @@
                 </div>
             </div>
 
+
+
+
+            <!-- The Modal -->
+            <div class="modal fade" id="creditPayment">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">PAY DUE</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+
+                            @livewire('credit-payment-form', ['studentId' =>$student->id])
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <style>
+                .modal-header {
+
+                    text-align: center;
+                }
+
+
+
+                .payment-option input[type="radio"] {
+                    display: none;
+                }
+
+                .payment-option label {
+                    display: block;
+                    padding: 15px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #fff;
+                    cursor: pointer;
+                    transition: background-color 0.3s, box-shadow 0.3s;
+                }
+
+                .payment-option input[type="radio"]:checked+label {
+                    background-color: #4CAF50;
+                    color: white;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                    border-color: #4CAF50;
+                }
+
+                /* button {
+                    width: 100%;
+                    margin-top: 20px;
+                    padding: 10px 15px;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: #4CAF50;
+                    color: white;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+
+                button:hover {
+                    background-color: #45a049;
+                } */
+            </style>
 
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
@@ -457,7 +527,7 @@
         <script src="{{ url('assets/js/filepond.js') }}"></script>
         <script src="{{ url('assets/js/apexcharts.min.js') }}"></script>
         <script src="{{ url('assets/js/chart-data.js') }}"></script>
-
+        @livewireScripts()
 
 </body>
 
