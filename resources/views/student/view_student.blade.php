@@ -73,8 +73,14 @@
                                         <div class="col-lg-4 col-md-4">
                                             <div class="profile-user-box">
                                                 <div class="profile-user-img">
-                                                    <img src="{{ Avatar::create($student->name)->toBase64() }}"
-                                                        alt="Profile">
+                                                    @if ($student->getFirstMediaUrl('student_profile_image'))
+                                                        <img src="{{ $student->getFirstMediaUrl('student_profile_image') }}"
+                                                            alt="Profile Image">
+                                                    @else
+                                                        <img src="{{ Avatar::create($student->name)->toBase64() }}"
+                                                            alt="Profile">
+                                                    @endif
+
                                                 </div>
                                                 <div class="names-profiles">
                                                     <h4>{{ $student->name }}</h4>

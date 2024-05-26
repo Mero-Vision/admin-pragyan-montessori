@@ -156,11 +156,7 @@
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
-                                    row.id +
-                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
-                                    row.id +
-                                    ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewStudent(' +
+                                return '<button class="btn btn-success btn-sm" onclick="viewStudent(' +
                                     row.id + ')">View</button>';
                             }
                         }

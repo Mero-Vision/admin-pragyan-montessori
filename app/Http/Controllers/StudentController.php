@@ -23,7 +23,7 @@ class StudentController extends Controller
 
     public function show($id){
         
-        $student=Student::find($id);
+        $student=Student::with('media')->find($id);
         if(!$student){
             return back()->with('error','Student Detail Not Found!');
         }
