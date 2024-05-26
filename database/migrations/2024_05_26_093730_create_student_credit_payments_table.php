@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->nullable();
             $table->foreignId('payment_option_id')->nullable();
-            $table->float('paid_amount')->nullable();
+            $table->float('credit_amount')->nullable();
             $table->string('user')->nullable();
             $table->timestamps();
         });

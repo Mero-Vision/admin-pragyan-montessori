@@ -31,9 +31,9 @@
 
             <div class="col-md-6"
                 style="background-color: #e3f2fd; border-radius: 10px; padding: 20px; font-family: 'Arial', sans-serif; font-size: 14px;">
-                <p>Paid Amount: Rs. {{ $creditPayment }}</p>
+                <p wire:poll.15000ms>Paid Amount: Rs. {{ $creditPayment }}</p>
                 <hr style="border: 1px solid #bbb;">
-                <p>Due Amount: Rs. {{ $dueAmount }}</p>
+                <p wire:poll.15000ms>Due Amount: Rs. {{ $dueAmount }}</p>
             </div>
 
 

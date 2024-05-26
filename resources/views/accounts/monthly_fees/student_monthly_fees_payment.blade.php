@@ -88,7 +88,8 @@
                                                                         <tr>
                                                                             <td>{{ $monthlyPaymentHistory['month'] }}
                                                                             </td>
-                                                                            <td>Rs. {{ $monthlyPaymentHistory['paid_amount'] }}
+                                                                            <td>Rs.
+                                                                                {{ $monthlyPaymentHistory['paid_amount'] }}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -323,9 +324,27 @@
                                                         </div>
 
 
+                                                        <div class="links-info-discount mt-2" id="credit-amount-field"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="discount-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Credit:
+                                                            </p>
+                                                            <input type="number" id="credit-amount"
+                                                                class="form-control"
+                                                                style="height: 40px; flex-grow: 1;"
+                                                                name="credit_amount" readonly>
+                                                        </div>
+
+
+
+
 
 
                                                     </div>
+
+
+
                                                     <div class="invoice-total-footer">
                                                         <h5 style="font-family: Arial, sans-serif; font-size: 16px;">
                                                             Total Amount: <span id="total-amount"
@@ -393,6 +412,28 @@
                 padding: 0;
             }
         </style>
+
+        <script>
+            // Get references to the elements
+            var paidInput = document.getElementById("paid-input");
+            var creditAmountField = document.getElementById("credit-amount");
+
+            // Add an input event listener to the paid input field
+            paidInput.addEventListener("input", function() {
+                var paidAmount = parseFloat(paidInput.value);
+                var totalAmount = parseFloat(document.getElementById("total-amount-input").value);
+
+                // Calculate the credit amount
+                var creditAmount = totalAmount - paidAmount;
+
+                if (paidAmount >= totalAmount) {
+                    creditAmount = 0;
+                }
+                creditAmountField.value = creditAmount.toFixed(2);
+
+
+            });
+        </script>
 
         <script>
             // Get the elements

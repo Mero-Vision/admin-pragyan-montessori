@@ -6,6 +6,7 @@ use App\Http\Requests\StudentCreateRequest;
 use App\Models\Admission;
 use App\Models\SchoolClass;
 use App\Models\Student;
+use App\Models\StudentDueAmount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -50,6 +51,8 @@ class AdmissionController extends Controller
                     'admission_date' => $request->admission_date
 
                 ]);
+
+               
 
                 return $student;
             });

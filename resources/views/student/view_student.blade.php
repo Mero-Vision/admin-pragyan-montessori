@@ -217,7 +217,7 @@
                                         <div class="card mb-0">
                                             <div class="card-body">
                                                 <div class="heading-detail">
-                                                    <h4>Due Amount: {{ $studentDueAmount->due_amount ?? 0 }}</h4>
+                                                    @livewire('due-amount-live-wire', ['studentId' =>$student->id])
                                                 </div>
                                                 <button class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#creditPayment">Pay Due</button>

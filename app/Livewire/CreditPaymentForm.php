@@ -42,27 +42,31 @@ class CreditPaymentForm extends Component
             return;
         }
 
+        if ($this->paid_amount>$dueAmount) {
+            session()->flash('message', 'The payment amount cannot exceed the due amount.');
+            return;
+        }
+
         StudentCreditPayment::create([
             'student_id' => $this->studentId,
             'payment_option_id' => $this->payment_option_id,
             'user'=>auth()->user()->name,
-            'paid_amount' => $this->paid_amount,
+            'credit_amount' => $this->paid_amount,
         ]);
-        $studentDueAmount=StudentDueAmount::where('student_id', $this->studentId)->find();
-        if($studentDueAmount){
-            $studentDueAmount->update([
-                'due_amount'=>$dueAmount-$this->paid_amount
-            ]);
-        }
-        sweetalert()->addSuccess('Class Has Been Created Successfully!');
-        return $this->redirect('students');
+
+        StudentDueAmount::updateOrCreate([
+            'student_id' => $this->studentId,
+        ], ['due_amount'=>$dueAmount-$this->paid_amount]);
+        
+        sweetalert()->addSuccess('Credit Payment Has Been Done Successfully!');
+        $this->redirect('/admin/students/view/' . $this->studentId);
     }
     
     
     public function render()
     {
        $this->paymentOptions = PaymentOption::get();
-        $this->creditPayment = StudentCreditPayment::where('student_id', $this->studentId)->sum('paid_amount');
+        $this->creditPayment = StudentCreditPayment::where('student_id', $this->studentId)->sum('credit_amount');
         $this->dueAmount = StudentDueAmount::where('student_id', $this->studentId)->sum('due_amount');
         return view('livewire.credit-payment-form');
     }

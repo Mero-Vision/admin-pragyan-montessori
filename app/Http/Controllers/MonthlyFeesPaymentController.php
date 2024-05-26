@@ -9,6 +9,8 @@ use App\Models\MonthlyFeesParticular;
 use App\Models\PaymentOption;
 use App\Models\SchoolClass;
 use App\Models\Student;
+use App\Models\StudentCreditPayment;
+use App\Models\StudentDueAmount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,19 +48,19 @@ class MonthlyFeesPaymentController extends Controller
         $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)->pluck('month')->toArray();
 
         $nepaliMonthMap = [
-                1 => 'Baishakh',
-                2 => 'Jestha',
-                3 => 'Ashadh',
-                4 => 'Shrawan',
-                5 => 'Bhadra',
-                6 => 'Ashwin',
-                7 => 'Kartik',
-                8 => 'Mangsir',
-                9 => 'Poush',
-                10 => 'Magh',
-                11 => 'Falgun',
-                12 => 'Chaitra'
-         ];
+            1 => 'Baishakh',
+            2 => 'Jestha',
+            3 => 'Ashadh',
+            4 => 'Shrawan',
+            5 => 'Bhadra',
+            6 => 'Ashwin',
+            7 => 'Kartik',
+            8 => 'Mangsir',
+            9 => 'Poush',
+            10 => 'Magh',
+            11 => 'Falgun',
+            12 => 'Chaitra'
+        ];
         // dd($paymentMonths);
 
         return view('accounts.monthly_fees.student_monthly_fees_payment', compact(
@@ -114,7 +116,7 @@ class MonthlyFeesPaymentController extends Controller
         $validatedData = $request->validate([
             'payment_option_id' => ['required'],
             'monthly_fees' => ['required', 'numeric'],
-             'paid_amount'=>['required','numeric'],
+            'paid_amount' => ['required', 'numeric'],
             'particulars.*' => 'required|array',
             'particulars.*.particular_name' => 'nullable|string',
             'particulars.*.particular_amount' => 'nullable|numeric',
@@ -138,11 +140,22 @@ class MonthlyFeesPaymentController extends Controller
                     'paid_amount' => $request->paid_amount,
                     'return_amount' => $request->return_amount,
                     'net_total' => $request->net_total,
+                    'credit_amount' => $request->credit_amount,
                     'month' => $nepaliMonth,
                     'year' => Carbon::now()->year,
                     'nepali_payment_date' => $currentNepaliDate,
                     'payment_date' => Carbon::today(),
                 ]);
+
+                if ($request->paid_amount < $request->net_total) {
+                   
+                    $existingDueAmount = StudentDueAmount::where('student_id', $request->student_id)->value('due_amount');
+                    $newDueAmount = $existingDueAmount + ($request->net_total - $request->paid_amount);
+                    StudentDueAmount::updateOrCreate(
+                        ['student_id' => $request->student_id],
+                        ['due_amount' => $newDueAmount]
+                    );
+                }
 
                 $monthlyPayment->monthlyFeePaymentDetail()->create([
                     'monthly_fee_payment_id' => $monthlyPayment->id,
@@ -164,6 +177,6 @@ class MonthlyFeesPaymentController extends Controller
 
 
 
-        return back()->with('success', 'Monthly fee added successfully.');
+        return back()->with('success', 'Monthly fee paid successfully.');
     }
 }

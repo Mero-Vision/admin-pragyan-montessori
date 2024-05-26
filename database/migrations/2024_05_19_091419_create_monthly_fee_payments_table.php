@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('discount_amount')->nullable();
             $table->float('paid_amount')->nullable();
             $table->float('return_amount')->nullable();
+            $table->float('credit_amount')->nullable();
             $table->float('net_total')->nullable();
             $table->string('month')->nullable();
             $table->string('year')->nullable();

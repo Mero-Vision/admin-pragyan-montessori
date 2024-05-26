@@ -50,7 +50,7 @@ class StudentController extends Controller
 
     public function studentData()
     {
-        $students = Student::latest()->get();
+        $students = Student::where('payment_status','paid')->latest()->get();
 
         return response()->json(['data' => $students]);
     }
