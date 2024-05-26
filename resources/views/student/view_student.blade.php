@@ -217,7 +217,7 @@
                                         <div class="card mb-0">
                                             <div class="card-body">
                                                 <div class="heading-detail">
-                                                    @livewire('due-amount-live-wire', ['studentId' =>$student->id])
+                                                    @livewire('due-amount-live-wire', ['studentId' => $student->id])
                                                 </div>
                                                 <button class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#creditPayment">Pay Due</button>
@@ -233,7 +233,7 @@
                                             <div class="card-body">
 
 
-
+                                                <h5>Monthly Fee History</h5><br>
                                                 <div class="table-responsive">
                                                     <table class="table table-striped custom-table" id="table_data">
                                                         <thead>
@@ -306,7 +306,7 @@
                         <!-- Modal body -->
                         <div class="modal-body">
 
-                            @livewire('credit-payment-form', ['studentId' =>$student->id])
+                            @livewire('credit-payment-form', ['studentId' => $student->id])
                         </div>
 
 
