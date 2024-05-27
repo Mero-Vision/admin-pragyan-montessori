@@ -151,7 +151,7 @@
                 </li>
 
                 <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
-                    <a href="#"><i class="feather-box"></i> <span> Tools</span> <span
+                    <a href="#"><i class="bi bi-tools"></i> <span> Tools</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{ url('admin/tools/calendar') }}"
