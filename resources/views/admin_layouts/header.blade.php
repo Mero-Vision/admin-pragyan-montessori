@@ -19,4 +19,5 @@
     <link rel="stylesheet" href="{{ url('assets/css/select2.min.css')}}">
     <link href="{{ url('assets/css/filepond.css')}}" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>

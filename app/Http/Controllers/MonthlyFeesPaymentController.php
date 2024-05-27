@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdmissionParticular;
+use App\Models\DayBook;
 use App\Models\MonthlyFeePayment;
 use App\Models\MonthlyFeePaymentDetail;
 use App\Models\MonthlyFeesParticular;
@@ -156,6 +157,14 @@ class MonthlyFeesPaymentController extends Controller
                         ['due_amount' => $newDueAmount]
                     );
                 }
+
+                Daybook::create([
+                    'user_id' => auth()->user()->id,
+                    'date' => Carbon::today(),
+                    'particular' => 'Monthly Fee Submission for ' . $currentNepaliDate . ' of Student ID ' . $request->student_id,
+                    'expense' => null, 
+                    'income' => $request->paid_amount,
+                ]);
 
                 $monthlyPayment->monthlyFeePaymentDetail()->create([
                     'monthly_fee_payment_id' => $monthlyPayment->id,

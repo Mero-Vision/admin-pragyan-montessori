@@ -61,20 +61,16 @@
                         <li><a href="{{url('admin/accounts/admission')}}" class="{{ request()->is('admin/accounts/admission') ? 'active' : '' }}">Admission Payment</a></li>
                           <li><a href="{{url('admin/accounts/student-monthly-fees-payments')}}" class="{{ request()->is('admin/accounts/student-monthly-fees-payments') ? 'active' : '' }}">Monthly Fees Payments</a></li>
                          <li><a href="{{url('admin/accounts/settings/payment-options')}}" class="{{ request()->is('admin/accounts/settings/payment-options') ? 'active' : '' }}">Account Settings</a></li>
-                        {{-- <li><a href="expenses.html">Expenses</a></li>
-                        <li><a href="salary.html">Salary</a></li>
-                        <li><a href="add-fees-collection.html">Add Fees</a></li>
-                        <li><a href="add-expenses.html">Add Expenses</a></li>
-                        <li><a href="add-salary.html">Add Salary</a></li> --}}
+                       
                     </ul>
                 </li>
 
-                <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
-                    <a href="#"><i class="feather-box"></i> <span> Day Book</span> <span
+                <li class="submenu {{ request()->is('admin/day-book*') ? 'active' : '' }}">
+                    <a href="#"><i class="bi bi-wallet"></i> <span> Day Book</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
-                       <li><a href="{{url('admin/tools/calendar')}}" class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
-                        <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li>
+                       <li><a href="{{url('admin/day-book/account-statement')}}" class="{{ request()->is('admin/day-book/account-statement') ? 'active' : '' }}">Account Statement</a></li>
+                        {{-- <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li> --}}
                        
                        
                     </ul>

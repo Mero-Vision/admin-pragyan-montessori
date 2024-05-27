@@ -13,6 +13,7 @@ use App\Http\Controllers\ClassTimeTableController;
 use App\Http\Controllers\CmsTeacherController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DayBookController;
 use App\Http\Controllers\LatePaymentFineController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonthlyFeesParticularController;
@@ -141,6 +142,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
     Route::get('tools/calendar', [ToolsController::class, 'calendarIndex']);
     Route::get('tools/nepali-date-converter', [ToolsController::class, 'nepaliDateConverter']);
+
+    Route::get('day-book/account-statement', [DayBookController::class, 'accountStatement']);
     
     
 });
