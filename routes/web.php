@@ -144,6 +144,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('tools/nepali-date-converter', [ToolsController::class, 'nepaliDateConverter']);
 
     Route::get('day-book/account-statement', [DayBookController::class, 'accountStatement']);
+    Route::get('day-book/add-expense', [DayBookController::class, 'addExpenseIndex']);
+    Route::post('day-book/add-expense', [DayBookController::class, 'expenseStore']);
     
     
 });

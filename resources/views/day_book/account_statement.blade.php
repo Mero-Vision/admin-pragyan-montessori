@@ -51,13 +51,9 @@
                     <div class="col-lg-6 col-md-6">
 
                         <form action="{{url('admin/day-book/account-statement')}}" method="get" class="m-gray">
-
-                            <input type="date" name="start_date"
+                            <input type="date" name="date"
                                 style="padding:5px;border:none;background:none;border-bottom:1px solid gray;" required>
-                            <b>To:</b>
-                            <input type="date" name="end_date"
-                                style="padding:5px;border:none;background:none;border-bottom:1px solid gray;" required>
-                            <button type="submit" name="searchid" class="btn btn-primary" style="margin:10px;"><i
+                            <button type="submit" class="btn btn-primary" style="margin:10px;"><i
                                     class="bi bi-search"></i> Statement</button>
                         </form>
 

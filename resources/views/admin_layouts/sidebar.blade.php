@@ -69,8 +69,9 @@
                     <a href="#"><i class="bi bi-wallet"></i> <span> Day Book</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
+                         <li><a href="{{url('admin/day-book/add-expense')}}" class="{{ request()->is('admin/day-book/add-expense') ? 'active' : '' }}">Add Expenses</a></li>
                        <li><a href="{{url('admin/day-book/account-statement')}}" class="{{ request()->is('admin/day-book/account-statement') ? 'active' : '' }}">Account Statement</a></li>
-                        {{-- <li><a href="{{url('admin/tools/nepali-date-converter')}}" class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali Date Converter</a></li> --}}
+                       
                        
                        
                     </ul>
