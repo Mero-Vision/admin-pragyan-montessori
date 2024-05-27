@@ -74,8 +74,7 @@
                                 <p class="text-danger">{{$message}}</p>
                             @enderror
                             <hr>
-                            <button type="submit" class="submit btn btn-primary"><i
-                                    class="ti-check"></i> Submit</button>
+                            <button type="submit" class="submit btn btn-primary"><i class="bi bi-check2-circle"></i> Submit</button>
                         </form>
                     </div>
                     <div class="col-md-6 col-xl-4"></div>
