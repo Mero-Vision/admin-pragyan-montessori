@@ -30,6 +30,39 @@ class DayBookController extends Controller
         return view('day_book.account_statement',compact('daybooks'));
     }
 
+    public function addIncomeIndex()
+    {
+
+        return view('day_book.add_income');
+    }
+
+    public function incomeStore(Request $request)
+    {
+
+        $request->validate([
+            'date' => ['required'],
+            'description' => ['required', 'max:255'],
+            'income_amount' => ['required', 'numeric']
+        ]);
+        try {
+            $dayBook = DB::transaction(function () use ($request) {
+                $dayBook = Daybook::create([
+                    'user_id' => auth()->user()->id,
+                    'date' => $request->date,
+                    'particular' => $request->description,
+                    'expense' => null,
+                    'income' => $request->income_amount,
+                ]);
+                return $dayBook;
+            });
+            if ($dayBook) {
+                return back()->with('success', 'Income Has Been Added Successfully To The Daybook');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+    
 
     
 
