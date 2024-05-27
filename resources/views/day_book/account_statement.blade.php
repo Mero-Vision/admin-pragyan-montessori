@@ -151,7 +151,7 @@
             $(document).ready(function() {
                 // Initialize DataTables with styling
                 $('#table_data').DataTable({
-                    "paging": true,
+                    "paging": false,
                     "lengthChange": false, // Remove page length selection
                     "searching": true,
                     "info": true,
