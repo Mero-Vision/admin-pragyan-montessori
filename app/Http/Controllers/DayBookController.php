@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\DB;
 class DayBookController extends Controller
 {
     public function accountStatement(){
-        $date = request()->query('date');
+        $start_date = request()->query('start_date');
+        $end_date = request()->query('end_date');
        
-        if (empty($date)) {
-            $date = now()->toDateString(); 
+        if (empty($start_date)) {
+            $start_date = now()->toDateString(); 
+        }
+        if (empty($end_date)) {
+            $end_date = now()->toDateString();
         }
 
-        $daybooks = DayBook::whereDate('date',$date)
+        $daybooks = DayBook::whereBetween('date',[$start_date,$end_date])
             ->orderBy('date')
             ->orderBy('id')
             ->get();
