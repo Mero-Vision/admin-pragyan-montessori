@@ -30,6 +30,34 @@ class MonthlyFeesPaymentController extends Controller
         return view('accounts.monthly_fees.student_monthly_fees', compact('students'));
     }
 
+    public function printMonthlyFeesPayment($slug)
+    {
+
+        $student = Student::where('slug', $slug)->first();
+        $class=SchoolClass::find($student->class_id);
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+        
+        $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
+        ->where('session_year',$bsYear)->get();
+
+        $month=request()->query('payment_month');
+        $monthlyPayments = MonthlyFeePayment::where('student_id', $student->id)
+        ->where('session_year', $bsYear)
+        ->where('month',$month)
+       ->first();
+       if($monthlyPayments){
+            $monthFeesPaymentDetails = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyPayments->id)->get();
+       }
+       else{
+            $monthFeesPaymentDetails=[];
+       }
+
+    
+        return view('accounts.monthly_fees.print_monthly_fees_payment', compact('paymentMonths','slug', 'monthlyPayments','student', 'class', 'monthFeesPaymentDetails'));
+    }
+
     public function studentMonthlyFeesPaymentIndex($id)
     {
 
@@ -46,7 +74,12 @@ class MonthlyFeesPaymentController extends Controller
         $paymentOptions = PaymentOption::get();
         $monthlyPaymentHistories = MonthlyFeePayment::where('student_id', $student->id)->latest()->limit(4)->get();
 
-        $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)->pluck('month')->toArray();
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+        
+        $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
+            ->where('session_year', $bsYear)->pluck('month')->toArray();
 
         $nepaliMonthMap = [
             1 => 'Baishakh',
@@ -128,10 +161,15 @@ class MonthlyFeesPaymentController extends Controller
         $currentNepaliDate = NepaliDate::create(\Carbon\Carbon::now())->toFormattedBSDate();
         // dd($currentNepaliDate);
 
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+
         try {
-            $monthlyPayment = DB::transaction(function () use ($request, $nepaliMonth, $currentNepaliDate, $validatedData) {
+            $monthlyPayment = DB::transaction(function () use ($request, $nepaliMonth, $currentNepaliDate, $validatedData,$bsYear) {
 
                 $monthlyPayment = MonthlyFeePayment::create([
+                    'session_year' => $bsYear,
                     'student_id' => $request->student_id,
                     'class_id' => $request->class_id,
                     'payment_option_id' => $request->payment_option_id,
@@ -149,7 +187,7 @@ class MonthlyFeesPaymentController extends Controller
                 ]);
 
                 if ($request->paid_amount < $request->net_total) {
-                   
+
                     $existingDueAmount = StudentDueAmount::where('student_id', $request->student_id)->value('due_amount');
                     $newDueAmount = $existingDueAmount + ($request->net_total - $request->paid_amount);
                     StudentDueAmount::updateOrCreate(
@@ -158,12 +196,12 @@ class MonthlyFeesPaymentController extends Controller
                     );
                 }
 
-                
+
                 Daybook::create([
                     'user_id' => auth()->user()->id,
                     'date' => Carbon::today(),
                     'particular' => 'Monthly Fee Submission for ' . $currentNepaliDate . ' of Student ID ' . $request->student_id,
-                    'expense' => null, 
+                    'expense' => null,
                     'income' => $request->paid_amount,
                 ]);
 
@@ -186,7 +224,7 @@ class MonthlyFeesPaymentController extends Controller
         }
 
 
-
-        return back()->with('success', 'Monthly fee paid successfully.');
+        return redirect('admin/accounts/student-monthly-fees-payments')->with('success', 'Monthly fee paid successfully!');
+        // return back()->with('success', '');
     }
 }

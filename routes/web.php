@@ -138,6 +138,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/student-monthly-fees-payments', [MonthlyFeesPaymentController::class, 'index']);
     Route::post('accounts/student-monthly-fees-payments', [MonthlyFeesPaymentController::class, 'store']);
     Route::get('accounts/student-monthly-fees-payments/{id}', [MonthlyFeesPaymentController::class, 'studentMonthlyFeesPaymentIndex']);
+    Route::get('accounts/student-monthly-fees-payments/print/{slug}', [MonthlyFeesPaymentController::class, 'printMonthlyFeesPayment']);
 
 
     Route::get('tools/calendar', [ToolsController::class, 'calendarIndex']);

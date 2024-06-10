@@ -87,7 +87,7 @@
                                                     <td>
                                                         <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}/{{ $student->id }}"
                                                             class="badge badge-danger p-2">Go to Payment</a>
-                                                         <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}/{{ $student->id }}"
+                                                         <a href="{{ url('admin/accounts/student-monthly-fees-payments/print') }}/{{ $student->slug }}"
                                                             class="badge badge-success p-2">Print Invoice</a>
                                                     </td>
 
