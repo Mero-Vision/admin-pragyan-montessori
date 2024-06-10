@@ -267,12 +267,50 @@
                                                         <div class="links-info-discount"
                                                             style="display: flex; align-items: center;">
                                                             <p for="discount-input"
-                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px;">
-                                                                Discount:
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Discount Amount:
                                                             </p>
                                                             <input id="discount-input" class="form-control"
-                                                                type="text" style="height: 40px;"
+                                                                type="number" style="height: 40px;"
                                                                 name="discount_amount">
+                                                        </div>
+
+                                                        <div class="links-info-discount mt-2"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="paid-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Paid Amount:
+                                                            </p>
+                                                            <input id="paid-input" class="form-control"
+                                                                type="number" style="height: 40px;"
+                                                                name="paid_amount">
+                                                        </div>
+                                                        @error('paid_amount')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+
+                                                        <div class="links-info-discount mt-2"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="discount-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Return Amount:
+                                                            </p>
+                                                            <input id="return-input" class="form-control"
+                                                                type="number" style="height: 40px; flex-grow: 1;"
+                                                                name="return_amount" readonly>
+                                                        </div>
+
+
+                                                        <div class="links-info-discount mt-2" id="credit-amount-field"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="discount-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Credit:
+                                                            </p>
+                                                            <input type="number" id="credit-amount"
+                                                                class="form-control"
+                                                                style="height: 40px; flex-grow: 1;"
+                                                                name="credit_amount" readonly>
                                                         </div>
 
                                                     </div>
@@ -283,6 +321,7 @@
                                                                 0.00</span></h5>
                                                         <input type="hidden" name="net_total"
                                                             id="total-amount-input" value="0.00">
+
 
 
                                                     </div>
@@ -345,6 +384,50 @@
         </style>
 
         <script>
+            // Get references to the elements
+            var paidInput = document.getElementById("paid-input");
+            var creditAmountField = document.getElementById("credit-amount");
+
+            // Add an input event listener to the paid input field
+            paidInput.addEventListener("input", function() {
+                var paidAmount = parseFloat(paidInput.value);
+                var totalAmount = parseFloat(document.getElementById("total-amount-input").value);
+
+                // Calculate the credit amount
+                var creditAmount = totalAmount - paidAmount;
+
+                if (paidAmount >= totalAmount) {
+                    creditAmount = 0;
+                }
+                creditAmountField.value = creditAmount.toFixed(2);
+
+
+            });
+        </script>
+
+        <script>
+            // Get the elements
+            // const paidInput = document.getElementById('paid-input');
+            const returnInput = document.getElementById('return-input');
+            const netTotalInput = document.getElementById('total-amount-input');
+
+            // Add event listener to the paid input field
+            paidInput.addEventListener('input', function() {
+                // Get the paid amount
+                const paidAmount = parseFloat(this.value);
+
+                // Get the net total
+                const netTotal = parseFloat(netTotalInput.value);
+
+                // Calculate the return amount
+                const returnAmount = paidAmount > netTotal ? (paidAmount - netTotal) : 0;
+
+                // Update the return amount input field
+                returnInput.value = returnAmount.toFixed(2);
+            });
+        </script>
+
+        <script>
             function updateSubTotalAmount() {
                 var subTotalAmountText = document.getElementById('sub-total-amount').textContent;
                 var subTotalAmountValue = subTotalAmountText.replace('Rs.', '').trim();
@@ -365,6 +448,12 @@
             document.getElementById('sub-total-amount').addEventListener('DOMSubtreeModified', updateSubTotalAmount);
             document.getElementById('total-amount').addEventListener('DOMSubtreeModified', updateTotalAmount);
         </script>
+
+
+
+
+
+
 
 
         @include('admin_layouts.footer2')

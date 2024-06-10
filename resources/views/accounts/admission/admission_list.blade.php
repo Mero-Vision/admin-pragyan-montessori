@@ -93,9 +93,9 @@
 
                                                     <td>
                                                         @if ($admissionList->payment_status === 'pending')
-                                                            <a href="{{url('admin/accounts/admission/admission-invoice/create')}}/{{$admissionList->id}}" class="btn btn-danger">Go to Payment</a>
+                                                            <a href="{{url('admin/accounts/admission/admission-invoice/create')}}/{{$admissionList->id}}" class="badge badge-danger p-2">Go to Payment</a>
                                                         @elseif($admissionList->payment_status === 'paid')
-                                                             <a href="{{url('admin/accounts/admission/print-invoice')}}/{{$admissionList->id}}" class="btn btn-success">Print Invoice</a>
+                                                             <a href="{{url('admin/accounts/admission/print-invoice')}}/{{$admissionList->id}}" class="badge badge-success p-2">Print Invoice</a>
                                                         @else
                                                             <!-- Handle other cases if needed -->
                                                         @endif

@@ -146,8 +146,8 @@
                                              
                                                      <td>{{ $admissionParticular->user }}</td>
                                                     <td>
-                                                        <a class="btn btn-danger px-2 py-1 delete-data"  data-admission-id="{{ $admissionParticular->id }}"><i class='bx bxs-message-square-x bx-sm'></i></a>
-                                                        <a class="btn btn-primary px-2 py-1" href="{{url('admin/accounts/admission/admission-particulars/edit')}}/{{$admissionParticular->id}}"><i class='bx bxs-message-square-edit bx-sm'></i></a>
+                                                        <a class="badge badge-danger p-2 delete-data"  data-admission-id="{{ $admissionParticular->id }}"><i class='bx bxs-message-square-x bx-sm'></i></a>
+                                                        <a class="badge badge-primary p-2" href="{{url('admin/accounts/admission/admission-particulars/edit')}}/{{$admissionParticular->id}}"><i class='bx bxs-message-square-edit bx-sm'></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

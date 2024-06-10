@@ -23,6 +23,9 @@ return new class extends Migration
             $table->longText('note')->nullable();
             $table->float('sub_total')->nullable();
             $table->float('discount_amount')->nullable();
+            $table->float('paid_amount')->nullable();
+            $table->float('return_amount')->nullable();
+            $table->float('credit_amount')->nullable();
             $table->float('net_total')->nullable();
             $table->timestamps();
         });
