@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('payment_options', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->string('payment_name')->nullable();
             $table->string('slug')->nullable();
             $table->string('public_key')->nullable();

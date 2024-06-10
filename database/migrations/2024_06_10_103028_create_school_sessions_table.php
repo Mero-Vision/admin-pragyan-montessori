@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admission_payment_details', function (Blueprint $table) {
+        Schema::create('school_sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_session_id')->nullable();
-            $table->foreignId('admission_payment_id')->nullable();
-            $table->string('particulars')->nullable();
-            $table->float('amount')->nullable();
+            $table->float('session_year')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admission_payment_details');
+        Schema::dropIfExists('school_sessions');
     }
 };

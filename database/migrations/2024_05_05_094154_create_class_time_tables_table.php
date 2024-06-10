@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('class_time_tables', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->foreignId('class_id')->nullable();
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();

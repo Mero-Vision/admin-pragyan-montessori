@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('student_credit_payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->foreignId('student_id')->nullable();
             $table->foreignId('payment_option_id')->nullable();
             $table->float('credit_amount')->nullable();

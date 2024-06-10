@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('late_payment_fines', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->float('fine_percent')->nullable();
             $table->string('user')->nullable();
             $table->timestamps();

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->string('teacher_name');
             $table->date('dob')->nullable();
             $table->string('email')->nullable();

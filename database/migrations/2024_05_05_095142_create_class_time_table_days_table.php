@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('class_time_table_days', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->string('day');
             $table->timestamps();
         });

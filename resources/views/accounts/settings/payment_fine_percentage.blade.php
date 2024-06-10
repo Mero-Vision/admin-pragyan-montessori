@@ -167,7 +167,7 @@
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" onclick="editLatePaymentFine(' +
+                            return '<button class="badge badge-danger p-2" onclick="editLatePaymentFine(' +
                                 row.id +
                                 ')">Edit</button>';
                         }

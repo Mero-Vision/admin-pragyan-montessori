@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('monthly_fees_particulars', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_session_id')->nullable();
             $table->string('user')->nullable();
             $table->foreignId('class_id')->nullable();
             $table->string('particulars')->nullable();

@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
        $this->call(ClassTimeTableDaySeeder::class);
         $this->call(UserRoleSeeder::class);
         $this->call(LatePaymentFinePercentSeeder::class);
+        $this->call(PaymentOptionSeeder::class);
     }
 }

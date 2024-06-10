@@ -86,7 +86,7 @@
                                                     <td>{{ $paymentOption->payment_name }}</td>
                                                     <td>{{ $paymentOption->user }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-danger enable-user-btn"
+                                                        <a href="#" class="badge badge-danger enable-user-btn p-2"
                                                             data-user-id="{{ $paymentOption->slug }}">Delete<a>
                                                     </td>
 
