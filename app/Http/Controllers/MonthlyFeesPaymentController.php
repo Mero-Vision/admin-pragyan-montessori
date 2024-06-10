@@ -158,6 +158,7 @@ class MonthlyFeesPaymentController extends Controller
                     );
                 }
 
+                
                 Daybook::create([
                     'user_id' => auth()->user()->id,
                     'date' => Carbon::today(),

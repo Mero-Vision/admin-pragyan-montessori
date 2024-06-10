@@ -68,9 +68,6 @@
                                                 <th>Admission ID</th>
                                                 <th>Admission Date</th>
                                                 <th>Payment Status</th>
-
-
-
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
