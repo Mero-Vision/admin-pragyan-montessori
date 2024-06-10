@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('school_classes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_session_id')->nullable();
+            $table->string('session_year')->nullable();
             $table->string('class_name')->nullable();
             $table->string('slug')->nullable();
             $table->string('class_code')->nullable();

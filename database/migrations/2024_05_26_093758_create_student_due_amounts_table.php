@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('student_due_amounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_session_id')->nullable();
+            $table->string('session_year')->nullable();
             $table->foreignId('student_id')->nullable();
             $table->float('due_amount')->nullable();
             $table->timestamps();

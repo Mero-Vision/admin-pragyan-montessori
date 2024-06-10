@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('monthly_fee_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_session_id')->nullable();
+            $table->string('session_year')->nullable();
             $table->foreignId('student_id')->nullable();
             $table->foreignId('class_id')->nullable();
             $table->float('sub_total')->nullable();

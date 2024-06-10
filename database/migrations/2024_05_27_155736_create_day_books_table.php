@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('day_books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_session_id')->nullable();
+            $table->string('session_year')->nullable();
             $table->date('date');
             $table->foreignId('user_id')->nullable();
             $table->longText('particular')->nullable();

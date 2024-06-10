@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admission_payment_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_session_id')->nullable();
+            $table->string('session_year')->nullable();
             $table->foreignId('admission_payment_id')->nullable();
             $table->string('particulars')->nullable();
             $table->float('amount')->nullable();
