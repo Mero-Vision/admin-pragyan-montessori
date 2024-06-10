@@ -108,7 +108,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
+                {{-- <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
                     <a href="#"><i class="feather-box"></i> <span> Staff Management</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
@@ -148,7 +148,7 @@
 
 
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
                     <a href="#"><i class="bi bi-tools"></i> <span> Tools</span> <span
