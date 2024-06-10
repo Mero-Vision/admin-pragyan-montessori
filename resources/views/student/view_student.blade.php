@@ -422,19 +422,23 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <p>Gross Total: {{ $paymentOption->payment_name }}</p>
+                                                <p>Gross Total: {{ $admission->sub_total }}</p>
 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Discount Amount: {{ $paymentOption->payment_name }}</p>
+                                                <p>Discount Amount: {{ $admission->discount_amount }}</p>
 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Paid Amount: {{ $paymentOption->payment_name }}</p>
+                                                <p>Paid Amount: {{ $admission->paid_amount }}</p>
 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Net Total: {{ $paymentOption->payment_name }}</p>
+                                                <p>Credit Amount: {{ $admission->credit_amount }}</p>
+
+                                            </div>
+                                             <div class="col-md-6">
+                                                <p>Net Total: {{ $admission->net_total }}</p>
 
                                             </div>
                                             <div class="col-md-6">

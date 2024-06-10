@@ -97,16 +97,16 @@
                                                     <td>
                                                         @if ($user->deleted_at)
                                                             <a href="#"
-                                                                class="btn btn-success text-light enable-user-btn"
+                                                                class="badge badge-success p-2 text-light enable-user-btn"
                                                                 data-user-id="{{ $user->id }}">Enable</a>
                                                         @else
                                                             <a href="#"
-                                                                class="btn btn-warning text-light disable-user-btn"
+                                                                class="badge badge-warning p-2 text-light disable-user-btn"
                                                                 data-user-id="{{ $user->id }}">Disable</a>
                                                         @endif
 
                                                         @if (!$user->email_verified_at)
-                                                            <a href="{{url('admin/users/resend-verification')}}/{{$user->id}}" class="btn btn-primary text-light"
+                                                            <a href="{{url('admin/users/resend-verification')}}/{{$user->id}}" class="badge badge-primary p-2 text-light"
                                                                 >Resend Verification</a>
                                                         @endif
                                                     </td>
