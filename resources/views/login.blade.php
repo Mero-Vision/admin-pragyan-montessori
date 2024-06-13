@@ -49,7 +49,7 @@
                                 @enderror
                                 <div class="form-group mt-4 mb-0">
                                     <label>Password <span class="login-danger">*</span></label>
-                                    <input class="form-control pass-input" type="text" name="password">
+                                    <input class="form-control pass-input" type="password" name="password">
                                     <span class="profile-views feather-eye toggle-password"></span>
 
                                 </div>

@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <a class="dropdown-item" href="{{ url('admin/profile') }}">Profile</a>
-                <a class="dropdown-item" href="{{ url('admin/logout') }}">@lang('translation.logout')</a>
+                <a class="dropdown-item" href="{{ url('admin/logout') }}">Logout</a>
             </div>
         </li>
 
