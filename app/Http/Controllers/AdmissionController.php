@@ -9,11 +9,13 @@ use App\Models\SchoolClass;
 use App\Models\Student;
 use App\Models\StudentDueAmount;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
 class AdmissionController extends Controller
 {
@@ -36,11 +38,16 @@ class AdmissionController extends Controller
         $lastAdj = $latestStudent ? (int)$latestStudent->roll_number : 0; // Assume admission_id is numeric
         $adjNumber = $lastAdj + 1;
 
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+
         try {
 
-            $student = DB::transaction(function () use ($request, $adjNumber) {
+            $student = DB::transaction(function () use ($request, $adjNumber, $bsYear) {
 
                 $student = Student::create([
+                    'session_year' => $bsYear,
                     'name' => $request->name,
                     'dob' => $request->dob,
                     'email' => $request->email,

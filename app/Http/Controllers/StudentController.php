@@ -10,9 +10,11 @@ use App\Models\PaymentOption;
 use App\Models\SchoolClass;
 use App\Models\Student;
 use App\Models\StudentDueAmount;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
 class StudentController extends Controller
 {
@@ -28,6 +30,7 @@ class StudentController extends Controller
             return back()->with('error','Student Detail Not Found!');
         }
 
+        
         $class=SchoolClass::find($student->class_id);
         $admission = AdmissionPayment::where('student_id', $id)->latest()->first();
         $paymentOption = PaymentOption::find($admission->payment_option_id);
@@ -61,11 +64,16 @@ class StudentController extends Controller
         $lastAdj = $latestStudent ? (int)Str::after($latestStudent->admission_id, '-') : 0;
         $adjNumber = $lastAdj + 1;
 
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+
         try {
 
-            $student = DB::transaction(function () use ($request, $adjNumber) {
+            $student = DB::transaction(function () use ($request, $adjNumber, $bsYear) {
 
                 $student = Student::create([
+                    'session_year' => $bsYear,
                     'name' => $request->name,
                     'dob' => $request->dob,
                     'email' => $request->email,

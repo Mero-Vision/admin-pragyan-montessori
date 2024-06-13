@@ -11,6 +11,7 @@ use App\Models\StudentAdmissionInquiry;
 use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
 class DashboardController extends Controller
 {
@@ -31,26 +32,35 @@ class DashboardController extends Controller
         }
 
         $students = Student::all();
-
-        // Group students by Nepali month and count them
         $monthlyStudentCount = $students->groupBy(function ($student) {
             return getNepaliMonth($student->admission_date);
         })->map(function ($group) {
             return $group->count();
         })->toArray();
-
-        // Ensure all months from Baisakh (1) to Chaitra (12) are present in the array, even if they have a count of 0
         $months = range(1, 12);
         $monthlyStudentCount = array_replace(array_fill_keys($months, 0), $monthlyStudentCount);
-
-        // Pass the counts as values for months Baisakh (1) to Chaitra (12)
         $monthlyStudentCount = array_values($monthlyStudentCount);
+
+
+
+        $payments = MonthlyFeePayment::all();
+        $monthlyPaymentCount = $payments->groupBy(function ($payment) {
+            $adDate = Carbon::parse($payment->payment_date); 
+            $bsDate= NepaliCalendar::AD2BS($adDate);
+            return getNepaliMonth($bsDate);
+        })->map(function ($group) {
+            return $group->sum('paid_amount');
+        })->toArray();
+        $months = range(1, 12);
+        $monthlyPaymentCount = array_replace(array_fill_keys($months, 0), $monthlyPaymentCount);
+        $monthlyPaymentCount = array_values($monthlyPaymentCount);
         
         return view('dashboard',compact('countStudent', 'countTeachers', 'countContactUs', 
         'countAdmissionInquiry',
             'totalRevenue',
             'totalClasses',
             'students',
-            'monthlyStudentCount'));
+            'monthlyStudentCount',
+            'monthlyPaymentCount'));
     }
 }

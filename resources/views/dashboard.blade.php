@@ -96,13 +96,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 col-lg-6">
+                    <div class="col-md-12 col-lg-12">
 
                         <div class="card card-chart">
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col-6">
-                                        <h5 class="card-title">Overview</h5>
+                                        <h5 class="card-title">Overview Of Student Admission Data</h5>
                                     </div>
                                     <div class="col-6">
                                         <ul class="chart-list-out">
@@ -119,18 +119,17 @@
                         </div>
 
                     </div>
-                    <div class="col-md-12 col-lg-6">
+                    <div class="col-md-12 col-lg-12">
 
                         <div class="card card-chart">
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col-6">
-                                        <h5 class="card-title">Number of Students</h5>
+                                        <h5 class="card-title">Overview Of Monthly Payments</h5>
                                     </div>
                                     <div class="col-6">
                                         <ul class="chart-list-out">
-                                            <li><span class="circle-blue"></span>Girls</li>
-                                            <li><span class="circle-green"></span>Boys</li>
+                                            <li><span class="circle-green"></span>Monthly Payments</li>
                                             <li class="star-menus"><a href="javascript:;"><i
                                                         class="fas fa-ellipsis-v"></i></a></li>
                                         </ul>
@@ -138,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div id="bar"></div>
+                                <div id="fee-area"></div>
                             </div>
                         </div>
 
@@ -205,6 +204,59 @@
                 };
 
                 var chart = new ApexCharts(document.querySelector('#apexcharts-area'), options);
+                chart.render();
+            }
+        });
+    </script>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var labels = ['Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
+            var data = @json($monthlyPaymentCount);
+
+            if (document.querySelector('#fee-area')) {
+                var options = {
+                    chart: {
+                        height: 350, // Adjust the height as needed
+                        type: 'line',
+                        toolbar: {
+                            show: false
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
+                    series: [{
+                        name: 'Monthly Payments',
+                        color: '#70C4CF',
+                        data: data
+                    }],
+                    xaxis: {
+                        categories: labels,
+                        labels: {
+                            rotate: -45, // Rotate labels to fit vertically
+                            style: {
+                                fontSize: '12px', // Adjust font size as needed
+                            }
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                fontSize: '12px' // Adjust font size as needed
+                            }
+                        }
+                    },
+                    markers: {
+                        size: 4 // Adjust marker size as needed
+                    }
+                };
+
+                var chart = new ApexCharts(document.querySelector('#fee-area'), options);
                 chart.render();
             }
         });
