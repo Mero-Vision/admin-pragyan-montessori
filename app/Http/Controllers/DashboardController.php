@@ -16,7 +16,7 @@ use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 class DashboardController extends Controller
 {
     public function index(){
-        $countStudent=Student::count();
+        $countStudent=Student::where('payment_status', 'paid')->count();
         $countTeachers = Teacher::count();
         $countContactUs = ContactUs::count();
         $countAdmissionInquiry = StudentAdmissionInquiry::count();
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             return intval($nepaliDate[1]); // Returns the month part
         }
 
-        $students = Student::all();
+        $students = Student::where('payment_status', 'paid')->get();
         $monthlyStudentCount = $students->groupBy(function ($student) {
             return getNepaliMonth($student->admission_date);
         })->map(function ($group) {
