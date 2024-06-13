@@ -241,7 +241,7 @@
                             }
                         },
                         error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
+                         alert('An error occurred: ' + xhr.responseText);
                         }
                     });
                 });
@@ -276,6 +276,8 @@
                 });
             }
         </script>
+
+        
 
 
         <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

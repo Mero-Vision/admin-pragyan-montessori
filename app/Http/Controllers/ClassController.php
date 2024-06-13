@@ -60,6 +60,10 @@ class ClassController extends Controller
     public function destroy($id)
     {
         $class = SchoolClass::find($id);
+        $existingStudentWithClass=Student::where('class_id',$class->id)->exists();
+        if($existingStudentWithClass){
+            return response()->json(['status' => 'error', 'message' => 'Unable to delete: This class is currently associated with a student.'], 400);
+        }
 
         if ($class) {
             $class->delete();
