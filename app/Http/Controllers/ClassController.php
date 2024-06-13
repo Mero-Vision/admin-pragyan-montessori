@@ -22,6 +22,7 @@ class ClassController extends Controller
             'teachers.teacher_name'
         )->get();
 
+        
         return response()->json(['data'=>$classes]);
     }
 
@@ -40,10 +41,12 @@ class ClassController extends Controller
 
     public function getClassStudentData($class_id)
     {
-        $classStudents = Student::where('class_id', $class_id)->get();
+        $classStudents = Student::where('class_id', $class_id)->
+        where('payment_status', 'paid')->get();
         $class=SchoolClass::find($class_id);
         $classTeacher=Teacher::find($class->class_teacher_id);
-        $totalStudents = Student::where('class_id', $class_id)->count();
+        $totalStudents = Student::where('class_id', $class_id)->
+        where('payment_status', 'paid')->count();
       
 
         return view('class.student_class',compact('classStudents', 'class', 'classTeacher', 'totalStudents'));

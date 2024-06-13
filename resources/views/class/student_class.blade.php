@@ -172,11 +172,7 @@
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
-                                    row.id +
-                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
-                                    row.id +
-                                    ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewTeacher(' +
+                                return '<button class="badge badge-success p-2 btn-sm" onclick="viewStudent(' +
                                     row.id + ')">View</button>';
                             }
                         }
@@ -244,8 +240,8 @@
         </script>
 
         <script>
-            function viewTeacher(id) {
-                var baseUrl = '{{ url('admin/teachers/view/') }}';
+            function viewStudent(id) {
+                var baseUrl = '{{ url('admin/students/view/') }}';
                 var url = baseUrl + '/' + id;
 
 
