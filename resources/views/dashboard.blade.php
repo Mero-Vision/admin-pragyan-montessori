@@ -37,7 +37,7 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                     <div class="db-info">
-                                        <h6>Total Students</h6>
+                                        <h6>Students</h6>
                                         <h3>{{$countStudent}}</h3>
                                     </div>
                                     <div class="db-icon">
@@ -52,38 +52,38 @@
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                      <div class="db-info">
-                                        <h6>Total Teachers</h6>
+                                        <h6>Revenue</h6>
+                                        <h3>{{$totalRevenue}}</h3>
+                                    </div>
+                                    <div class="db-icon">
+                                        <img src="{{url('assets/img/icons/dash-icon-04.svg')}}" alt="Dashboard Icon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-comman w-100">
+                            <div class="card-body">
+                                <div class="db-widgets d-flex justify-content-between align-items-center">
+                                     <div class="db-info">
+                                        <h6>Classes</h6>
+                                        <h3>{{$totalClasses}}</h3>
+                                    </div>
+                                    <div class="db-icon">
+                                        <img src="{{url('assets/img/icons/teacher-icon-01.svg')}}" alt="Dashboard Icon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                        <div class="card bg-comman w-100">
+                            <div class="card-body">
+                                <div class="db-widgets d-flex justify-content-between align-items-center">
+                                     <div class="db-info">
+                                        <h6>Teachers</h6>
                                         <h3>{{$countTeachers}}</h3>
-                                    </div>
-                                    <div class="db-icon">
-                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                        <div class="card bg-comman w-100">
-                            <div class="card-body">
-                                <div class="db-widgets d-flex justify-content-between align-items-center">
-                                     <div class="db-info">
-                                        <h6>Contact Us</h6>
-                                        <h3>{{$countContactUs}}</h3>
-                                    </div>
-                                    <div class="db-icon">
-                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                        <div class="card bg-comman w-100">
-                            <div class="card-body">
-                                <div class="db-widgets d-flex justify-content-between align-items-center">
-                                     <div class="db-info">
-                                        <h6>Admission Inquiry</h6>
-                                        <h3>{{$countAdmissionInquiry}}</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
