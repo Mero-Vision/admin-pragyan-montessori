@@ -30,7 +30,7 @@
                             <div class="page-sub-header">
                                 <h3 class="page-title">Teachers Details</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{url('admin/teachers/view')}}">Teachers</a></li>
+                                    <li class="breadcrumb-item"><a href="{{url('admin/teachers')}}">Teachers</a></li>
                                     <li class="breadcrumb-item active">Teachers Details</li>
                                 </ul>
                             </div>
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="student-profile-head">
                                     <div class="profile-bg-img">
-                                        <img src="{{ url('assets/img/teacher_banner.jpg') }}" alt="Profile" style="height: 400px;">
+                                        <img src="{{ url('assets/img/background.jpeg') }}" alt="Profile" style="height: 150px;">
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4">

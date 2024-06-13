@@ -29,6 +29,43 @@ class TeacherController extends Controller
         return view('teacher.view_teacher', compact('teacher'));
     }
 
+    public function edit($id)
+    {
+
+        $teacher = Teacher::find($id);
+        return view('teacher.edit_teacher', compact('teacher'));
+    }
+
+    public function update(Request $request,$id){
+        $teacher = Teacher::findOrFail($id);
+
+        try {
+
+            $teacher = DB::transaction(function () use ($request, $teacher) {
+
+                $teacher->update([
+                    'teacher_name' => $request->teacher_name,
+                    'dob' => $request->dob,
+                    'email' => $request->email,
+                    'gender' => $request->gender,
+                    'mobile_no' => $request->mobile_no,
+                    'address' => $request->address,
+                    'joining_date' => $request->joining_date,
+                    'education_qualification' => $request->education_qualification,
+                    'position' => $request->position
+                ]);
+
+
+                return $teacher;
+            });
+            if ($teacher) {
+                return back()->with('success', 'Teacher data updated successfully!');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
     public function create(){
         return view('teacher.add_teacher');
     }

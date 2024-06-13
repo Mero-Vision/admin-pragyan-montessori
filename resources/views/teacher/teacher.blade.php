@@ -148,9 +148,7 @@
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-danger btn-sm" onclick="deleteEvent(' +
-                                    row.id +
-                                    ')">Delete</button> <button class="btn btn-warning btn-sm" onclick="editEvent(' +
+                                return ' <button class="btn btn-warning btn-sm" onclick="editTeacher(' +
                                     row.id + ')">Edit</button> <button class="btn btn-success btn-sm" onclick="viewTeacher(' +
                                     row.id + ')">View</button>';
                             }
@@ -159,7 +157,7 @@
 
                     ],
                     order: [
-                        [1, 'desc']
+                        [0, 'desc']
                     ],
                     "dom": 'Bfrtip',
                     "buttons": [{
@@ -221,6 +219,16 @@
         <script>
             function viewTeacher(id) {
                 var baseUrl = '{{ url('admin/teachers/view/') }}';
+                var url = baseUrl + '/' + id;
+
+
+                window.location.href = url;
+            }
+        </script>
+
+         <script>
+            function editTeacher(id) {
+                var baseUrl = '{{ url('admin/teachers/edit/') }}';
                 var url = baseUrl + '/' + id;
 
 
