@@ -22,7 +22,7 @@
                             <div class="page-sub-header">
                                 <h3 class="page-title">@lang('translation.welcome_text')</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
                                     <li class="breadcrumb-item active">Admin</li>
                                 </ul>
                             </div>
@@ -38,10 +38,10 @@
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                     <div class="db-info">
                                         <h6>Students</h6>
-                                        <h3>{{$countStudent}}</h3>
+                                        <h3>{{ $countStudent }}</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{ url('assets/img/icons/dash-icon-01.svg') }}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -51,12 +51,12 @@
                         <div class="card bg-comman w-100">
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
-                                     <div class="db-info">
+                                    <div class="db-info">
                                         <h6>Revenue</h6>
-                                        <h3>{{$totalRevenue}}</h3>
+                                        <h3>{{ $totalRevenue }}</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/img/icons/dash-icon-04.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{ url('assets/img/icons/dash-icon-04.svg') }}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -66,12 +66,13 @@
                         <div class="card bg-comman w-100">
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
-                                     <div class="db-info">
+                                    <div class="db-info">
                                         <h6>Classes</h6>
-                                        <h3>{{$totalClasses}}</h3>
+                                        <h3>{{ $totalClasses }}</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/img/icons/teacher-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{ url('assets/img/icons/teacher-icon-01.svg') }}"
+                                            alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -81,12 +82,12 @@
                         <div class="card bg-comman w-100">
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
-                                     <div class="db-info">
+                                    <div class="db-info">
                                         <h6>Teachers</h6>
-                                        <h3>{{$countTeachers}}</h3>
+                                        <h3>{{ $countTeachers }}</h3>
                                     </div>
                                     <div class="db-icon">
-                                        <img src="{{url('assets/img/icons/dash-icon-01.svg')}}" alt="Dashboard Icon">
+                                        <img src="{{ url('assets/img/icons/dash-icon-01.svg') }}" alt="Dashboard Icon">
                                     </div>
                                 </div>
                             </div>
@@ -105,8 +106,7 @@
                                     </div>
                                     <div class="col-6">
                                         <ul class="chart-list-out">
-                                            <li><span class="circle-blue"></span>Teacher</li>
-                                            <li><span class="circle-green"></span>Student</li>
+                                            <li><span class="circle-blue"></span>Student Admission Data</li>
                                             <li class="star-menus"><a href="javascript:;"><i
                                                         class="fas fa-ellipsis-v"></i></a></li>
                                         </ul>
@@ -144,9 +144,9 @@
 
                     </div>
                 </div>
-                
 
-                
+
+
             </div>
         </div>
 
@@ -157,6 +157,58 @@
 
 
     @include('admin_layouts.footer')
+
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var labels = ['Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
+            var data = @json($monthlyStudentCount);
+
+            if (document.querySelector('#apexcharts-area')) {
+                var options = {
+                    chart: {
+                        height: 350, 
+                        type: 'line',
+                        toolbar: {
+                            show: false
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
+                    series: [{
+                        name: 'Students',
+                        color: '#3D5EE1',
+                        data: data
+                    }],
+                    xaxis: {
+                        categories: labels,
+                        labels: {
+                            rotate: -45,
+                            style: {
+                                fontSize: '12px', 
+                            }
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                fontSize: '12px' 
+                            }
+                        }
+                    },
+                    markers: {
+                        size: 4 
+                    }
+                };
+
+                var chart = new ApexCharts(document.querySelector('#apexcharts-area'), options);
+                chart.render();
+            }
+        });
+    </script>
 </body>
 
 </html>
