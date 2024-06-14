@@ -108,6 +108,13 @@
                     </ul>
                 </li>
 
+                 <li class="{{ request()->is('admin/reports*') ? 'active' : '' }}">
+                    <a href="{{ url('admin/reports') }}"><i class="bi bi-clipboard-data"></i> <span> Reports</span></a>
+
+                </li>
+
+                
+
                 {{-- <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
                     <a href="#"><i class="feather-box"></i> <span> Staff Management</span> <span
                             class="menu-arrow"></span></a>
@@ -122,19 +129,7 @@
                     </ul>
                 </li>
 
-                <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
-                    <a href="#"><i class="feather-box"></i> <span> Reports</span> <span
-                            class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="{{ url('admin/tools/calendar') }}"
-                                class="{{ request()->is('admin/tools/calendar') ? 'active' : '' }}">Calendar</a></li>
-                        <li><a href="{{ url('admin/tools/nepali-date-converter') }}"
-                                class="{{ request()->is('admin/tools/nepali-date-converter') ? 'active' : '' }}">Nepali
-                                Date Converter</a></li>
-
-
-                    </ul>
-                </li>
+               
 
                 <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
                     <a href="#"><i class="feather-box"></i> <span> Graph Reports</span> <span

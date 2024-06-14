@@ -19,6 +19,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonthlyFeesParticularController;
 use App\Http\Controllers\MonthlyFeesPaymentController;
 use App\Http\Controllers\PaymentOptionController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentController;
@@ -151,6 +152,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('day-book/add-income', [DayBookController::class, 'incomeStore']);
     Route::get('day-book/add-expense', [DayBookController::class, 'addExpenseIndex']);
     Route::post('day-book/add-expense', [DayBookController::class, 'expenseStore']);
+
+
+    Route::get('reports', [ReportController::class, 'index']);
     
     
 });
