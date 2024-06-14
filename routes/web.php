@@ -20,6 +20,7 @@ use App\Http\Controllers\MonthlyFeesParticularController;
 use App\Http\Controllers\MonthlyFeesPaymentController;
 use App\Http\Controllers\PaymentOptionController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SalesReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentController;
@@ -155,6 +156,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
 
     Route::get('reports', [ReportController::class, 'index']);
+    Route::get('reports/sales-report/admission-payment', [SalesReportController::class, 'admissionPaymentReport']);
     
     
 });
