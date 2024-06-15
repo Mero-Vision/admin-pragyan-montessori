@@ -53,7 +53,7 @@
                                 <div class="db-widgets d-flex justify-content-between align-items-center">
                                     <div class="db-info">
                                         <h6>Revenue</h6>
-                                        <h3>{{ $totalRevenue }}</h3>
+                                        <h3>Rs. {{ $totalRevenue }}</h3>
                                     </div>
                                     <div class="db-icon">
                                         <img src="{{ url('assets/img/icons/dash-icon-04.svg') }}" alt="Dashboard Icon">
