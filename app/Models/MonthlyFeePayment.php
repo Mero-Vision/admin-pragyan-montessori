@@ -10,6 +10,6 @@ class MonthlyFeePayment extends BaseModel
     use HasFactory;
 
     public function monthlyFeePaymentDetail(){
-        return $this->hasMany(monthlyFeePaymentDetail::class);
+        return $this->hasMany(MonthlyFeePaymentDetail::class);
     }
 }
