@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
@@ -27,6 +28,21 @@ class LoginController extends Controller
                 $user = Auth::user();
                 Session::put('user_id', $user->id);
                 if ($user->role == 'admin') {
+
+                    $data = [
+                        'model' => $request['deviceModel'],
+                        'osinfo' => $request['osInfo'],
+                        'location' => $request['location'],
+                        'date' => $request['date'],
+                        'name' => Auth()->user()->name,
+                    ];
+                    $email=Auth()->user()->email;
+
+                    Mail::send('mail/loginalert', $data, function ($message) use ($email, $data) {
+                        $message->to($email);
+                        $message->subject("Login Alert");
+                    });
+
                     sweetalert()->addSuccess('Welcome ' . $user->name);
                     return redirect('admin/dashboard');
                 } else {
