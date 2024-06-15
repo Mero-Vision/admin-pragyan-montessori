@@ -43,7 +43,7 @@
         }
 
         .custom-gradient-background {
-            background: linear-gradient(to bottom right, #434cf6, #9ca1ff);
+            background: linear-gradient(to bottom right, #3D5EE1, #9ca1ff);
             /* Adjust colors as needed */
         }
     </style>
@@ -77,7 +77,7 @@
                                             {{ $data->account_type }}
                                         </p>
                                         <p class="card-text text-light"><strong>Balance:</strong> Rs.
-                                            {{ number_format($data->current_balance, 2) }}</p>
+                                            {{ number_format($data->balance, 2) }}</p>
 
 
                                         <div class="row mt-3 bg-light rounded p-3">

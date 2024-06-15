@@ -35,7 +35,8 @@ class BankBookController extends Controller
                 return $bankAccount;
             });
             if($bankAccount){
-                return back()->with('success','Bank Account Created Successfully!');
+                sweetalert()->addSuccess('Bank Account Created Successfully!');
+                return redirect('admin/bank-book');
             }
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
