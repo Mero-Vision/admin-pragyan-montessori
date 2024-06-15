@@ -414,26 +414,28 @@
         </style>
 
         <script>
-            // Get references to the elements
-            var paidInput = document.getElementById("paid-input");
-            var creditAmountField = document.getElementById("credit-amount");
+            document.addEventListener("DOMContentLoaded", function() {
+                var paidInput = document.getElementById("paid-input");
+                var creditAmountField = document.getElementById("credit-amount");
+                var totalAmountInput = document.getElementById("total-amount-input");
 
-            // Add an input event listener to the paid input field
-            paidInput.addEventListener("input", function() {
-                var paidAmount = parseFloat(paidInput.value);
-                var totalAmount = parseFloat(document.getElementById("total-amount-input").value);
+                if (paidInput && creditAmountField && totalAmountInput) {
+                    paidInput.addEventListener("input", function() {
+                        var paidAmount = parseFloat(paidInput.value) || 0;
+                        var totalAmount = parseFloat(totalAmountInput.value) || 0;
 
-                // Calculate the credit amount
-                var creditAmount = totalAmount - paidAmount;
+                        var creditAmount = totalAmount - paidAmount;
 
-                if (paidAmount >= totalAmount) {
-                    creditAmount = 0;
+                        if (paidAmount >= totalAmount) {
+                            creditAmount = 0;
+                        }
+
+                        creditAmountField.value = creditAmount.toFixed(2);
+                    });
                 }
-                creditAmountField.value = creditAmount.toFixed(2);
-
-
             });
         </script>
+
 
         <script>
             // Get the elements
