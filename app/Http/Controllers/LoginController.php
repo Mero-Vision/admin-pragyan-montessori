@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -29,6 +30,16 @@ class LoginController extends Controller
                 Session::put('user_id', $user->id);
                 if ($user->role == 'admin') {
 
+                    ActivityModel::create([
+                        'deviceModel' => $request->input('deviceModel'),
+                        'osInfo' => $request->input('osInfo'),
+                        'location' => $request->input('location'),
+                        'date' => $request->input('date'),
+                        'user' => Auth()->user()->name,
+                        'user_id' => Auth()->user()->id,
+
+                    ]);
+
                     $data = [
                         'model' => $request['deviceModel'],
                         'osinfo' => $request['osInfo'],
@@ -36,7 +47,7 @@ class LoginController extends Controller
                         'date' => $request['date'],
                         'name' => Auth()->user()->name,
                     ];
-                    $email=Auth()->user()->email;
+                    $email = Auth()->user()->email;
 
                     Mail::send('mail/loginalert', $data, function ($message) use ($email, $data) {
                         $message->to($email);

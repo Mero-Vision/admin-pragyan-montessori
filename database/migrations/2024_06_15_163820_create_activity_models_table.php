@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('activity_models', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
             $table->string('deviceModel');
             $table->string('osInfo');
             $table->string('location');
