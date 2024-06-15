@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bank_books', function (Blueprint $table) {
             $table->id();
+            $table->string('session_year')->nullable();
             $table->foreignId('bank_account_id')->nullable();
             $table->string('user')->nullable();
             $table->string('transaction_date')->nullable();
