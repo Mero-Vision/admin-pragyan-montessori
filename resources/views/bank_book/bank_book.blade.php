@@ -59,6 +59,18 @@
         <div class="page-wrapper">
             <div class="content container-fluid">
 
+                 <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">Bank Book</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Bank Book</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 @if ($bankAccounts->isNotEmpty())
 
                     <div class="row">
@@ -83,36 +95,36 @@
                                         <div class="row mt-3 bg-light rounded p-3">
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('wallet/send/btc') }}" class="circle-button mb-1">
+                                                    <a href="{{ url('#') }}" class="circle-button mb-1">
                                                         <i class='bx bx-up-arrow-alt bx-sm'></i>
                                                     </a>
                                                     <br>
 
-                                                    <a href="{{ url('wallet/send/btc') }}" class="text-dark">Deposit</a>
+                                                    <a href="{{ url('#') }}" class="text-dark">Deposit</a>
                                                 </div>
                                             </div>
 
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('wallet/convert/btc') }}"
+                                                    <a href="{{ url('#') }}"
                                                         class="circle-button mb-1">
 
                                                         <i class='bx bx-expand-horizontal bx-sm'></i>
                                                     </a>
                                                     <br>
-                                                    <a href="{{ url('wallet/convert/btc') }}"
+                                                    <a href="{{ url('#') }}"
                                                         class="text-dark">Withdraw</a>
                                                 </div>
                                             </div>
 
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('wallet/receive/btc') }}"
+                                                    <a href="{{ url('#') }}"
                                                         class="circle-button mb-1">
                                                         <i class='bx bx-down-arrow-alt bx-sm'></i>
                                                     </a>
                                                     <br>
-                                                    <a href="{{ url('wallet/receive/btc') }}"
+                                                    <a href="{{ url('#') }}"
                                                         class="text-dark">Statement</a>
                                                 </div>
                                             </div>

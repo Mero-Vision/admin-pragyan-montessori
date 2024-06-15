@@ -108,23 +108,25 @@
                     </ul>
                 </li>
 
-                 <li class="submenu {{ request()->is('admin/bank-book*') ? 'active' : '' }}">
+                <li class="submenu {{ request()->is('admin/bank-book*') ? 'active' : '' }}">
                     <a href="#"><i class="bi bi-journal-text"></i> <span> Bank Book</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{ url('admin/bank-book') }}"
                                 class="{{ request()->is('admin/bank-book') ? 'active' : '' }}">Bank
                                 Book</a></li>
-                       
+                        <li><a href="{{ url('admin/bank-book/create-bank-account') }}"
+                                class="{{ request()->is('admin/bank-book/create-bank-account') ? 'active' : '' }}">Register New Bank</a></li>
+
                     </ul>
                 </li>
 
-                 <li class="{{ request()->is('admin/reports*') ? 'active' : '' }}">
+                <li class="{{ request()->is('admin/reports*') ? 'active' : '' }}">
                     <a href="{{ url('admin/reports') }}"><i class="bi bi-clipboard-data"></i> <span> Reports</span></a>
 
                 </li>
 
-                
+
 
                 {{-- <li class="submenu {{ request()->is('admin/tools*') ? 'active' : '' }}">
                     <a href="#"><i class="feather-box"></i> <span> Staff Management</span> <span
