@@ -122,11 +122,11 @@
 
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('#') }}" class="circle-button mb-1">
+                                                    <a href="{{ url('admin/bank-book/' . $data->slug . '/statements') }}" class="circle-button mb-1">
                                                         <i class='bx bx-down-arrow-alt bx-sm'></i>
                                                     </a>
                                                     <br>
-                                                    <a href="{{ url('#') }}" class="text-dark">Statement</a>
+                                                    <a href="{{ url('admin/bank-book/' . $data->slug . '/statements') }}" class="text-dark">Statement</a>
                                                 </div>
                                             </div>
                                         </div>

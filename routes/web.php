@@ -168,6 +168,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('bank-book/{slug}/deposit', [BankAccountController::class, 'depositStore']);
     Route::get('bank-book/{slug}/withdraw', [BankAccountController::class, 'withdrawIndex']);
     Route::post('bank-book/{slug}/withdraw', [BankAccountController::class, 'withdrawStore']);
+    Route::get('bank-book/{slug}/statements', [BankAccountController::class, 'statementIndex']);
 
     
     

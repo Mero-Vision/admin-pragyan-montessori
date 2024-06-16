@@ -137,4 +137,20 @@ class BankAccountController extends Controller
             return back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+
+    public function statementIndex($slug)
+    {
+        $bankAccount = BankAccount::where('slug', $slug)->first();
+        $bankBooks=BankBook::where('bank_account_id',$bankAccount->id)->get();
+        $netBalance = 0;
+        foreach ($bankBooks as $book) {
+            if ($book->transaction_type == 'Withdraw') {
+                $netBalance -= $book->amount;
+            } else {
+                $netBalance += $book->amount;
+            }
+            $book->net_balance = $netBalance;
+        }
+        return view('bank_book.bank_account.statement', compact('bankAccount', 'bankBooks'));
+    }
 }
