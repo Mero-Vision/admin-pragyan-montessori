@@ -77,8 +77,8 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Description</th>
-                                                <th>Debit</th>
-                                                <th>Credit</th>
+                                                <th>Debit (-)</th>
+                                                <th>Credit (+)</th>
                                                 <th>Net Balance</th>
                                             </tr>
                                         </thead>
