@@ -109,7 +109,7 @@
                 </li>
 
                 <li class="submenu {{ request()->is('admin/bank-book*') ? 'active' : '' }}">
-                    <a href="#"><i class="bi bi-journal-text"></i> <span> Bank Book</span> <span
+                    <a href="#"><i class="bi bi-journal-text"></i> <span> Bank Reconciliation</span> <span
                             class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="{{ url('admin/bank-book') }}"
