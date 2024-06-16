@@ -141,7 +141,14 @@ class BankAccountController extends Controller
     public function statementIndex($slug)
     {
         $bankAccount = BankAccount::where('slug', $slug)->first();
-        $bankBooks=BankBook::where('bank_account_id',$bankAccount->id)->get();
+        $start_date = request()->query('start_date');
+        $end_date = request()->query('end_date');
+        
+        $bankBooks=BankBook::where('bank_account_id',$bankAccount->id) ->whereBetween('transaction_date', [$start_date, $end_date])->get();
+
+     
+
+    
         $netBalance = 0;
         foreach ($bankBooks as $book) {
             if ($book->transaction_type == 'Withdraw') {
