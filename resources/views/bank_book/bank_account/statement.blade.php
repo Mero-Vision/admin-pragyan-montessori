@@ -77,8 +77,8 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Operated By</th>
-                                                <th>Debit</th>
-                                                <th>Credit</th>
+                                                <th>Withdraw</th>
+                                                <th>Deposit</th>
                                                 <th>Net Balance</th>
                                             </tr>
                                         </thead>
