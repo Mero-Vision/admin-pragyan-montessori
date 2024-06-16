@@ -52,7 +52,8 @@
 
                     <div class="col-lg-6 col-md-6">
 
-                        <form action="{{ url('admin/bank-book/' . $bankAccount->slug . '/statements') }}" method="get" class="m-gray">
+                        <form action="{{ url('admin/bank-book/' . $bankAccount->slug . '/statements') }}" method="get"
+                            class="m-gray">
                             <input type="text" name="start_date"
                                 style="padding:5px;border:none;background:none;border-bottom:1px solid gray;"
                                 id="nepali-datepicker" required>
@@ -178,10 +179,10 @@
                 // Initialize DataTables with styling
                 $('#table_data').DataTable({
                     "paging": false,
-                    "lengthChange": false, // Remove page length selection
+                    "lengthChange": false,
                     "searching": true,
                     "info": true,
-                    "autoWidth": false,
+                    "autoWidth": true,
                     "order": [
                         [0, 'desc']
                     ],
@@ -191,39 +192,36 @@
                             "previous": "Prev"
                         }
                     },
-                    "dom": 'Bfrtip', // Control the table elements to display
+                    "dom": 'Bfrtip',
                     "buttons": [{
                             "extend": 'copyHtml5',
-                            "title": 'Bank Statement'
+                            "title": '{{ $bankAccount->bank_name }} Statement'
                         },
                         {
                             "extend": 'excelHtml5',
-                            "title": 'Bank Statement'
+                            "title": '{{ $bankAccount->bank_name }} Statement'
                         },
                         {
                             "extend": 'csvHtml5',
-                            "title": 'Bank Statement'
+                            "title": '{{ $bankAccount->bank_name }} Statement'
                         },
                         {
                             "extend": 'pdfHtml5',
-                            "title": 'Bank Statement'
+                            "title": '{{ $bankAccount->bank_name }} Statement',
+                            "orientation": 'landscape',
+                            "customize": function(doc) {
+                                doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                    .length + 1).join('*').split('');
+                            }
+
                         },
                         {
                             "extend": 'print',
-                            "title": 'Bank Statement',
-                            "customize": function(win) {
-                                $(win.document.body)
-                                    .css('font-size', '10pt')
-                                    .prepend(
-                                        '<style>' +
-                                        'body { margin: 0; padding: 0; }' +
-                                        'table { width: 100%; border-collapse: collapse; }' +
-                                        'table, th, td { border: 1px solid black; }' +
-                                        '</style>'
-                                    );
+                            "title": '{{ $bankAccount->bank_name }} Statement',
+                            "exportOptions": {
+                                "columns": ':visible'
+                            },
 
-                               $(win.document.body).find('h5').css('text-align', 'center'); // Hide header
-                            }
                         }
                     ]
                 });
@@ -245,6 +243,17 @@
                 }
             };
         </script>
+
+        <style>
+            #table_data_wrapper {
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            #table_data {
+                width: 100%;
+            }
+        </style>
 
 
 
