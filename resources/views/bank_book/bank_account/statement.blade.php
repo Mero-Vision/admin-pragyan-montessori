@@ -194,23 +194,23 @@
                     "dom": 'Bfrtip', // Control the table elements to display
                     "buttons": [{
                             "extend": 'copyHtml5',
-                            "title": 'Day Book Statement'
+                            "title": 'Bank Statement'
                         },
                         {
                             "extend": 'excelHtml5',
-                            "title": 'Day Book Statement'
+                            "title": 'Bank Statement'
                         },
                         {
                             "extend": 'csvHtml5',
-                            "title": 'Day Book Statement'
+                            "title": 'Bank Statement'
                         },
                         {
                             "extend": 'pdfHtml5',
-                            "title": 'Day Book Statement'
+                            "title": 'Bank Statement'
                         },
                         {
                             "extend": 'print',
-                            "title": 'Day Book Statement',
+                            "title": 'Bank Statement',
                             "customize": function(win) {
                                 $(win.document.body)
                                     .css('font-size', '10pt')
@@ -222,7 +222,7 @@
                                         '</style>'
                                     );
 
-                                $(win.document.body).find('h1').css('display', 'none'); // Hide header
+                               $(win.document.body).find('h5').css('text-align', 'center'); // Hide header
                             }
                         }
                     ]
