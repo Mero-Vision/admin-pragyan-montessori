@@ -12,8 +12,13 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        if (auth()->check()) {
+            return redirect('admin/dashboard');
+        } else {
+            return view('login'); 
+        }
     }
+
 
     public function login(Request $request)
     {
