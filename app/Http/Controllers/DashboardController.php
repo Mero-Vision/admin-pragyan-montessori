@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $countTeachers = Teacher::count();
         $countContactUs = ContactUs::count();
         $countAdmissionInquiry = StudentAdmissionInquiry::count();
-        $totalRevenue=AdmissionPayment::sum('sub_total')+MonthlyFeePayment::sum('sub_total');
+        $totalRevenue= number_format(AdmissionPayment::sum('sub_total') + MonthlyFeePayment::sum('sub_total'));
         $totalClasses=SchoolClass::count();
 
 
