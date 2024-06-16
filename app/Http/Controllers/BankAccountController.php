@@ -92,4 +92,49 @@ class BankAccountController extends Controller
             return back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+
+
+    public function withdrawIndex($slug)
+    {
+        $bankAccount = BankAccount::where('slug', $slug)->first();
+        return view('bank_book.bank_account.withdraw', compact('bankAccount'));
+    }
+
+    public function withdrawStore(Request $request, $slug)
+    {
+        $request->validate([
+            'withdraw_amount' => ['required', 'numeric'],
+            'transaction_date' => ['required']
+        ]);
+
+        $currentYear = Carbon::today();
+        $bsYear = explode('-', NepaliCalendar::AD2BS($currentYear))[0];
+
+        $bankAccount = BankAccount::where('slug', $slug)->firstOrFail();
+
+        try {
+            DB::transaction(function () use ($request, $bsYear, $bankAccount) {
+                $newBalance = $bankAccount->balance - $request->withdraw_amount;
+
+                BankBook::create([
+                    'session_year' => $bsYear,
+                    'user' => auth()->user()->name,
+                    'bank_account_id' => $bankAccount->id,
+                    'transaction_date' => $request->transaction_date,
+                    'transaction_type' => "Withdraw",
+                    'amount' => $newBalance,
+                    'balance' => $newBalance
+                ]);
+
+                $bankAccount->update(['balance' => $newBalance]);
+            });
+
+            if ($bankAccount) {
+                sweetalert()->addSuccess('Amount Has Been Withdrawed Successfully!');
+                return redirect('admin/bank-book');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
 }
