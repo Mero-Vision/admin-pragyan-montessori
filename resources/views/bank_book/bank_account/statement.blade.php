@@ -79,7 +79,7 @@
                                                 <th>Operated By</th>
                                                 <th>Withdraw</th>
                                                 <th>Deposit</th>
-                                                <th>Net Balance</th>
+                                                <th>Current Balance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
