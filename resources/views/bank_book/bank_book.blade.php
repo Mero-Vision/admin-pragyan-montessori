@@ -59,7 +59,7 @@
         <div class="page-wrapper">
             <div class="content container-fluid">
 
-                 <div class="page-header">
+                <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
                             <h3 class="page-title">Bank Book</h3>
@@ -74,8 +74,9 @@
                 @if ($bankAccounts->isNotEmpty())
 
                     <div class="row">
-                        <div class="col-lg-4 col-md-4">
-                            @foreach ($bankAccounts as $data)
+
+                        @foreach ($bankAccounts as $data)
+                            <div class="col-lg-4 col-md-4">
                                 <div class="card mb-4 custom-gradient-background">
                                     <div class="card-header bg-light rounded">
                                         <h5 class="card-title text-dark mb-0">Bank: {{ $data->bank_name }}</h5>
@@ -95,7 +96,8 @@
                                         <div class="row mt-3 bg-light rounded p-3">
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('#') }}" class="circle-button mb-1">
+                                                    <a href="{{ url('admin/bank-book/' . $data->slug . '/deposit') }}"
+                                                        class="circle-button mb-1">
                                                         <i class='bx bx-up-arrow-alt bx-sm'></i>
                                                     </a>
                                                     <br>
@@ -106,33 +108,30 @@
 
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('#') }}"
-                                                        class="circle-button mb-1">
+                                                    <a href="{{ url('#') }}" class="circle-button mb-1">
 
                                                         <i class='bx bx-expand-horizontal bx-sm'></i>
                                                     </a>
                                                     <br>
-                                                    <a href="{{ url('#') }}"
-                                                        class="text-dark">Withdraw</a>
+                                                    <a href="{{ url('#') }}" class="text-dark">Withdraw</a>
                                                 </div>
                                             </div>
 
                                             <div class="col">
                                                 <div class="text-center icon-container">
-                                                    <a href="{{ url('#') }}"
-                                                        class="circle-button mb-1">
+                                                    <a href="{{ url('#') }}" class="circle-button mb-1">
                                                         <i class='bx bx-down-arrow-alt bx-sm'></i>
                                                     </a>
                                                     <br>
-                                                    <a href="{{ url('#') }}"
-                                                        class="text-dark">Statement</a>
+                                                    <a href="{{ url('#') }}" class="text-dark">Statement</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
+
                     </div>
                 @else
                     <div class="row">

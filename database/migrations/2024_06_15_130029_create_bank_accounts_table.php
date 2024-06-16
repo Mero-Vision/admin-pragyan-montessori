@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('session_year')->nullable();
             $table->string('user')->nullable();
             $table->string('bank_name')->nullable();
+            $table->string('slug')->nullable();
             $table->string('account_name')->nullable();
             $table->string('account_number')->nullable();
             $table->string('account_type')->nullable();

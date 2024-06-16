@@ -22,8 +22,8 @@ class BankAccountCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
-            'bank_name' => 'required|string|max:255',
+
+            'bank_name' => 'required|string|max:255|unique:bank_accounts,bank_name',
             'account_holder_name' => 'required|string|max:255',
             'account_number' => 'required|string|max:255',
             'account_type' => 'required|string|max:255',

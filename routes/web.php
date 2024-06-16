@@ -6,6 +6,7 @@ use App\Http\Controllers\AdmissionInvoiceController;
 use App\Http\Controllers\AdmissionParticularController;
 use App\Http\Controllers\AdmissionPaymentController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankBookController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClassController;
@@ -161,8 +162,10 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
 
     Route::get('bank-book', [BankBookController::class, 'index']);
-    Route::get('bank-book/create-bank-account', [BankBookController::class, 'create']);
-    Route::post('bank-book/create-bank-account', [BankBookController::class, 'store']);
+    Route::get('bank-book/create-bank-account', [BankAccountController::class, 'create']);
+    Route::post('bank-book/create-bank-account', [BankAccountController::class, 'store']);
+    Route::get('bank-book/{slug}/deposit', [BankAccountController::class, 'depositIndex']);
+    Route::post('bank-book/{slug}/deposit', [BankAccountController::class, 'depositStore']);
 
     
     
