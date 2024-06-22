@@ -184,6 +184,7 @@ class MonthlyFeesPaymentController extends Controller
                     'year' => Carbon::now()->year,
                     'nepali_payment_date' => $currentNepaliDate,
                     'payment_date' => Carbon::today(),
+                    'late_fine_amount'=>$request->fine_amount
                 ]);
 
                 if ($request->paid_amount < $request->net_total) {

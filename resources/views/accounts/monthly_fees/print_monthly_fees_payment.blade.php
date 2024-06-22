@@ -47,9 +47,11 @@
                 </div>
 
                 @if ($monthlyPayments)
-                 <button onclick="printDivContent()" class="btn btn-primary m-2 text-center mx-auto d-block">Print Invoice</button>
+                    <button onclick="printDivContent()" class="btn btn-primary m-2 text-center mx-auto d-block">Print
+                        Invoice</button>
                     <div id="contentDiv"
-                        style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4;" class="m-3">
+                        style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4;"
+                        class="m-3">
                         <div
                             style="max-width: 600px; margin: auto; background: white; padding: 20px; border: 1px solid #ddd;">
                             <header style="text-align: center; margin-bottom: 20px;">
@@ -92,12 +94,14 @@
                                 </p>
                             </section>
 
-                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <table
+                                style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 14px;">
                                 <thead>
                                     <tr style="background-color: #f9f9f9;">
-                                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Description
+                                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Description
                                         </th>
-                                        <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">Amount</th>
+                                        <th style="border: 1px solid #ddd; padding: 12px; text-align: right;">Amount
+                                            (Rs.)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,21 +113,59 @@
                                             $totalAmount += $monthFeesPaymentDetail->amount;
                                         @endphp
                                         <tr>
-                                            <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <td style="border: 1px solid #ddd; padding: 12px;">
                                                 {{ $monthFeesPaymentDetail->particulars }}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">
-                                                {{ $monthFeesPaymentDetail->amount }}
-                                            </td>
+                                            <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                {{ $monthFeesPaymentDetail->amount }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td style="border: 1px solid #ddd; padding: 8px;"><strong>Total</strong></td>
-                                        <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">
-                                            <strong>Rs. {{ $totalAmount }}</strong>
-                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>Total:</strong></td>
+                                        <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                            <strong>{{ $totalAmount }}</strong></td>
                                     </tr>
+                                    @if (
+                                        $monthlyPayments->discount_amount ||
+                                            $monthlyPayments->late_fine_amount ||
+                                            $monthlyPayments->credit_amount ||
+                                            $monthlyPayments->paid_amount)
+                                        <tr style="background-color: #f9f9f9;">
+                                            <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">
+                                                Additional Details</th>
+                                            <th style="border: 1px solid #ddd; padding: 12px; text-align: right;"></th>
+                                        </tr>
+                                        @if ($monthlyPayments->discount_amount)
+                                            <tr>
+                                                <td style="border: 1px solid #ddd; padding: 12px;">Discount</td>
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                    {{ $monthlyPayments->discount_amount }}</td>
+                                            </tr>
+                                        @endif
+                                        @if ($monthlyPayments->late_fine_amount)
+                                            <tr>
+                                                <td style="border: 1px solid #ddd; padding: 12px;">Late Fine</td>
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                    {{ $monthlyPayments->late_fine_amount }}</td>
+                                            </tr>
+                                        @endif
+                                        @if ($monthlyPayments->credit_amount)
+                                            <tr>
+                                                <td style="border: 1px solid #ddd; padding: 12px;">Credit Amount</td>
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                    {{ $monthlyPayments->credit_amount }}</td>
+                                            </tr>
+                                        @endif
+                                        @if ($monthlyPayments->paid_amount)
+                                            <tr>
+                                                <td style="border: 1px solid #ddd; padding: 12px;">Paid</td>
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                    {{ $monthlyPayments->paid_amount }}</td>
+                                            </tr>
+                                        @endif
+                                    @endif
                                 </tbody>
                             </table>
+
 
                             <section>
                                 <h3 style="margin: 0; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
@@ -141,7 +183,7 @@
                             </footer>
                         </div>
                     </div>
-                   
+
                 @endif
 
 

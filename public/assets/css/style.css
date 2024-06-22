@@ -5562,9 +5562,9 @@ table.table-inbox tbody tr.checked {
 	border-radius: 10px;
 }
 .invoices-main-form {
-	padding-bottom: 15px;
-	margin-bottom: 30px;
-	border-bottom: 1px solid #E5E5E5;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 2px solid #E5E5E5;
 }
 .invoices-form label {
 	font-weight: 600;
@@ -5656,14 +5656,14 @@ table.table-inbox tbody tr.checked {
 	display: none;
 }
 .invoice-add-table {
-	padding-top: 20px;
-	padding-bottom: 30px;
+	padding-top: 5px;
+	padding-bottom: 10px;
 }
 .invoice-add-table h4 {
 	font-weight: 600;
-	font-size: 20px;
+	font-size: 16px;
 	color: #3d5ee1;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 .invoice-add-table th {
 	font-size: 16px;

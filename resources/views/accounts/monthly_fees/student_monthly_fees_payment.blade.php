@@ -124,8 +124,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="invoice-add-table">
-                                        <h4>Bill Details</h4>
+                                    <div class="invoice-add-table mb-0">
+                                        <h4 class="mt-0">Bill Details</h4>
                                         <div class="table-responsive">
                                             <table class=" table-invoice">
                                                 <thead>
@@ -183,26 +183,24 @@
                                         document.addEventListener('DOMContentLoaded', function() {
                                             const amountInputs = document.querySelectorAll('.amount-input');
                                             const discountInput = document.getElementById('discount-input');
+                                            const fineInput = document.getElementById('fine-amount');
                                             const subTotalElement = document.getElementById('sub-total-amount');
                                             const totalAmountElement = document.getElementById('total-amount');
 
-                                            function updateTotal() {
-                                                let totalAmount = 0;
+                                            function updateSubTotal() {
+                                                let subTotal = 0;
                                                 amountInputs.forEach(input => {
-                                                    totalAmount += parseFloat(input.value) || 0;
+                                                    subTotal += parseFloat(input.value) || 0;
                                                 });
-                                                const discount = parseFloat(discountInput.value) || 0;
-                                                totalAmount -= discount;
-                                                totalAmountElement.textContent = `Rs. ${totalAmount.toFixed(2)}`;
+                                                subTotalElement.textContent = `Rs. ${subTotal.toFixed(2)}`;
+                                                updateTotal(subTotal);
                                             }
 
-                                            function updateSubTotal() {
-                                                let totalAmount = 0;
-                                                amountInputs.forEach(input => {
-                                                    totalAmount += parseFloat(input.value) || 0;
-                                                });
-                                                subTotalElement.textContent = `Rs. ${totalAmount.toFixed(2)}`;
-                                                updateTotal();
+                                            function updateTotal(subTotal) {
+                                                const discount = parseFloat(discountInput.value) || 0;
+                                                const fine = parseFloat(fineInput.value) || 0;
+                                                let totalAmount = subTotal - discount + fine;
+                                                totalAmountElement.textContent = `Rs. ${totalAmount.toFixed(2)}`;
                                             }
 
                                             amountInputs.forEach(input => {
@@ -212,14 +210,20 @@
                                             });
 
                                             discountInput.addEventListener('input', function() {
-                                                updateTotal();
+                                                const subTotal = parseFloat(subTotalElement.textContent.replace('Rs. ', '')) || 0;
+                                                updateTotal(subTotal);
+                                            });
 
+                                            fineInput.addEventListener('input', function() {
+                                                const subTotal = parseFloat(subTotalElement.textContent.replace('Rs. ', '')) || 0;
+                                                updateTotal(subTotal);
                                             });
 
                                             // Initial calculation
                                             updateSubTotal();
                                         });
                                     </script>
+
                                     <div class="row">
                                         <div class="col-lg-7 col-md-6">
                                             <div class="invoice-fields">
@@ -336,10 +340,17 @@
                                                                 name="credit_amount" readonly>
                                                         </div>
 
-
-
-
-
+                                                        <div class="links-info-discount mt-2" id="credit-amount-field"
+                                                            style="display: flex; align-items: center;">
+                                                            <p for="discount-input"
+                                                                style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
+                                                                Fine Amount:
+                                                            </p>
+                                                            <input type="number" id="fine-amount"
+                                                                class="form-control"
+                                                                style="height: 40px; flex-grow: 1;"
+                                                                name="fine_amount">
+                                                        </div>
 
                                                     </div>
 
