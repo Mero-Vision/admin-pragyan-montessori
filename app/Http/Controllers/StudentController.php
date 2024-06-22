@@ -64,6 +64,7 @@ class StudentController extends Controller
         $lastAdj = $latestStudent ? (int)Str::after($latestStudent->admission_id, '-') : 0;
         $adjNumber = $lastAdj + 1;
 
+        
         $currentYear = Carbon::today();
         $bsDate = NepaliCalendar::AD2BS($currentYear);
         $bsYear = explode('-', $bsDate)[0];

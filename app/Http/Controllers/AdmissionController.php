@@ -72,6 +72,7 @@ class AdmissionController extends Controller
                 }
 
                 $user = User::create([
+                    'student_id'=>$student->id,
                     'name' => $request->name,
                     'dob' => $request->dob,
                     'email' => $request->email,

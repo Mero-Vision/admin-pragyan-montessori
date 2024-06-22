@@ -32,6 +32,7 @@ class TeacherCreateRequest extends FormRequest
             'joining_date' => ['required'],
             'education_qualification' => ['required'],
             'position' => ['required'],
+            'base_salary'=>['required','numeric']
         ];
     }
 }

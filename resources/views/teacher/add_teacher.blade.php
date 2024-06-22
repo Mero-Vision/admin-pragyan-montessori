@@ -142,6 +142,16 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                         <div class="col-12 col-sm-4">
+                                            <div class="form-group local-forms">
+                                                <label>Base Salary <span class="login-danger">*</span></label>
+                                                <input class="form-control" type="number" placeholder="Enter Base Salary" name="base_salary">
+                                                  @error('base_salary')
+                                                <p class="text-danger">{{$message}}</p>
+                                                    
+                                                @enderror
+                                            </div>
+                                        </div>
 
                                         
 

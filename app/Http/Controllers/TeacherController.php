@@ -52,7 +52,8 @@ class TeacherController extends Controller
                     'address' => $request->address,
                     'joining_date' => $request->joining_date,
                     'education_qualification' => $request->education_qualification,
-                    'position' => $request->position
+                    'position' => $request->position,
+                    'base_salary' => $request->base_salary
                 ]);
 
 
@@ -86,7 +87,8 @@ class TeacherController extends Controller
                     'address' => $request->address,
                     'joining_date' => $request->joining_date,
                     'education_qualification' => $request->education_qualification,
-                    'position' => $request->position
+                    'position' => $request->position,
+                    'base_salary'=>$request->base_salary
                 ]);
 
                

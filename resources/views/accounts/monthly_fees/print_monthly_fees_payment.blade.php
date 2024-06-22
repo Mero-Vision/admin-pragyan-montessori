@@ -122,7 +122,7 @@
                                     <tr>
                                         <td style="border: 1px solid #ddd; padding: 12px;"><strong>Total:</strong></td>
                                         <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
-                                            <strong>{{ $totalAmount }}</strong></td>
+                                            <strong>Rs. {{ $totalAmount }}</strong></td>
                                     </tr>
                                     @if (
                                         $monthlyPayments->discount_amount ||
@@ -137,28 +137,28 @@
                                         @if ($monthlyPayments->discount_amount)
                                             <tr>
                                                 <td style="border: 1px solid #ddd; padding: 12px;">Discount</td>
-                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">Rs. 
                                                     {{ $monthlyPayments->discount_amount }}</td>
                                             </tr>
                                         @endif
                                         @if ($monthlyPayments->late_fine_amount)
                                             <tr>
                                                 <td style="border: 1px solid #ddd; padding: 12px;">Late Fine</td>
-                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">Rs. 
                                                     {{ $monthlyPayments->late_fine_amount }}</td>
                                             </tr>
                                         @endif
                                         @if ($monthlyPayments->credit_amount)
                                             <tr>
                                                 <td style="border: 1px solid #ddd; padding: 12px;">Credit Amount</td>
-                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">Rs. 
                                                     {{ $monthlyPayments->credit_amount }}</td>
                                             </tr>
                                         @endif
                                         @if ($monthlyPayments->paid_amount)
                                             <tr>
                                                 <td style="border: 1px solid #ddd; padding: 12px;">Paid</td>
-                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">
+                                                <td style="border: 1px solid #ddd; padding: 12px; text-align: right;">Rs. 
                                                     {{ $monthlyPayments->paid_amount }}</td>
                                             </tr>
                                         @endif

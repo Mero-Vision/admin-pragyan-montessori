@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('joining_date')->nullable();
             $table->string('education_qualification')->nullable();
             $table->string('position')->nullable();
+            $table->float('base_salary')->nullable();
             $table->timestamps();
         });
     }

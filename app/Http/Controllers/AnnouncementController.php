@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AnnouncementRequestRequest;
 use App\Models\Announcement;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AnnouncementController extends Controller
 {
@@ -34,6 +36,21 @@ class AnnouncementController extends Controller
                     'content'=>$request->content,
                     'author'=>auth()->user()->name,
                 ]);
+
+                $students = Student::get();
+
+                if ($students->isNotEmpty()) {
+                    foreach ($students as $student) {
+                        Mail::send('mail/announcementmail', ['student' => $student, 'announcement' => $announcement], function ($message) use ($student,$announcement) {
+                            $message->to($student->email);
+                            $message->subject("New Announcement: " . $announcement->title);
+                        });
+                    }
+                }
+
+               
+              
+            
                 return $announcement;
             });
             if($announcement){
