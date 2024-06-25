@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdmissionPayment;
+use App\Models\Student;
 use App\Models\StudentCreditPayment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,11 +33,14 @@ class SalesReportController extends Controller
         // Fetch query parameters
         $start_date = $request->query('start_date');
         $end_date = $request->query('end_date');
+        $student_id = $request->query('student_id');
 
-        // If either start_date or end_date is not provided, return empty data
-        if (!$start_date || !$end_date) {
-            $studentCreditPayments = collect(); // Return an empty collection
-            return view('reports.sales_report.monthly_fees_payment_report', compact('studentCreditPayments'));
+        if (!$start_date || !$end_date || !$student_id) {
+            $studentCreditPayments = collect();
+
+            $students = Student::get();
+
+            return view('reports.sales_report.monthly_fees_payment_report', compact('studentCreditPayments','students'));
         }
 
         // Get the current date in AD and convert it to BS
@@ -48,7 +52,8 @@ class SalesReportController extends Controller
         $studentCreditPaymentsQuery = StudentCreditPayment::join('students', 'students.id', '=', 'student_credit_payments.student_id')
         ->join('payment_options', 'payment_options.id', '=', 'student_credit_payments.payment_option_id')
         ->select('student_credit_payments.*', 'students.name', 'payment_options.payment_name')
-        ->where('student_credit_payments.session_year', $bsYear);
+        ->where('student_credit_payments.session_year', $bsYear)
+        ->where('student_credit_payments.student_id',$student_id);
 
         // Apply the date filter
         $studentCreditPaymentsQuery->whereBetween('student_credit_payments.created_at', [
@@ -59,6 +64,8 @@ class SalesReportController extends Controller
         // Execute the query and get the results
         $studentCreditPayments = $studentCreditPaymentsQuery->get();
 
-        return view('reports.sales_report.monthly_fees_payment_report', compact('studentCreditPayments'));
+        $students=Student::get();
+
+        return view('reports.sales_report.monthly_fees_payment_report', compact('studentCreditPayments', 'students'));
     }
 }

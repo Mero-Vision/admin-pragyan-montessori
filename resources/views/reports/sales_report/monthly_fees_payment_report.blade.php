@@ -47,24 +47,39 @@
                 </div>
 
                 <div class="row mb-3">
-
-                    <div class="col-lg-6 col-md-6">
-
+                    <div class="col-12">
                         <form action="{{ url('admin/reports/sales-report/monthly-fees-payment') }}" method="get"
                             class="m-gray">
-                            <input type="date" name="start_date"
-                                style="padding:5px;border:none;background:none;border-bottom:1px solid gray;" required>
-                            <b>To:</b>
-                            <input type="date" name="end_date"
-                                style="padding:5px;border:none;background:none;border-bottom:1px solid gray;" required>
-                            <button type="submit" class="btn btn-primary" style="margin:10px;"><i
-                                    class="bi bi-search"></i> Search</button>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <input type="date" name="start_date" class="form-control"
+                                        style="padding:5px;border:none;background:none;border-bottom:1px solid gray;"
+                                        required>
+                                </div>
+                                <div class="col-auto">
+                                    <b>To:</b>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="date" name="end_date" class="form-control"
+                                        style="padding:5px;border:none;background:none;border-bottom:1px solid gray;"
+                                        required>
+                                </div>
+                                <div class="col-auto">
+                                    <select class="form-control form-select" name="student_id" required>
+                                        @foreach ($students as $student)
+                                            <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i>
+                                        Search</button>
+                                </div>
+                            </div>
                         </form>
-
                     </div>
-
-
                 </div>
+
 
 
                 <div class="row">
@@ -88,7 +103,7 @@
                                                 <tr>
                                                     <td>{{ $data->id }}</td>
                                                     <td>{{ $data->name }}</td>
-                                                     <td>{{ $data->payment_name }}</td>
+                                                    <td>{{ $data->payment_name }}</td>
                                                     <td>{{ $data->credit_amount }}</td>
                                                     <td>{{ $data->user }}</td>
                                                 </tr>
@@ -119,15 +134,15 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 let paid_amount = 0;
-            
+
 
                 document.querySelectorAll('#table_data tbody tr').forEach(row => {
                     paid_amount += parseFloat(row.cells[3].innerText) || 0;
-                  
+
                 });
 
                 document.getElementById('paid_amount').innerText = 'Rs. ' + paid_amount.toFixed(2);
-               
+
             });
         </script>
 
@@ -183,7 +198,7 @@
                                         '</style>'
                                     );
 
-                                $(win.document.body).find('h1').css('display', 'none'); 
+                                $(win.document.body).find('h1').css('display', 'none');
                             }
                         }
                     ]
