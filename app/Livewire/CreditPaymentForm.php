@@ -5,9 +5,11 @@ namespace App\Livewire;
 use App\Models\PaymentOption;
 use App\Models\StudentCreditPayment;
 use App\Models\StudentDueAmount;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
+use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
 class CreditPaymentForm extends Component
 {
@@ -25,7 +27,6 @@ class CreditPaymentForm extends Component
     public $paid_amount = '';
 
     
-
     public function mount($studentId)
     {
         $this->studentId = $studentId;
@@ -33,6 +34,10 @@ class CreditPaymentForm extends Component
 
     public function save()
     {
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+        
         $this->validate();
 
         $dueAmount = StudentDueAmount::where('student_id', $this->studentId)->sum('due_amount');
@@ -48,12 +53,14 @@ class CreditPaymentForm extends Component
         }
 
         StudentCreditPayment::create([
+            'session_year' => $bsYear,
             'student_id' => $this->studentId,
             'payment_option_id' => $this->payment_option_id,
             'user'=>auth()->user()->name,
             'credit_amount' => $this->paid_amount,
         ]);
 
+        
         StudentDueAmount::updateOrCreate([
             'student_id' => $this->studentId,
         ], ['due_amount'=>$dueAmount-$this->paid_amount]);

@@ -29,9 +29,9 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-header">Sales Report <i class="bi bi-clipboard-data"></i></div>
-                            <div class="card-body">
+                            <div class="m-4">
                                 <a class="m-2 text-dark" href="{{url('admin/reports/sales-report/admission-payment')}}">1. Admission Payment</a><br>
-                                <a class="m-2 text-dark" href="">2. Monthly Fee Payment</a><br>
+                                <a class="m-2 text-dark" href="{{url('admin/reports/sales-report/monthly-fees-payment')}}">2. Monthly Fee Payment</a><br>
                                 <a class="m-2 text-dark" href="">3. Student Admission Fee Payment</a><br>
                                 <a class="m-2 text-dark" href="">3. Fees By Student</a><br>
                                 <a class="m-2 text-dark" href="">3. Discount Report</a><br>

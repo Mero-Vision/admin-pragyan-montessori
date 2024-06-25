@@ -159,6 +159,7 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
 
     Route::get('reports', [ReportController::class, 'index']);
     Route::get('reports/sales-report/admission-payment', [SalesReportController::class, 'admissionPaymentReport']);
+    Route::get('reports/sales-report/monthly-fees-payment', [SalesReportController::class, 'monthlyFeesPaymentReport']);
 
 
     Route::get('bank-book', [BankBookController::class, 'index']);
