@@ -24,15 +24,15 @@ class TeacherCreateRequest extends FormRequest
     {
         return [
             'teacher_name' => ['required','max:255'],
-            'dob' => ['required'],
-            'email' => ['required', 'email',Rule::unique('teachers','email')],
+            'dob' => ['nullable'],
+            'email' => ['nullable', 'email',Rule::unique('teachers','email')],
             'gender' => ['required'],
-            'mobile_no' => ['required', 'numeric', Rule::unique('teachers', 'mobile_no')],
-            'address' => ['required'],
-            'joining_date' => ['required'],
-            'education_qualification' => ['required'],
-            'position' => ['required'],
-            'base_salary'=>['required','numeric']
+            'mobile_no' => ['nullable', 'numeric', Rule::unique('teachers', 'mobile_no')],
+            'address' => ['nullable'],
+            'joining_date' => ['nullable'],
+            'education_qualification' => ['nullable'],
+            'position' => ['nullable'],
+            'base_salary'=>['nullable','numeric']
         ];
     }
 }
