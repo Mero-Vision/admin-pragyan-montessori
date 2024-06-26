@@ -83,15 +83,15 @@ class AdmissionController extends Controller
                     'role' => 'student',
                 ]);
 
-                $token = Str::random(60);
+                // $token = Str::random(60);
 
-                DB::table('password_resets')->insert([
-                    'email' => $user->email,
-                    'token' => $token,
-                    'created_at' => now(),
-                ]);
+                // DB::table('password_resets')->insert([
+                //     'email' => $user->email,
+                //     'token' => $token,
+                //     'created_at' => now(),
+                // ]);
 
-                Mail::to($request->email)->send(new UserVerificationMail($user, $token));
+                // Mail::to($request->email)->send(new UserVerificationMail($user, $token));
 
                
 
