@@ -63,7 +63,8 @@ class MonthlyFeesParticularController extends Controller
     public function store(MonthlyFeesParticularCreateRequest $request)
     {
 
-        $existingOrderNumber = MonthlyFeesParticular::where('order_number', $request->order_number)->first();
+        $existingOrderNumber = MonthlyFeesParticular::where('order_number', $request->order_number)
+        ->where('class_id', $request->class)->first();
         if ($existingOrderNumber) {
             $existingOrderNumber->update([
                 'order_number' => null
