@@ -111,8 +111,8 @@
                     "lengthChange": true,
                     "searching": true,
                     "info": true,
-                    "autoWidth": false,
-                     "order": [[0, 'desc']],
+                   // "autoWidth": false,
+                   //  "order": [[0, 'desc']],
                     "language": {
                         "paginate": {
                             "next": "Next",
