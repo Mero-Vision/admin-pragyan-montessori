@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function users()
     {
-        $users = User::withTrashed()->where('role','admin')->latest()->get();
+        $users = User::withTrashed()->whereIn('role',['admin','principal'])->latest()->get();
         $roles = UserRole::get();
         return view('user.users', compact('users', 'roles'));
     }
