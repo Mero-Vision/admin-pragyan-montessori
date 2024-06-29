@@ -59,7 +59,7 @@
 
 
 
-                
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -236,9 +236,7 @@
                     "searching": true,
                     "info": true,
                     "autoWidth": false,
-                    "order": [
-                        [2, 'asc']
-                    ],
+                   
                     "language": {
                         "paginate": {
                             "next": "Next",
