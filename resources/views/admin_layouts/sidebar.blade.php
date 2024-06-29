@@ -5,13 +5,14 @@
                 <li class="menu-title">
                     <span>@lang('translation.main_menu')</span>
                 </li>
-                <li class="{{ request()->is('admin/dashboard') ? 'active' : '' }}">
-                    <a href="{{ url('admin/dashboard') }}"><i class="feather-grid"></i> <span>
-                            @lang('translation.dashboard')</span></a>
 
-                </li>
 
                 @if (Auth()->user()->role == 'admin')
+                    <li class="{{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                        <a href="{{ url('admin/dashboard') }}"><i class="feather-grid"></i> <span>
+                                @lang('translation.dashboard')</span></a>
+
+                    </li>
                     <li class="{{ request()->is('admin/users*') ? 'active' : '' }}">
                         <a href="{{ url('admin/users') }}"><i class='bx bxs-user'></i> <span> User Management</span></a>
 
