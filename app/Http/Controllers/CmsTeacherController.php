@@ -10,7 +10,7 @@ class CmsTeacherController extends Controller
 {
     public function index()
     {
-        $teachers=CmsTeacher::with('media')->get();
+        $teachers=CmsTeacher::with('media')->orderBy('created_at')->get();
         return view('cms_teacher.cms_teacher',compact('teachers'));
     }
 
