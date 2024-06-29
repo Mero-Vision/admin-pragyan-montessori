@@ -15,7 +15,7 @@ class LoginController extends Controller
         if (auth()->check()) {
             return redirect('admin/dashboard');
         } else {
-            return view('login'); 
+            return view('login');
         }
     }
 
@@ -57,9 +57,13 @@ class LoginController extends Controller
                         $message->to($email);
                         $message->subject("Login Alert");
                     });
-
-                    sweetalert()->addSuccess('Welcome ' . $user->name);
-                    return redirect('admin/dashboard');
+                    if ($user->role == "principal") {
+                        sweetalert()->addSuccess('Welcome ' . $user->name);
+                        return redirect('admin/cms/contact-us');
+                    } else {
+                        sweetalert()->addSuccess('Welcome ' . $user->name);
+                        return redirect('admin/dashboard');
+                    }
                 } else {
                     sweetalert()->addWarning('Invalid email or password.');
 
