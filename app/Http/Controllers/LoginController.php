@@ -33,7 +33,7 @@ class LoginController extends Controller
             if (Auth::attempt($credential)) {
                 $user = Auth::user();
                 Session::put('user_id', $user->id);
-                if ($user->role == 'admin') {
+                if ($user->role == 'admin' || $user->role == 'principal') {
 
                     ActivityModel::create([
                         'deviceModel' => $request->input('deviceModel'),
