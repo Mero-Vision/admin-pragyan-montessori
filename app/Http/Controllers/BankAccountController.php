@@ -77,7 +77,7 @@ class BankAccountController extends Controller
                     'bank_account_id' => $bankAccount->id,
                     'transaction_date' => $request->transaction_date,
                     'transaction_type' => "Deposit",
-                    'amount' => $newBalance,
+                    'amount' => $request->deposit_amount,
                     'balance' => $newBalance
                 ]);
 
@@ -122,7 +122,7 @@ class BankAccountController extends Controller
                     'bank_account_id' => $bankAccount->id,
                     'transaction_date' => $request->transaction_date,
                     'transaction_type' => "Withdraw",
-                    'amount' => $newBalance,
+                    'amount' => $request->withdraw_amount,
                     'balance' => $newBalance
                 ]);
 
