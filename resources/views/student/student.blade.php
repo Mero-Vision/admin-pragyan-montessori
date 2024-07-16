@@ -156,7 +156,8 @@
                         {
                             data: null,
                             render: function(data, type, row) {
-                                return '<button class="btn btn-success btn-sm" onclick="viewStudent(' +
+                                return '<button class="badge badge-primary" onclick="editStudent(' +
+                                    row.id + ')">Edit</button> <button class="badge badge-success" onclick="viewStudent(' +
                                     row.id + ')">View</button>';
                             }
                         }
@@ -226,6 +227,16 @@
         <script>
             function viewStudent(id) {
                 var baseUrl = '{{ url('admin/students/view/') }}';
+                var url = baseUrl + '/' + id;
+
+
+                window.location.href = url;
+            }
+        </script>
+
+        <script>
+            function editStudent(id) {
+                var baseUrl = '{{ url('admin/students/edit/') }}';
                 var url = baseUrl + '/' + id;
 
 

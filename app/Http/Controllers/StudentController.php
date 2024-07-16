@@ -10,6 +10,7 @@ use App\Models\PaymentOption;
 use App\Models\SchoolClass;
 use App\Models\Student;
 use App\Models\StudentDueAmount;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,12 @@ use MilanTarami\NepaliCalendar\Facades\NepaliCalendar;
 
 class StudentController extends Controller
 {
+    protected $students;
+
+    public function __construct(Student $students)
+    {
+        $this->students=$students;
+    }
     public function index(){
 
         return view('student.student');
@@ -58,43 +65,72 @@ class StudentController extends Controller
         return response()->json(['data' => $students]);
     }
 
-    public function store(StudentCreateRequest $request)
-    {
-        $latestStudent = Student::latest()->first();
-        $lastAdj = $latestStudent ? (int)Str::after($latestStudent->admission_id, '-') : 0;
-        $adjNumber = $lastAdj + 1;
+    public function edit($id){
 
-        
+        $student=$this->students->find($id);
+        if(!$student){
+            return back()->with('error','Student ID Not Found');
+        }
+        return view('student.edit_students',compact('student'));
+    }
+
+
+    public function update(Request $request,$id)
+    {
+       
         $currentYear = Carbon::today();
         $bsDate = NepaliCalendar::AD2BS($currentYear);
         $bsYear = explode('-', $bsDate)[0];
 
+        $student = $this->students->find($id);
+        if (!$student) {
+            return back()->with('error', 'Student ID Not Found');
+        }
+
         try {
 
-            $student = DB::transaction(function () use ($request, $adjNumber, $bsYear) {
+            $student = DB::transaction(function () use ($request, $student, $bsYear) {
 
-                $student = Student::create([
-                    'session_year' => $bsYear,
+                $student->update([
                     'name' => $request->name,
                     'dob' => $request->dob,
                     'email' => $request->email,
                     'gender' => $request->gender,
                     'mobile_no' => $request->mobile_no,
                     'address' => $request->address,
-                    'address' => $request->address,
-                    'class_id' => $request->class,
-                    'admission_id' => Str::uuid(),
-                    'roll_number'=>$request->roll_number
-                   
+                    'monthly_payment_amount' => $request->monthly_payment_amount,
+                    'roll_number' => $request->rollnumber,
+                    'guardian_name' => $request->guardian_name,
+                    'guardian_occupation' => $request->guardian_occupation,
+                    'previous_school' => $request->previous_school,
+                    'blood_group' => $request->blood_group,
+                    'disease_if_any' => $request->disease_if_any,
                 ]);
 
+                if ($request->profile_image) {
+                    $student->addMedia($request->profile_image)->toMediaCollection('student_profile_image');
+                }
+
+                $user=User::where('student_id',$student->id)->first();
+                if($user){
+                    $user->update([
+                        'name' => $request->name,
+                        'dob' => $request->dob,
+                        'email' => $request->email,
+                        'gender' => $request->gender,
+                        'address' => $request->address,
+                        'mobile_no' => $request->mobile_no,
+                    ]);
+                }
                 return $student;
             });
             if ($student) {
-                return back()->with('success', 'Student data saved successfully!');
+                return back()->with('success', 'Student Data Updated Successfully!');
             }
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
+
+   
 }

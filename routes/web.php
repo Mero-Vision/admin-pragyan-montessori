@@ -107,6 +107,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     // Route::post('students/add', [StudentController::class, 'store']);
     Route::get('students/view/{id}', [StudentController::class, 'show']);
     Route::get('students/data', [StudentController::class, 'studentData']);
+    Route::get('students/edit/{id}', [StudentController::class, 'edit']);
+    Route::post('students/edit/{id}', [StudentController::class, 'update']);
+
 
     Route::get('settings/general-settings', [SettingController::class, 'general_setting']);
     Route::get('settings/social-links-settings', [SettingController::class, 'social_link_setting']);
