@@ -61,7 +61,8 @@
                                         <div class="tab-pane {{ $index === 0 ? 'show active' : '' }}"
                                             id="tab{{ $index }}">
                                             <div class="table-responsive">
-                                                <table class="table table-striped custom-table" id="table_data{{ $index }}">
+                                                <table class="table table-striped custom-table"
+                                                    id="table_data{{ $index }}">
                                                     <thead>
                                                         <tr>
                                                             <th>ID</th>
@@ -87,8 +88,17 @@
                                                                     <td>{{ $student->mobile_no }}</td>
                                                                     <td>{{ $student->email }}</td>
                                                                     <td>
-                                                                        <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}/{{ $student->id }}"
-                                                                            class="badge badge-danger">Go to Payment</a>
+                                                                        <a href="#" data-bs-toggle="modal"
+                                                                            data-bs-target="#add_fees_collect"
+                                                                            class="badge badge-danger"
+                                                                            data-id="{{ $student->id }}"
+                                                                            data-name="{{ $student->name }}"
+                                                                            data-gender="{{ $student->gender }}"
+                                                                            data-class="{{ $student->class_name }}"
+                                                                            data-mobile="{{ $student->mobile_no }}"
+                                                                            data-monthly_fees="{{ $student->monthly_payment_amount }}"
+                                                                            data-email="{{ $student->email }}">Fees
+                                                                            Assign</a>
                                                                         <a href="{{ url('admin/accounts/student-monthly-fees-payments/print') }}/{{ $student->slug }}"
                                                                             class="badge badge-success">Print
                                                                             Invoice</a>
@@ -103,6 +113,148 @@
 
 
                                         </div>
+
+
+                                        <div class="modal fade" id="add_fees_collect">
+                                            <div class="modal-dialog modal-dialog-centered  modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <div class="d-flex align-items-center">
+                                                            <h4 class="modal-title">Assign Fees</h4>
+                                                            <spa class="badge badge-sm bg-primary ms-2">AD124556</span>
+                                                        </div>
+                                                        <button type="button" class="btn-close custom-btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="ti ti-x"></i>
+                                                        </button>
+                                                    </div>
+                                                    <form
+                                                        action="https://preschool.dreamstechnologies.com/laravel/template/public/collect-fees">
+                                                        <div class="modal-body">
+                                                            <div class="bg-light-300 p-3 pb-0 rounded">
+                                                                <div class="row align-items-center">
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="d-flex align-items-center mb-3">
+                                                                            <a href="https://preschool.dreamstechnologies.com/laravel/template/public/student-details"
+                                                                                class="avatar avatar-md me-2">
+                                                                                <img src="{{ url('assets/img/user.png') }}"
+                                                                                    alt="img">
+                                                                            </a>
+                                                                            <a class="d-flex flex-column"><span
+                                                                                    class="text-dark"
+                                                                                    id="studentNameLabel">Janet</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <span class="badge badge-soft-danger"><i
+                                                                                    class="ti ti-circle-filled me-2"></i>Unpaid</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Student Name</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="student-name" readonly>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Last Payment
+                                                                            Date</label>
+                                                                        <div class="date-pic">
+                                                                            <input type="text"
+                                                                                class="form-control datetimepicker"
+                                                                                placeholder="Select">
+                                                                            <span class="cal-icon"><i
+                                                                                    class="ti ti-calendar"></i></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            </div>
+
+
+                                                            <div class="table-responsive">
+                                                                <table class="table table-invoice">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>ID</th>
+                                                                            <th>Particular Name</th>
+                                                                            <th>Amount</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @php
+                                                                            $counter = 2;
+                                                                        $totalAmount = 0; @endphp
+                                                                        <tr>
+                                                                            <td>1</td>
+                                                                            <td>Monthly Fees</td>
+
+                                                                            <td>
+                                                                                <input
+                                                                                    class="form-control py-0 my-0 amount-input"
+                                                                                    id="student_monthly_fees"
+                                                                                    name="monthly_fees" required>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @forelse ($monthlyParticulars as $monthlyParticular)
+                                                                            @if ($monthlyParticular->class_id == $class->id)
+                                                                                <tr>
+                                                                                    <td>{{ $loop->index + 1 }}</td>
+                                                                                    <td>
+                                                                                        <p>{{ $monthlyParticular->particulars }}
+                                                                                        </p>
+                                                                                        <input type="hidden"
+                                                                                            value="{{ $monthlyParticular->particulars }}"
+                                                                                            name="particulars[{{ $loop->index }}][particular_name]" />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input
+                                                                                            class="form-control py-0 my-0 amount-input"
+                                                                                            type="number"
+                                                                                            value="{{ $monthlyParticular->amount }}"
+                                                                                            name="particulars[{{ $loop->index }}][particular_amount]">
+                                                                                    </td>
+                                                                                </tr>
+                                                                                @php
+                                                                                    $totalAmount +=
+                                                                                        $monthlyParticular->amount;
+                                                                                @endphp
+                                                                            @endif
+                                                                        @empty
+                                                                            <tr>
+                                                                                <td colspan="3">No particulars found
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforelse
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a href="#" class="btn btn-light me-2"
+                                                                data-bs-dismiss="modal">Cancel</a>
+                                                            <button type="submit" class="btn btn-primary">Assign
+                                                                Fees</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -115,25 +267,42 @@
 
 
 
-
-
-
-
-
-
-
             </div>
         </div>
 
 
 
 
+        <script>
+            $(document).ready(function() {
+                $('#add_fees_collect').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget); // Button that triggered the modal
+                    var id = button.data('id');
+                    var name = button.data('name');
+                    var gender = button.data('gender');
+                    var className = button.data('class');
+                    var mobile = button.data('mobile');
+                    var email = button.data('email');
+                     var monthly_fee = button.data('monthly_fees');
 
+                    var modal = $(this);
+                    modal.find('#student-id').val(id);
+                    modal.find('#student-name').val(name);
+                    modal.find('#student-gender').val(gender);
+                    modal.find('#student-class').val(className);
+                    modal.find('#student-mobile').val(mobile);
+                    modal.find('#student-email').val(email);
+                    modal.find('#student_monthly_fees').val(monthly_fee);
+
+
+                    $('#studentNameLabel').text(name);
+                });
+            });
+        </script>
 
 
         <script>
             $(document).ready(function() {
-                // Initialize DataTable for the first tab by default
                 $('#table_data0').DataTable({
                     "paging": true,
                     "lengthChange": true,
@@ -151,10 +320,9 @@
                     }
                 });
 
-                // Initialize DataTables for each tab when shown
                 $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
-                    var target = $(e.target).attr("href"); // Get the target tab pane ID
-                    var tableId = target + ' table'; // Construct the table ID
+                    var target = $(e.target).attr("href");
+                    var tableId = target + ' table';
                     if (!$.fn.DataTable.isDataTable(tableId)) {
                         $(tableId).DataTable({
                             "paging": true,
@@ -176,18 +344,6 @@
                 });
             });
         </script>
-
-
-        <script>
-            function viewTeacher(id) {
-                var baseUrl = '{{ url('admin/teachers/view/') }}';
-                var url = baseUrl + '/' + id;
-
-
-                window.location.href = url;
-            }
-        </script>
-
 
         @include('admin_layouts.footer2')
 

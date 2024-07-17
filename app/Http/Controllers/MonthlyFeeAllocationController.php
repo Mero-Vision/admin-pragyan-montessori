@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MonthlyFeesParticular;
 use App\Models\SchoolClass;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ class MonthlyFeeAllocationController extends Controller
             ->select('students.*', 'school_classes.class_name')->get();
 
         $classes=SchoolClass::latest()->get();
+
+        $monthlyParticulars = MonthlyFeesParticular::orderBy('order_number')->get();
             
-        return view('accounts.monthly_fee_allocation.monthly_fee_allocation',compact('students','classes'));
+        return view('accounts.monthly_fee_allocation.monthly_fee_allocation',compact('students','classes', 'monthlyParticulars'));
     }
 }

@@ -57,11 +57,35 @@
                             <div class="mb-3 mb-xl-0">
                                 <div class="d-flex align-items-center flex-wrap mb-2">
                                     <h1 class="text-white me-2">Welcome Back, {{ Auth()->user()->name }}</h1>
-                                    <a href="{{url('admin/dashboard')}}"
+                                    <a href="{{ url('admin/dashboard') }}"
                                         class="avatar avatar-sm img-rounded bg-gray-800 dark-hover"><i
                                             class="ti ti-edit text-white"></i></a>
                                 </div>
-                                <p class="text-white">Have a Good day at work</p>
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
+                                @php
+                                    $currentHour = Carbon::now()->format('H');
+                                    $currentDate = Carbon::now()->format('l, F j, Y'); // e.g., "Wednesday, July 17, 2024"
+
+                                    if ($currentHour >= 5 && $currentHour < 12) {
+                                        $greeting = 'Good Morning';
+                                        $message = "Let's have a productive start to the day!";
+                                    } elseif ($currentHour >= 12 && $currentHour < 17) {
+                                        $greeting = 'Good Afternoon';
+                                        $message = 'Keep up the great work this afternoon!';
+                                    } elseif ($currentHour >= 17 && $currentHour < 21) {
+                                        $greeting = 'Good Evening';
+                                        $message = 'Time to wrap up the day!';
+                                    } else {
+                                        $greeting = 'Good Night';
+                                        $message = 'Have a restful night and recharge for tomorrow!';
+                                    }
+                                @endphp
+
+                                <p class="text-white">{{ $greeting }}!
+                                    {{ $message }}</p>
+
                             </div>
                             <p class="text-white"><i class="ti ti-refresh me-1"></i>Today Date:
                                 {{ \Carbon\Carbon::now()->format('Y-m-d') }}</p>
