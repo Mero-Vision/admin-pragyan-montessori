@@ -18,6 +18,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DayBookController;
 use App\Http\Controllers\LatePaymentFineController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MonthlyFeeAllocationController;
 use App\Http\Controllers\MonthlyFeesParticularController;
 use App\Http\Controllers\MonthlyFeesPaymentController;
 use App\Http\Controllers\PaymentOptionController;
@@ -149,6 +150,9 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/student-monthly-fees-payments/{id}', [MonthlyFeesPaymentController::class, 'studentMonthlyFeesPaymentIndex']);
     Route::get('accounts/student-monthly-fees-payments/print/{slug}', [MonthlyFeesPaymentController::class, 'printMonthlyFeesPayment']);
 
+    Route::get('accounts/monthly-fee-allocation', [MonthlyFeeAllocationController::class, 'index']);
+
+
 
     Route::get('tools/calendar', [ToolsController::class, 'calendarIndex']);
     Route::get('tools/nepali-date-converter', [ToolsController::class, 'nepaliDateConverter']);
@@ -174,6 +178,5 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::post('bank-book/{slug}/withdraw', [BankAccountController::class, 'withdrawStore']);
     Route::get('bank-book/{slug}/statements', [BankAccountController::class, 'statementIndex']);
 
-    
     
 });

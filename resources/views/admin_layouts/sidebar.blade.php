@@ -90,7 +90,10 @@
                                     Payment</a></li>
                             <li><a href="{{ url('admin/accounts/student-monthly-fees-payments') }}"
                                     class="{{ request()->is('admin/accounts/student-monthly-fees-payments') ? 'active' : '' }}">Monthly
-                                    Fees Payments</a></li>
+                                    Fee Payments</a></li>
+                                    <li><a href="{{ url('admin/accounts/monthly-fee-allocation') }}"
+                                    class="{{ request()->is('admin/accounts/monthly-fee-allocation') ? 'active' : '' }}">Monthly
+                                    Fee Allocation</a></li>
                             <li><a href="{{ url('admin/accounts/settings/payment-options') }}"
                                     class="{{ request()->is('admin/accounts/settings/payment-options') ? 'active' : '' }}">Account
                                     Settings</a></li>
