@@ -16,19 +16,59 @@
         <div class="page-wrapper">
             <div class="content container-fluid">
 
-                <div class="page-header">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="page-sub-header">
-                                <h3 class="page-title">@lang('translation.welcome_text')</h3>
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">Home</a></li>
-                                    <li class="breadcrumb-item active">Admin</li>
-                                </ul>
-                            </div>
+                <div class="d-md-flex d-block align-items-center justify-content-between mb-3">
+                    <div class="my-auto mb-2">
+                        <h3 class="page-title mb-1">Admin Dashboard</h3>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:void(0);">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Admin Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+                        <div class="mb-2">
+                            <a href="{{ url('admin/accounts/admission/create') }}"
+                                class="btn btn-primary d-flex align-items-center me-3"><i
+                                    class="ti ti-square-rounded-plus me-2"></i>Add New Student</a>
+                        </div>
+                        <div class="mb-2">
+                            <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}"
+                                class="btn btn-light d-flex align-items-center">Fees Details</a>
                         </div>
                     </div>
                 </div>
+
+                <div class="card bg-dark">
+                    <div class="overlay-img">
+                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-04.png"
+                            alt="img" class="img-fluid shape-01">
+                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-01.png"
+                            alt="img" class="img-fluid shape-02">
+                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-02.png"
+                            alt="img" class="img-fluid shape-03">
+                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-03.png"
+                            alt="img" class="img-fluid shape-04">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-xl-center justify-content-xl-between flex-xl-row flex-column">
+                            <div class="mb-3 mb-xl-0">
+                                <div class="d-flex align-items-center flex-wrap mb-2">
+                                    <h1 class="text-white me-2">Welcome Back, {{ Auth()->user()->name }}</h1>
+                                    <a href="{{url('admin/dashboard')}}"
+                                        class="avatar avatar-sm img-rounded bg-gray-800 dark-hover"><i
+                                            class="ti ti-edit text-white"></i></a>
+                                </div>
+                                <p class="text-white">Have a Good day at work</p>
+                            </div>
+                            <p class="text-white"><i class="ti ti-refresh me-1"></i>Today Date:
+                                {{ \Carbon\Carbon::now()->format('Y-m-d') }}</p>
+                        </div>
+                    </div>
+                </div>
+
 
 
                 <div class="row">
@@ -108,7 +148,8 @@
                                         <ul class="chart-list-out">
                                             <li><span class="circle-blue"></span>Student Admission Data</li>
                                             <li class="star-menus"><a href="javascript:;"><i
-                                                        class="fas fa-ellipsis-v"></i></a></li>
+                                                        class="fas fa-ellipsis-v"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -131,7 +172,8 @@
                                         <ul class="chart-list-out">
                                             <li><span class="circle-green"></span>Monthly Payments</li>
                                             <li class="star-menus"><a href="javascript:;"><i
-                                                        class="fas fa-ellipsis-v"></i></a></li>
+                                                        class="fas fa-ellipsis-v"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -157,15 +199,17 @@
 
     @include('admin_layouts.footer')
 
-   <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var labels = ['Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
+            var labels = ['Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin', 'Kartik', 'Mangsir',
+                'Poush', 'Magh', 'Falgun', 'Chaitra'
+            ];
             var data = @json($monthlyStudentCount);
 
             if (document.querySelector('#apexcharts-area')) {
                 var options = {
                     chart: {
-                        height: 350, 
+                        height: 350,
                         type: 'line',
                         toolbar: {
                             show: false
@@ -187,19 +231,19 @@
                         labels: {
                             rotate: -45,
                             style: {
-                                fontSize: '12px', 
+                                fontSize: '12px',
                             }
                         }
                     },
                     yaxis: {
                         labels: {
                             style: {
-                                fontSize: '12px' 
+                                fontSize: '12px'
                             }
                         }
                     },
                     markers: {
-                        size: 4 
+                        size: 4
                     }
                 };
 
@@ -210,9 +254,11 @@
     </script>
 
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var labels = ['Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
+            var labels = ['Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin', 'Kartik', 'Mangsir',
+                'Poush', 'Magh', 'Falgun', 'Chaitra'
+            ];
             var data = @json($monthlyPaymentCount);
 
             if (document.querySelector('#fee-area')) {
