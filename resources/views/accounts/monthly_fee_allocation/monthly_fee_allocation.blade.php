@@ -202,7 +202,7 @@
 
                                                                             <td>
                                                                                 <input
-                                                                                    class="form-control py-0 my-0 amount-input"
+                                                                                    class="form-control py-0 my-0 amount-input" type="number"
                                                                                     id="student_monthly_fees"
                                                                                     name="monthly_fees" required>
                                                                             </td>
