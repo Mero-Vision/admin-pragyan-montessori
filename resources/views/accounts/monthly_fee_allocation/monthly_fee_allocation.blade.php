@@ -88,16 +88,8 @@
                                                                     <td>{{ $student->mobile_no }}</td>
                                                                     <td>{{ $student->email }}</td>
                                                                     <td>
-                                                                        <a href="#" data-bs-toggle="modal"
-                                                                            data-bs-target="#add_fees_collect"
-                                                                            class="badge badge-danger"
-                                                                            data-id="{{ $student->id }}"
-                                                                            data-name="{{ $student->name }}"
-                                                                            data-gender="{{ $student->gender }}"
-                                                                            data-class="{{ $student->class_name }}"
-                                                                            data-mobile="{{ $student->mobile_no }}"
-                                                                            data-monthly_fees="{{ $student->monthly_payment_amount }}"
-                                                                            data-email="{{ $student->email }}">Fees
+                                                                        <a href="{{ url('admin/accounts/assign-monthly-fees') }}/{{$student->id}}"
+                                                                            class="badge badge-danger">Fees
                                                                             Assign</a>
                                                                         <a href="{{ url('admin/accounts/student-monthly-fees-payments/print') }}/{{ $student->slug }}"
                                                                             class="badge badge-success">Print
@@ -202,7 +194,8 @@
 
                                                                             <td>
                                                                                 <input
-                                                                                    class="form-control py-0 my-0 amount-input" type="number"
+                                                                                    class="form-control py-0 my-0 amount-input"
+                                                                                    type="number"
                                                                                     id="student_monthly_fees"
                                                                                     name="monthly_fees" required>
                                                                             </td>
@@ -283,7 +276,7 @@
                     var className = button.data('class');
                     var mobile = button.data('mobile');
                     var email = button.data('email');
-                     var monthly_fee = button.data('monthly_fees');
+                    var monthly_fee = button.data('monthly_fees');
 
                     var modal = $(this);
                     modal.find('#student-id').val(id);

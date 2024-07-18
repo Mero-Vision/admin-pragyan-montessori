@@ -151,6 +151,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/student-monthly-fees-payments/print/{slug}', [MonthlyFeesPaymentController::class, 'printMonthlyFeesPayment']);
 
     Route::get('accounts/monthly-fee-allocation', [MonthlyFeeAllocationController::class, 'index']);
+    Route::get('accounts/assign-monthly-fees/{id}', [MonthlyFeeAllocationController::class, 'assignMonthlyFees']);
+
 
 
 
