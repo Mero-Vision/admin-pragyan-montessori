@@ -30,19 +30,32 @@ class MonthlyFeeAllocationController extends Controller
         $students = $this->students->join('school_classes', 'school_classes.id', '=', 'students.class_id')
             ->select('students.*', 'school_classes.class_name')->where('students.payment_status', 'paid')->get();
 
-        $classes = SchoolClass::latest()->get();
 
+        $studentsWithPendingPayments = [];
+
+        foreach ($students as $student) {
+            $hasPendingPayment = MonthlyFeePayment::where('student_id', $student->id)
+                ->where('payment_status', 'pending')
+                ->exists();
+
+            if ($hasPendingPayment) {
+                $studentsWithPendingPayments[] = $student;
+            }
+        }
+
+        $classes = SchoolClass::latest()->get();
         $monthlyParticulars = MonthlyFeesParticular::orderBy('order_number')->get();
 
-        return view('accounts.monthly_fee_allocation.monthly_fee_allocation', compact('students', 'classes', 'monthlyParticulars'));
+        return view('accounts.monthly_fee_allocation.monthly_fee_allocation', compact('students', 'classes', 'monthlyParticulars', 'studentsWithPendingPayments'));
     }
 
-    public function selectPaymentMonth($id){
+    public function selectPaymentMonth($id)
+    {
         $student = Student::find($id);
 
         $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->get();
-        
-        return view('accounts.monthly_fee_allocation.select_payment_month',compact('monthlyFeesPayment'));
+
+        return view('accounts.monthly_fee_allocation.select_payment_month', compact('monthlyFeesPayment'));
     }
 
     public function assignMonthlyFees($id)
@@ -244,10 +257,10 @@ class MonthlyFeeAllocationController extends Controller
     public function payMonthlyAssignFees(Request $request, $id)
     {
 
-    
-        $existingPayment = MonthlyFeePayment::where('student_id', $request->student_id)
+
+        $existingPayment = MonthlyFeePayment::where('id', $id)
             ->where('month', $request->nepali_month)
-            ->where('payment_status','paid')
+            ->where('payment_status', 'paid')
             ->exists();
 
         if ($existingPayment) {
@@ -271,12 +284,12 @@ class MonthlyFeeAllocationController extends Controller
         $bsDate = NepaliCalendar::AD2BS($currentYear);
         $bsYear = explode('-', $bsDate)[0];
 
-        $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->first();
+        $monthlyFeesPayment = MonthlyFeePayment::where('id', $id)->where('payment_status', 'pending')->first();
 
         $monthlyFeesPaymentDetails = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyFeesPayment->id)->get();
 
         try {
-            DB::transaction(function () use ($request,$currentNepaliDate, $validatedData, $bsYear, $monthlyFeesPayment, $monthlyFeesPaymentDetails) {
+            DB::transaction(function () use ($request, $currentNepaliDate, $validatedData, $bsYear, $monthlyFeesPayment, $monthlyFeesPaymentDetails) {
 
                 $monthlyFeesPayment->update([
                     'session_year' => $bsYear,

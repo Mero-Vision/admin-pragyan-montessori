@@ -78,8 +78,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+
                                                         @foreach ($students as $student)
                                                             @if ($student->class_id == $class->id)
+                                                                @php
+                                                                    $hasPendingPayment = \App\Models\MonthlyFeePayment::where(
+                                                                        'student_id',
+                                                                        $student->id,
+                                                                    )
+                                                                        ->where('payment_status', 'pending')
+                                                                        ->exists();
+                                                                @endphp
                                                                 <tr>
                                                                     <td>{{ $student->id }}</td>
                                                                     <td>{{ $student->name }}</td>
@@ -91,12 +100,13 @@
                                                                         <a href="{{ url('admin/accounts/assign-monthly-fees') }}/{{ $student->id }}"
                                                                             class="badge badge-danger">Fees
                                                                             Assign</a>
-                                                                        <a href="{{ url('admin/accounts/select-payment-month') }}/{{ $student->id }}"
-                                                                            class="badge badge-primary">Pay
-                                                                            Fees</a>
-                                                                        <a href="{{ url('admin/accounts/student-monthly-fees-payments/print') }}/{{ $student->slug }}"
-                                                                            class="badge badge-success">Print
-                                                                            Invoice</a>
+                                                                        @if ($hasPendingPayment)
+                                                                            <a href="{{ url('admin/accounts/select-payment-month/' . $student->id) }}"
+                                                                                class="badge badge-primary">Pay Fees</a>
+                                                                            <a href="{{ url('admin/accounts/student-monthly-fees-payments/print/' . $student->slug) }}"
+                                                                                class="badge badge-success">Print
+                                                                                Assigned Invoice</a>
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                             @endif

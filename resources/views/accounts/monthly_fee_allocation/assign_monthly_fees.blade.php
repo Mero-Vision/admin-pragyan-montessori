@@ -49,7 +49,7 @@
                                     <form action="{{ url('admin/accounts/assign-monthly-fees') }}" class="invoices-form"
                                         method=POST>
                                         @csrf
-
+                                        
                                         <input type="hidden" value="{{ $student->id }}" name="student_id">
 
                                         <input type="hidden" value="{{ $student->class_id }}" name="class_id">
@@ -168,11 +168,11 @@
                                                     updateTotal(subTotal);
                                                 }
 
-                                                 amountInputs.forEach(input => {
-                                                input.addEventListener('input', function() {
-                                                    updateSubTotal();
+                                                amountInputs.forEach(input => {
+                                                    input.addEventListener('input', function() {
+                                                        updateSubTotal();
+                                                    });
                                                 });
-                                            });
 
                                                 function updateTotal(subTotal) {
                                                     const creditAmount = parseFloat(creditAmountInput.value) || 0;
@@ -315,7 +315,7 @@
         </script>
 
 
-       <script>
+        <script>
             document.addEventListener("DOMContentLoaded", function() {
                 var paidInput = document.getElementById("paid-input");
                 var creditAmountField = document.getElementById("credit-amount");
@@ -339,7 +339,7 @@
         </script>
 
 
-      
+
 
 
 
