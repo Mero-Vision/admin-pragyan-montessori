@@ -32,8 +32,8 @@
                         <div class="col-auto">
                             <ul class="breadcrumb invoices-breadcrumb">
                                 <li class="breadcrumb-item invoices-breadcrumb-item">
-                                    <a href="{{ url('admin/accounts/student-monthly-fees-payments') }}">
-                                        <i class='bx bx-arrow-back'></i> Back to Monthly Fees Payment
+                                    <a href="{{ url('admin/accounts/monthly-fee-allocation') }}">
+                                        <i class='bx bx-arrow-back'></i> Back
                                     </a>
                                 </li>
                             </ul>
@@ -46,8 +46,8 @@
                         <div class="col-md-12">
                             <div class="card invoices-add-card">
                                 <div class="card-body">
-                                    <form action="{{ url('admin/accounts/student-monthly-fees-payments') }}"
-                                        class="invoices-form" method=POST>
+                                    <form action="{{ url('admin/accounts/assign-monthly-fees') }}" class="invoices-form"
+                                        method=POST>
                                         @csrf
 
                                         <input type="hidden" value="{{ $student->id }}" name="student_id">
@@ -155,9 +155,8 @@
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
                                                 const amountInputs = document.querySelectorAll('.amount-input');
-                                                const discountInput = document.getElementById('discount-input');
-                                                const fineInput = document.getElementById('fine-amount');
                                                 const subTotalElement = document.getElementById('sub-total-amount');
+                                                const creditAmountInput = document.getElementById('credit-amount');
                                                 const totalAmountElement = document.getElementById('total-amount');
 
                                                 function updateSubTotal() {
@@ -170,32 +169,16 @@
                                                 }
 
                                                 function updateTotal(subTotal) {
-                                                    const discount = parseFloat(discountInput.value) || 0;
-                                                    const fine = parseFloat(fineInput.value) || 0;
-                                                    let totalAmount = subTotal - discount + fine;
+                                                    const creditAmount = parseFloat(creditAmountInput.value) || 0;
+                                                    const totalAmount = subTotal + creditAmount;
                                                     totalAmountElement.textContent = `Rs. ${totalAmount.toFixed(2)}`;
                                                 }
-
-                                                amountInputs.forEach(input => {
-                                                    input.addEventListener('input', function() {
-                                                        updateSubTotal();
-                                                    });
-                                                });
-
-                                                discountInput.addEventListener('input', function() {
-                                                    const subTotal = parseFloat(subTotalElement.textContent.replace('Rs. ', '')) || 0;
-                                                    updateTotal(subTotal);
-                                                });
-
-                                                fineInput.addEventListener('input', function() {
-                                                    const subTotal = parseFloat(subTotalElement.textContent.replace('Rs. ', '')) || 0;
-                                                    updateTotal(subTotal);
-                                                });
 
                                                 // Initial calculation
                                                 updateSubTotal();
                                             });
                                         </script>
+
 
                                         <div class="row">
                                             <div class="col-lg-7 col-md-6">
@@ -215,21 +198,21 @@
                                                                 id="sub-total-amount-input" value="0.00">
 
 
-                                                            
-
                                                             <div class="links-info-discount mt-2"
                                                                 id="credit-amount-field"
                                                                 style="display: flex; align-items: center;">
                                                                 <p for="discount-input"
                                                                     style="margin-right: 10px; margin-bottom: 0; font-family: Arial, sans-serif; font-size: 16px; flex-shrink: 0;">
-                                                                    Credit:
+                                                                    Due Amount:
                                                                 </p>
                                                                 <input type="number" id="credit-amount"
                                                                     class="form-control"
                                                                     style="height: 40px; flex-grow: 1;"
-                                                                    name="credit_amount" readonly>
+                                                                    name="credit_amount"
+                                                                    value="{{ $studentDueAmount->due_amount ?? null }}"
+                                                                    readonly>
                                                             </div>
-                                              
+
                                                         </div>
 
                                                         <div class="invoice-total-footer">
@@ -249,8 +232,8 @@
 
 
                                                     <div class="form-group float-end mb-0">
-                                                        <button class="btn btn-primary" type="submit">Save
-                                                            Invoice</button>
+                                                        <button class="btn btn-primary" type="submit">Assign
+                                                            Fees</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,6 +352,8 @@
             document.getElementById('sub-total-amount').addEventListener('DOMSubtreeModified', updateSubTotalAmount);
             document.getElementById('total-amount').addEventListener('DOMSubtreeModified', updateTotalAmount);
         </script>
+
+
 
 
         @include('admin_layouts.footer2')
