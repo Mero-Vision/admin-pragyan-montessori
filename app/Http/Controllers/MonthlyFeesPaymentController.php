@@ -25,7 +25,7 @@ class MonthlyFeesPaymentController extends Controller
 
 
         $students = Student::join('school_classes', 'school_classes.id', '=', 'students.class_id')
-            ->select('students.*', 'school_classes.class_name')->get();
+            ->select('students.*', 'school_classes.class_name')->where('students.payment_status', 'paid')->get();
 
         return view('accounts.monthly_fees.student_monthly_fees', compact('students'));
     }
@@ -72,14 +72,14 @@ class MonthlyFeesPaymentController extends Controller
         $monthlyParticulars = MonthlyFeesParticular::orderBy('order_number')->where('class_id', $student->class_id)->get();
 
         $paymentOptions = PaymentOption::get();
-        $monthlyPaymentHistories = MonthlyFeePayment::where('student_id', $student->id)->latest()->limit(4)->get();
+        $monthlyPaymentHistories = MonthlyFeePayment::where('student_id', $student->id)->where('payment_status','paid')->latest()->limit(4)->get();
 
         $currentYear = Carbon::today();
         $bsDate = NepaliCalendar::AD2BS($currentYear);
         $bsYear = explode('-', $bsDate)[0];
         
         $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
-            ->where('session_year', $bsYear)->pluck('month')->toArray();
+            ->where('session_year', $bsYear)->where('payment_status','!=','pending')->pluck('month')->toArray();
 
         $nepaliMonthMap = [
             1 => 'Baishakh',

@@ -28,7 +28,7 @@ class MonthlyFeeAllocationController extends Controller
     {
 
         $students = $this->students->join('school_classes', 'school_classes.id', '=', 'students.class_id')
-            ->select('students.*', 'school_classes.class_name')->get();
+            ->select('students.*', 'school_classes.class_name')->where('students.payment_status', 'paid')->get();
 
         $classes = SchoolClass::latest()->get();
 
@@ -223,23 +223,10 @@ class MonthlyFeeAllocationController extends Controller
 
         $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->first();
 
-      
-        $monthlyFeesPaymentDetails=MonthlyFeePaymentDetail::where('monthly_fee_payment_id',$monthlyFeesPayment->id)->get();
 
-        $nepaliMonthMap = [
-            1 => 'Baishakh',
-            2 => 'Jestha',
-            3 => 'Ashadh',
-            4 => 'Shrawan',
-            5 => 'Bhadra',
-            6 => 'Ashwin',
-            7 => 'Kartik',
-            8 => 'Mangsir',
-            9 => 'Poush',
-            10 => 'Magh',
-            11 => 'Falgun',
-            12 => 'Chaitra'
-        ];
+        $monthlyFeesPaymentDetails = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyFeesPayment->id)->get();
+
+
 
         return view('accounts.monthly_fee_allocation.pay_assign_monthly_fees', compact(
             'class',
@@ -248,10 +235,113 @@ class MonthlyFeeAllocationController extends Controller
             'monthlyParticulars',
             'paymentOptions',
             'paymentMonths',
-            'nepaliMonthMap',
             'studentDueAmount',
             'monthlyFeesPayment',
             'monthlyFeesPaymentDetails'
         ));
+    }
+
+
+    public function payMonthlyAssignFees(Request $request, $id)
+    {
+
+       
+
+
+
+        $existingPayment = MonthlyFeePayment::where('student_id', $request->student_id)
+            ->where('month', $request->nepali_month)
+            ->where('payment_status','paid')
+            ->exists();
+
+        if ($existingPayment) {
+            return back()->with('error', 'Payment for this month has already been completed.');
+        }
+
+        $validatedData = $request->validate([
+            'payment_option_id' => ['required'],
+            'paid_amount' => ['required', 'numeric'],
+            'particulars.*' => 'required|array',
+            'particulars.*.particular_name' => 'nullable|string',
+            'particulars.*.particular_amount' => 'nullable|numeric',
+        ]);
+
+
+        $date = Carbon::today();
+        $currentNepaliDate = NepaliDate::create(\Carbon\Carbon::now())->toFormattedBSDate();
+        // dd($currentNepaliDate);
+
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+
+        $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->first();
+
+        $monthlyFeesPaymentDetails = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyFeesPayment->id)->get();
+
+        try {
+            DB::transaction(function () use ($request,$currentNepaliDate, $validatedData, $bsYear, $monthlyFeesPayment, $monthlyFeesPaymentDetails) {
+
+                $monthlyFeesPayment->update([
+                    'session_year' => $bsYear,
+                    'student_id' => $request->student_id,
+                    'class_id' => $request->class_id,
+                    'payment_option_id' => $request->payment_option_id,
+                    'note' => $request->note,
+                    'sub_total' => $request->sub_total,
+                    'discount_amount' => $request->discount_amount,
+                    'paid_amount' => $request->paid_amount,
+                    'return_amount' => $request->return_amount,
+                    'net_total' => $request->net_total,
+                    'credit_amount' => $request->credit_amount,
+                    'month' => $request->nepali_month,
+                    'year' => Carbon::now()->year,
+                    'nepali_payment_date' => $currentNepaliDate,
+                    'payment_date' => Carbon::today(),
+                    'late_fine_amount' => $request->fine_amount,
+                    'payment_status' => "paid"
+                ]);
+
+                if ($request->paid_amount < $request->net_total) {
+
+                    $existingDueAmount = StudentDueAmount::where('student_id', $request->student_id)->value('due_amount');
+                    $newDueAmount = $existingDueAmount + ($request->net_total - $request->paid_amount);
+                    StudentDueAmount::updateOrCreate(
+                        ['student_id' => $request->student_id],
+                        ['due_amount' => $newDueAmount]
+                    );
+                }
+
+                $student = Student::find($request->student_id);
+
+                Daybook::create([
+                    'user_id' => auth()->user()->id,
+                    'date' => Carbon::today(),
+                    'particular' => $student->name . ' Monthly Fee',
+                    'expense' => null,
+                    'income' => $request->paid_amount,
+                ]);
+
+                foreach ($validatedData['particulars'] as $particularsData) {
+                    $monthlyFeesPaymentDetail = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyFeesPayment->id)
+                        ->where('particulars', $particularsData['particular_name'])
+                        ->first();
+                    if ($monthlyFeesPaymentDetail) {
+                        $monthlyFeesPaymentDetail->amount = $particularsData['particular_amount'];
+                    } else {
+                        $monthlyFeesPaymentDetail = new MonthlyFeePaymentDetail();
+                        $monthlyFeesPaymentDetail->monthly_fee_payment_id = $monthlyFeesPayment->id;
+                        $monthlyFeesPaymentDetail->particulars = $particularsData['particular_name'];
+                        $monthlyFeesPaymentDetail->amount = $particularsData['particular_amount'];
+                    }
+                    $monthlyFeesPaymentDetail->save();
+                }
+            });
+            sweetalert()->addSuccess('Monthly Fee Paid Successfully!');
+            return redirect('admin/accounts/monthly-fee-allocation');
+            // return redirect('admin/accounts/monthly-fee-allocation')->with('success', 'Monthly Fee Paid Successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

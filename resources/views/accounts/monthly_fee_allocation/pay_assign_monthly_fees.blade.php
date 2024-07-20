@@ -45,7 +45,7 @@
                     <div class="col-md-12">
                         <div class="card invoices-add-card">
                             <div class="card-body">
-                                <form action="{{ url('admin/accounts/student-monthly-fees-payments') }}"
+                                <form action="{{ url('admin/accounts/pay-assign-monthly-fees') }}/{{$monthlyFeesPayment->id}}"
                                     class="invoices-form" method=POST>
                                     @csrf
 
@@ -83,12 +83,7 @@
                                                 <div class="invoice-details-box">
                                                     <select id="nepali_months" name="nepali_month"
                                                         class="form-control select">
-                                                        @foreach ($nepaliMonthMap as $monthNumber => $monthName)
-                                                            @unless (in_array($monthName, $paymentMonths))
-                                                                <option value="{{ $monthNumber }}">{{ $monthName }}
-                                                                </option>
-                                                            @endunless
-                                                        @endforeach
+                                                        <option value="{{ $monthlyFeesPayment->month }}">{{ $monthlyFeesPayment->month }}</option>
                                                     </select>
                                                 </div>
                                             </div>
