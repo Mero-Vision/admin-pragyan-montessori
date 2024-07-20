@@ -168,6 +168,12 @@
                                                     updateTotal(subTotal);
                                                 }
 
+                                                 amountInputs.forEach(input => {
+                                                input.addEventListener('input', function() {
+                                                    updateSubTotal();
+                                                });
+                                            });
+
                                                 function updateTotal(subTotal) {
                                                     const creditAmount = parseFloat(creditAmountInput.value) || 0;
                                                     const totalAmount = subTotal + creditAmount;
@@ -309,49 +315,31 @@
         </script>
 
 
-        <script>
-            // Get the elements
-            const paidInput = document.getElementById('paid-input');
-            const returnInput = document.getElementById('return-input');
-            const netTotalInput = document.getElementById('total-amount-input');
+       <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var paidInput = document.getElementById("paid-input");
+                var creditAmountField = document.getElementById("credit-amount");
+                var totalAmountInput = document.getElementById("total-amount-input");
 
-            // Add event listener to the paid input field
-            paidInput.addEventListener('input', function() {
-                // Get the paid amount
-                const paidAmount = parseFloat(this.value);
+                if (paidInput && creditAmountField && totalAmountInput) {
+                    paidInput.addEventListener("input", function() {
+                        var paidAmount = parseFloat(paidInput.value) || 0;
+                        var totalAmount = parseFloat(totalAmountInput.value) || 0;
 
-                // Get the net total
-                const netTotal = parseFloat(netTotalInput.value);
+                        var creditAmount = totalAmount - paidAmount;
 
-                // Calculate the return amount
-                const returnAmount = paidAmount > netTotal ? (paidAmount - netTotal) : 0;
+                        if (paidAmount >= totalAmount) {
+                            creditAmount = 0;
+                        }
 
-                // Update the return amount input field
-                returnInput.value = returnAmount.toFixed(2);
+                        creditAmountField.value = creditAmount.toFixed(2);
+                    });
+                }
             });
         </script>
 
-        <script>
-            function updateSubTotalAmount() {
-                var subTotalAmountText = document.getElementById('sub-total-amount').textContent;
-                var subTotalAmountValue = subTotalAmountText.replace('Rs.', '').trim();
-                document.getElementById('sub-total-amount-input').value = subTotalAmountValue;
-            }
 
-            function updateTotalAmount() {
-                var totalAmountText = document.getElementById('total-amount').textContent;
-                var totalAmountValue = totalAmountText.replace('Rs.', '').trim();
-                document.getElementById('total-amount-input').value = totalAmountValue;
-            }
-
-            document.getElementById('sub-total-amount').textContent = 'Rs. 100.00';
-            document.getElementById('total-amount').textContent = 'Rs. 120.00';
-            updateSubTotalAmount();
-            updateTotalAmount();
-
-            document.getElementById('sub-total-amount').addEventListener('DOMSubtreeModified', updateSubTotalAmount);
-            document.getElementById('total-amount').addEventListener('DOMSubtreeModified', updateTotalAmount);
-        </script>
+      
 
 
 

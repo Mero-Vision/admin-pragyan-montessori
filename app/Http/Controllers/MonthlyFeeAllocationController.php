@@ -37,6 +37,14 @@ class MonthlyFeeAllocationController extends Controller
         return view('accounts.monthly_fee_allocation.monthly_fee_allocation', compact('students', 'classes', 'monthlyParticulars'));
     }
 
+    public function selectPaymentMonth($id){
+        $student = Student::find($id);
+
+        $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->get();
+        
+        return view('accounts.monthly_fee_allocation.select_payment_month',compact('monthlyFeesPayment'));
+    }
+
     public function assignMonthlyFees($id)
     {
         $student = Student::find($id);
@@ -57,7 +65,7 @@ class MonthlyFeeAllocationController extends Controller
         $bsYear = explode('-', $bsDate)[0];
 
         $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
-            ->where('session_year', $bsYear)->pluck('month')->toArray();
+            ->where('session_year', $bsYear)->pluck('month')->where('payment_status', '!=', 'pending')->toArray();
 
         $studentDueAmount = StudentDueAmount::find($id);
 
@@ -167,14 +175,6 @@ class MonthlyFeeAllocationController extends Controller
                 ]);
 
 
-                // DayBook::create([
-                //     'user_id' => auth()->user()->id,
-                //     'date' => Carbon::today(),
-                //     'particular' =>$student->name .' Monthly Fee',
-                //     'expense' => null,
-                //     'income' => $request->paid_amount,
-                // ]);
-
                 $monthlyPayment->monthlyFeePaymentDetail()->create([
                     'monthly_fee_payment_id' => $monthlyPayment->id,
                     'particulars' => "Monthly Fees",
@@ -190,16 +190,17 @@ class MonthlyFeeAllocationController extends Controller
                 }
             });
 
-            return back()->with('success', 'Monthly fee paid successfully!');
+            sweetalert()->addSuccess('Monthly Fee Assigned Successfully!');
+            return redirect('admin/accounts/monthly-fee-allocation');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-    public function payAssignmentMonthlyFees($id)
+    public function payAssignmentMonthlyFees(Request $request)
     {
-
-        $student = Student::find($id);
+        $monthlyFeesPayment = MonthlyFeePayment::where('id', $request->fee_payment_id)->where('payment_status', 'pending')->first();
+        $student = Student::find($monthlyFeesPayment->student_id);
         if (!$student) {
             return back()->with('error', 'Student Detail Not Found!');
         }
@@ -219,9 +220,7 @@ class MonthlyFeeAllocationController extends Controller
         $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
             ->where('session_year', $bsYear)->pluck('month')->toArray();
 
-        $studentDueAmount = StudentDueAmount::find($id);
-
-        $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->first();
+        $studentDueAmount = StudentDueAmount::where('student_id', $monthlyFeesPayment->student_id)->first();
 
 
         $monthlyFeesPaymentDetails = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyFeesPayment->id)->get();
@@ -245,10 +244,7 @@ class MonthlyFeeAllocationController extends Controller
     public function payMonthlyAssignFees(Request $request, $id)
     {
 
-       
-
-
-
+    
         $existingPayment = MonthlyFeePayment::where('student_id', $request->student_id)
             ->where('month', $request->nepali_month)
             ->where('payment_status','paid')

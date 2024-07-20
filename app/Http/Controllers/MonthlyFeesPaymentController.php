@@ -197,11 +197,11 @@ class MonthlyFeesPaymentController extends Controller
                     );
                 }
 
-
+                $student = Student::find($request->student_id);
                 Daybook::create([
                     'user_id' => auth()->user()->id,
                     'date' => Carbon::today(),
-                    'particular' => 'Monthly Fee Submission for ' . $currentNepaliDate . ' of Student ID ' . $request->student_id,
+                    'particular' => $student->name . ' Monthly Fee',
                     'expense' => null,
                     'income' => $request->paid_amount,
                 ]);

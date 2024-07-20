@@ -91,7 +91,7 @@
                                                                         <a href="{{ url('admin/accounts/assign-monthly-fees') }}/{{ $student->id }}"
                                                                             class="badge badge-danger">Fees
                                                                             Assign</a>
-                                                                        <a href="{{ url('admin/accounts/pay-assign-monthly-fees') }}/{{ $student->id }}"
+                                                                        <a href="{{ url('admin/accounts/select-payment-month') }}/{{ $student->id }}"
                                                                             class="badge badge-primary">Pay
                                                                             Fees</a>
                                                                         <a href="{{ url('admin/accounts/student-monthly-fees-payments/print') }}/{{ $student->slug }}"
