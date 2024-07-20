@@ -43,14 +43,14 @@
 
                 <div class="card bg-dark">
                     <div class="overlay-img">
-                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-04.png"
-                            alt="img" class="img-fluid shape-01">
-                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-01.png"
-                            alt="img" class="img-fluid shape-02">
-                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-02.png"
-                            alt="img" class="img-fluid shape-03">
-                        <img src="https://preschool.dreamstechnologies.com/laravel/template/public/build/img/bg/shape-03.png"
-                            alt="img" class="img-fluid shape-04">
+                        <img src="{{url('assets/img/shape1.webp')}}"
+                            alt="img" class="img-fluid shape-01" style="width:30px">
+                        <img src="{{url('assets/img/shape2.png')}}"
+                            alt="img" class="img-fluid shape-02" style="width:30px">
+                        <img src="{{url('assets/img/shape3.png')}}"
+                            alt="img" class="img-fluid shape-03" style="width:30px">
+                        <img src="{{url('assets/img/shape1.webp')}}"
+                            alt="img" class="img-fluid shape-04" style="width:30px">
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-xl-center justify-content-xl-between flex-xl-row flex-column">

@@ -58,6 +58,37 @@ class MonthlyFeeAllocationController extends Controller
         return view('accounts.monthly_fee_allocation.select_payment_month', compact('monthlyFeesPayment'));
     }
 
+    public function selectPrintPaymentMonth($id)
+    {
+        $student = Student::find($id);
+
+        $monthlyFeesPayment = MonthlyFeePayment::where('student_id', $id)->where('payment_status', 'pending')->get();
+
+        return view('accounts.monthly_fee_allocation.select_print_month', compact('monthlyFeesPayment'));
+    }
+
+    public function printInvoice()
+    {
+        $fee_payment_id=request()->query('fee_payment_id');
+
+        $monthlyPayments = MonthlyFeePayment::where('id', $fee_payment_id)->where('payment_status', 'pending')->first();
+
+        $monthFeesPaymentDetails = MonthlyFeePaymentDetail::where('monthly_fee_payment_id', $monthlyPayments->id)->get();
+        $student = Student::find($monthlyPayments->student_id);
+
+        $class = SchoolClass::find($student->class_id);
+        $currentYear = Carbon::today();
+        $bsDate = NepaliCalendar::AD2BS($currentYear);
+        $bsYear = explode('-', $bsDate)[0];
+
+        $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
+        ->where('session_year', $bsYear)->get();
+
+       
+
+        return view('accounts.monthly_fee_allocation.print_invoice', compact('paymentMonths','monthlyPayments', 'student', 'class', 'monthFeesPaymentDetails'));
+    }
+
     public function assignMonthlyFees($id)
     {
         $student = Student::find($id);
@@ -80,7 +111,7 @@ class MonthlyFeeAllocationController extends Controller
         $paymentMonths = MonthlyFeePayment::where('student_id', $student->id)
             ->where('session_year', $bsYear)->pluck('month')->where('payment_status', '!=', 'pending')->toArray();
 
-        $studentDueAmount = StudentDueAmount::find($id);
+        $studentDueAmount = StudentDueAmount::where('student_id',$id)->first();
 
         $nepaliMonthMap = [
             1 => 'Baishakh',

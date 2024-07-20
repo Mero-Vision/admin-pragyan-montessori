@@ -154,6 +154,8 @@ Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     Route::get('accounts/assign-monthly-fees/{id}', [MonthlyFeeAllocationController::class, 'assignMonthlyFees']);
     Route::post('accounts/assign-monthly-fees', [MonthlyFeeAllocationController::class, 'store']);
     Route::get('accounts/select-payment-month/{id}', [MonthlyFeeAllocationController::class, 'selectPaymentMonth']);
+    Route::get('accounts/select-print-payment-month/{id}', [MonthlyFeeAllocationController::class, 'selectPrintPaymentMonth']);
+    Route::get('accounts/monthly-fees-assign/print', [MonthlyFeeAllocationController::class, 'printInvoice']);
     Route::get('accounts/pay-assign-monthly-fees/', [MonthlyFeeAllocationController::class, 'payAssignmentMonthlyFees']);
     Route::post('accounts/pay-assign-monthly-fees/{id}', [MonthlyFeeAllocationController::class, 'payMonthlyAssignFees']);
     

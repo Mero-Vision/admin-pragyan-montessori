@@ -214,7 +214,7 @@
                                                                 <input type="number" id="credit-amount"
                                                                     class="form-control"
                                                                     style="height: 40px; flex-grow: 1;"
-                                                                    name="credit_amount"
+                                                                    name="due_amount"
                                                                     value="{{ $studentDueAmount->due_amount ?? null }}"
                                                                     readonly>
                                                             </div>

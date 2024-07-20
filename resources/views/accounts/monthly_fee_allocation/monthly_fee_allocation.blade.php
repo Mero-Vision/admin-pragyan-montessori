@@ -103,7 +103,7 @@
                                                                         @if ($hasPendingPayment)
                                                                             <a href="{{ url('admin/accounts/select-payment-month/' . $student->id) }}"
                                                                                 class="badge badge-primary">Pay Fees</a>
-                                                                            <a href="{{ url('admin/accounts/student-monthly-fees-payments/print/' . $student->slug) }}"
+                                                                            <a href="{{ url('admin/accounts/select-print-payment-month/' . $student->id) }}"
                                                                                 class="badge badge-success">Print
                                                                                 Assigned Invoice</a>
                                                                         @endif
