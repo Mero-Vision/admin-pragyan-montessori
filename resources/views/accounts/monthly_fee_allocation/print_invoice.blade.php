@@ -127,7 +127,7 @@ https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/numberToWords.min.js
                         <p>Address: New Naikap, Pragati Sangam Marg</p>
                         <p>Mob: 9810212323</p>
                         <p>Email: support@pragyanmontessori.com</p>
-                        <p>PAN No.: 617641304</p>
+                        <p>PAN No.: 107882561</p>
                     </div>
 
                     <div class="bill-info">

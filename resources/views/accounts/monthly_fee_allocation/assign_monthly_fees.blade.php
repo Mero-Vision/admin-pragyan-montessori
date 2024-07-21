@@ -340,6 +340,35 @@
 
 
 
+ 
+
+
+      
+
+        <script>
+            function updateSubTotalAmount() {
+                var subTotalAmountText = document.getElementById('sub-total-amount').textContent;
+                var subTotalAmountValue = subTotalAmountText.replace('Rs.', '').trim();
+                document.getElementById('sub-total-amount-input').value = subTotalAmountValue;
+            }
+
+            function updateTotalAmount() {
+                var totalAmountText = document.getElementById('total-amount').textContent;
+                var totalAmountValue = totalAmountText.replace('Rs.', '').trim();
+                document.getElementById('total-amount-input').value = totalAmountValue;
+            }
+
+            document.getElementById('sub-total-amount').textContent = 'Rs. 100.00';
+            document.getElementById('total-amount').textContent = 'Rs. 120.00';
+            updateSubTotalAmount();
+            updateTotalAmount();
+
+            document.getElementById('sub-total-amount').addEventListener('DOMSubtreeModified', updateSubTotalAmount);
+            document.getElementById('total-amount').addEventListener('DOMSubtreeModified', updateTotalAmount);
+        </script>
+
+
+
 
 
 
