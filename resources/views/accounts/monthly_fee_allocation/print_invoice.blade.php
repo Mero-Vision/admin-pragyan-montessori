@@ -127,7 +127,7 @@ https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/numberToWords.min.js
                         <p>Address: New Naikap, Pragati Sangam Marg</p>
                         <p>Mob: 9810212323</p>
                         <p>Email: support@pragyanmontessori.com</p>
-                        {{-- <p>PAN No.: 617641304</p> --}}
+                        <p>PAN No.: 617641304</p>
                     </div>
 
                     <div class="bill-info">
@@ -175,7 +175,7 @@ https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/numberToWords.min.js
                         <p class="m-0"><strong>This Month's Amount:</strong> {{ $totalAmount }}</p>
                         <p class="m-0"><strong>Previous Due:</strong> {{ $monthlyPayments->due_amount ?? 'Nil' }}
                         </p>
-                        <p class="m-0"><strong>Grand Total:</strong> 13,200.00</p>
+                        <p class="m-0"><strong>Grand Total:</strong> {{ $monthlyPayments->net_total}}</p>
                     </div>
 
                     <div class="footer">
